@@ -1,0 +1,92 @@
+# ------------------------
+# Python
+# ------------------------
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.egg-info/
+.eggs/
+.env
+.venv
+env/
+venv/
+pip-log.txt
+
+# ------------------------
+# Java / Spring Boot
+# ------------------------
+/target/
+*.class
+*.jar
+*.war
+*.ear
+*.log
+*.iml
+*.ipr
+*.iws
+hs_err_pid*
+*.db
+
+# ------------------------
+# Maven
+# ------------------------
+.mvn/
+!**/src/main/**/.mvn/wrapper/
+**/mvnw
+**/mvnw.cmd
+
+# ------------------------
+# Angular / Node
+# ------------------------
+node_modules/
+dist/
+tmp/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+angular.json
+coverage/
+.sass-cache/
+.jspm-cache/
+bower_components/
+
+# ------------------------
+# Docker
+# ------------------------
+*.log
+docker-compose.override.yml
+**/logs/
+**/data/
+**/volumes/
+docker/postgres/data/
+docker/mongo/data/
+
+# ------------------------
+# General / IDEs / OS
+# ------------------------
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+*.bak
+*.tmp
+*.orig
+
+# ------------------------
+# Secrets / configuración local
+# ------------------------
+.env
+
+# ------------------------
+# Testing
+# ------------------------
+*.coverage
+*.pytest_cache/
+junit*.xml
+test-output/
+*.test.js
+*.spec.ts
