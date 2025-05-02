@@ -20,26 +20,22 @@ public class CommunityServiceImpl implements CommunityService {
 
     @Override
     public List<Community> findAll() {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findAll'");
+        return communityRepository.findAll();
     }
 
     @Override
     public Optional<Community> findById(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'findById'");
+        return communityRepository.findById(id);
     }
 
     @Override
     public Community save(Community community) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'save'");
+       return communityRepository.save(community);
     }
 
     @Override
     public void deleteById(Long id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'deleteById'");
+       communityRepository.deleteById(id);
     }
     
 }
