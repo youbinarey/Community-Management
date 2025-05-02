@@ -17,6 +17,7 @@ pip-log.txt
 # Java / Spring Boot
 # ------------------------
 /target/
+core/target/
 *.class
 *.jar
 *.war
@@ -31,10 +32,12 @@ hs_err_pid*
 # ------------------------
 # Maven
 # ------------------------
-.mvn/
-!**/src/main/**/.mvn/wrapper/
 **/mvnw
 **/mvnw.cmd
+!mvnw
+!mvnw.cmd
+!.mvn/
+!.mvn/wrapper/maven-wrapper.jar
 
 # ------------------------
 # Angular / Node
