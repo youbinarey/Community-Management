@@ -2,10 +2,7 @@ package com.dam.commune.service;
 
 import java.util.List;
 import java.util.Optional;
-
-
 import org.springframework.stereotype.Service;
-
 import com.dam.commune.entity.Community;
 import com.dam.commune.repository.CommunityRepository;
 
@@ -36,6 +33,15 @@ public class CommunityServiceImpl implements CommunityService {
     @Override
     public void deleteById(Long id) {
        communityRepository.deleteById(id);
+    }
+
+    @Override
+    public boolean deleteIfExists(Long id) {
+        if(communityRepository.existsById(id)) {
+            communityRepository.deleteById(id);
+            return true;
+        }
+        return false;
     }
     
 }

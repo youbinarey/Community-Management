@@ -11,6 +11,9 @@ public interface CommunityService {
     Optional<Community> findById(Long id);
 
     Community save(Community community);
-    
+
+    boolean deleteIfExists(Long id);
+
     void deleteById(Long id);
+
 }
