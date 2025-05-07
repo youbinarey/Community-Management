@@ -1,4 +1,4 @@
-package com.dam.commune.core;
+package com.dam.commune;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
