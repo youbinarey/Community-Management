@@ -1,10 +1,8 @@
-package com.dam.commune.service;
+package com.dam.commune.community;
 
 import java.util.List;
 import java.util.Optional;
 import org.springframework.stereotype.Service;
-import com.dam.commune.entity.Community;
-import com.dam.commune.repository.CommunityRepository;
 
 @Service
 public class CommunityServiceImpl implements CommunityService {

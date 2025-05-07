@@ -1,4 +1,4 @@
-package com.dam.commune.entity;
+package com.dam.commune.community;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

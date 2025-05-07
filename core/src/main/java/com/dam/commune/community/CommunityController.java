@@ -1,4 +1,4 @@
-package com.dam.commune.controller;
+package com.dam.commune.community;
 
 import java.util.List;
 
@@ -11,9 +11,6 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-import com.dam.commune.entity.Community;
-import com.dam.commune.service.CommunityService;
 
 @RestController
 @RequestMapping("/communities")
