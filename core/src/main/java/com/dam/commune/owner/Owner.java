@@ -1,4 +1,4 @@
-package com.dam.commune;
+package com.dam.commune.owner;
 
 
 import java.time.LocalDate;
