@@ -1,57 +1,137 @@
 package com.dam.commune.property;
 
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.dam.commune.property.Garage.Garage;
+import com.dam.commune.property.Garage.GarageRepository;
+import com.dam.commune.property.StorageRoom.StorageRoom;
+import com.dam.commune.property.StorageRoom.StorageRoomRepository;
+import com.dam.commune.property.floor.Floor;
+import com.dam.commune.property.floor.FloorRepository;
+import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-
-
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/properties")
+@RequiredArgsConstructor
 public class PropertyController {
 
     private final PropertyService propertyService;
+    private final FloorRepository floorRepository;
+    private final GarageRepository garageRepository;
+    private final StorageRoomRepository storageRoomRepository;
 
-    public PropertyController(PropertyService propertyService) {
-        this.propertyService = propertyService;
-    }
-
+    // 🔹 Obtener todos los inmuebles
     @GetMapping
-    public ResponseEntity<List<Property>> getAll() {
-        return ResponseEntity.ok(propertyService.findAll());
+    public List<Property> getAllProperties() {
+        return propertyService.getAllProperties();
     }
 
-    @GetMapping("{id}")
-    public ResponseEntity<Property> getById(@PathVariable Long id) {
-        return propertyService.findById(id)
+    // -----------------------------
+    // CRUD para FLOOR (Apartment)
+    // -----------------------------
+
+    @PostMapping("/floor")
+    public ResponseEntity<Floor> createFloor(@RequestBody Floor floor) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(floorRepository.save(floor));
+    }
+
+    @GetMapping("/floor/{id}")
+    public ResponseEntity<Floor> getFloor(@PathVariable Long id) {
+        return floorRepository.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @PostMapping
-    public ResponseEntity<Property> create(@RequestBody Property property) {
-        return ResponseEntity.ok(propertyService.save(property));
+    @PutMapping("/floor/{id}")
+    public ResponseEntity<Floor> updateFloor(@PathVariable Long id, @RequestBody Floor updatedFloor) {
+        return floorRepository.findById(id)
+                .map(existing -> {
+                    updatedFloor.setId(id);
+                    return ResponseEntity.ok(floorRepository.save(updatedFloor));
+                })
+                .orElse(ResponseEntity.notFound().build());
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<Property> update(@PathVariable Long id, @RequestBody Property property) {
-        return ResponseEntity.ok(propertyService.update(id, property));
-    }
-    
-    @DeleteMapping("/{id}")
-    public ResponseEntity<String> delete(@PathVariable Long id) {
-        return propertyService.deleteIfExists(id)
-            ? ResponseEntity.ok(" Property deleted successfully.")
-            : ResponseEntity.notFound().build();
+    @DeleteMapping("/floor/{id}")
+    public ResponseEntity<Void> deleteFloor(@PathVariable Long id) {
+        if (floorRepository.existsById(id)) {
+            floorRepository.deleteById(id);
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.notFound().build();
     }
 
+    // -----------------------------
+    // CRUD para GARAGE
+    // -----------------------------
+
+    @PostMapping("/garage")
+    public ResponseEntity<Garage> createGarage(@RequestBody Garage garage) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(garageRepository.save(garage));
+    }
+
+    @GetMapping("/garage/{id}")
+    public ResponseEntity<Garage> getGarage(@PathVariable Long id) {
+        return garageRepository.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @PutMapping("/garage/{id}")
+    public ResponseEntity<Garage> updateGarage(@PathVariable Long id, @RequestBody Garage updatedGarage) {
+        return garageRepository.findById(id)
+                .map(existing -> {
+                    updatedGarage.setId(id);
+                    return ResponseEntity.ok(garageRepository.save(updatedGarage));
+                })
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @DeleteMapping("/garage/{id}")
+    public ResponseEntity<Void> deleteGarage(@PathVariable Long id) {
+        if (garageRepository.existsById(id)) {
+            garageRepository.deleteById(id);
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.notFound().build();
+    }
+
+    // -----------------------------
+    // CRUD para STORAGE ROOM
+    // -----------------------------
+
+    @PostMapping("/storageroom")
+    public ResponseEntity<StorageRoom> createStorageRoom(@RequestBody StorageRoom storageRoom) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(storageRoomRepository.save(storageRoom));
+    }
+
+    @GetMapping("/storageroom/{id}")
+    public ResponseEntity<StorageRoom> getStorageRoom(@PathVariable Long id) {
+        return storageRoomRepository.findById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @PutMapping("/storageroom/{id}")
+    public ResponseEntity<StorageRoom> updateStorageRoom(@PathVariable Long id, @RequestBody StorageRoom updatedRoom) {
+        return storageRoomRepository.findById(id)
+                .map(existing -> {
+                    updatedRoom.setId(id);
+                    return ResponseEntity.ok(storageRoomRepository.save(updatedRoom));
+                })
+                .orElse(ResponseEntity.notFound().build());
+    }
+
+    @DeleteMapping("/storageroom/{id}")
+    public ResponseEntity<Void> deleteStorageRoom(@PathVariable Long id) {
+        if (storageRoomRepository.existsById(id)) {
+            storageRoomRepository.deleteById(id);
+            return ResponseEntity.noContent().build();
+        }
+        return ResponseEntity.notFound().build();
+    }
 }
