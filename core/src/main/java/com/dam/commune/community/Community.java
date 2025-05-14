@@ -1,5 +1,10 @@
 package com.dam.commune.community;
 
+import java.util.List;
+
+import com.dam.commune.bankAccount.BankAccount;
+import com.dam.commune.property.Property;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -28,9 +33,17 @@ public class Community {
     private String postalCode;
 
     private boolean elevator;
+    
 
     @Column(name = "reduced_mobility_access")
     private boolean reducedMobilityAccess;
+
+    @OneToOne
+    @JoinColumn(name = "bank_account_id")
+    private BankAccount bankAccount;
+
+    @OneToMany(mappedBy = "community", cascade = CascadeType.ALL)
+    private List<Property> properties;
 
  
 }

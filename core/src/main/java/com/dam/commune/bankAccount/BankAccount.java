@@ -2,6 +2,9 @@ package com.dam.commune.bankAccount;
 
 import java.math.BigDecimal;
 
+import com.dam.commune.community.Community;
+import com.dam.commune.owner.Owner;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,5 +32,12 @@ public class BankAccount {
 
     @Column(nullable = false)
     private BigDecimal balance;
+
+    @OneToOne(mappedBy = "bankAccount")
+    private Community community;
+
+    @ManyToOne
+    @JoinColumn(name = "owner_id")
+    private Owner owner;
 
 }
