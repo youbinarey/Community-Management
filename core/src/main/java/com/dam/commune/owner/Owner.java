@@ -2,11 +2,16 @@ package com.dam.commune.owner;
 
 
 import java.time.LocalDate;
+import java.util.List;
+
+import com.dam.commune.bankAccount.BankAccount;
+import com.dam.commune.property.Property;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -35,7 +40,10 @@ public class Owner {
     @Column(nullable = false)
     LocalDate birthDate;
 
-    //@OneToMany(mappedBy = "owner")
-    //private List<Property> properties;
+    @OneToMany(mappedBy = "owner")
+    private List<Property> properties;
+
+    @OneToMany(mappedBy = "owner")
+    private List<BankAccount> bankAccounts;
 
 }
