@@ -21,11 +21,11 @@ public abstract class Property {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, unique = true)
-    private String referenciaCatastral;
+    @Column(name= "cadastral_reference", nullable = false, unique = true)
+    private String cadastralReference;
 
-    @Column(nullable = false)
-    private Double metros2;
+    @Column(name= "square_meters", nullable = false)
+    private Double squareMeters;
 
     // La relación con Community 
     // @ManyToOne
