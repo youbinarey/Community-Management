@@ -1,5 +1,6 @@
 package com.dam.commune.community;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import com.dam.commune.bankAccount.BankAccount;
@@ -33,17 +34,27 @@ public class Community {
     private String postalCode;
 
     private boolean elevator;
-    
+
+    @Column(name = "num_floors", nullable = false)
+    private int numFloors;
+
+    @Column(name = "num_garages", nullable = false)
+    private int numGarages;
+
+    @Column(name = "num_storage_rooms", nullable = false)
+    private int numStorageRooms;
+   
 
     @Column(name = "reduced_mobility_access")
     private boolean reducedMobilityAccess;
 
-    @OneToOne
-    @JoinColumn(name = "bank_account_id")
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "bank_account_id", unique = true)
     private BankAccount bankAccount;
 
-    @OneToMany(mappedBy = "community", cascade = CascadeType.ALL)
-    private List<Property> properties;
+    @OneToMany(mappedBy = "community", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
+    private List<Property> properties = new ArrayList<>();
 
  
 }
