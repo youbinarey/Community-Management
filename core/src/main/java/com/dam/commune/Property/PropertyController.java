@@ -1,11 +1,13 @@
 package com.dam.commune.property;
 
-import com.dam.commune.property.Garage.Garage;
-import com.dam.commune.property.Garage.GarageRepository;
-import com.dam.commune.property.StorageRoom.StorageRoom;
-import com.dam.commune.property.StorageRoom.StorageRoomRepository;
 import com.dam.commune.property.floor.Floor;
 import com.dam.commune.property.floor.FloorRepository;
+import com.dam.commune.property.parking.ParkingRepository;
+import com.dam.commune.property.parking.Parking;
+import com.dam.commune.property.storageRoom.StorageRoom;
+import com.dam.commune.property.storageRoom.StorageRoomRepository;
+
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +22,7 @@ public class PropertyController {
 
     private final PropertyService propertyService;
     private final FloorRepository floorRepository;
-    private final GarageRepository garageRepository;
+    private final ParkingRepository parkingRepository;
     private final StorageRoomRepository storageRoomRepository;
 
     // 🔹 Obtener todos los inmuebles
@@ -28,6 +30,17 @@ public class PropertyController {
     public List<Property> getAllProperties() {
         return propertyService.getAllProperties();
     }
+
+    @DeleteMapping("/{id}")
+public ResponseEntity<Void> deleteProperty(@PathVariable Long id) {
+    try {
+        propertyService.deleteProperty(id);
+        return ResponseEntity.noContent().build(); // 204
+    } catch (EntityNotFoundException ex) {
+        return ResponseEntity.notFound().build(); // 404
+    }
+}
+
 
     // -----------------------------
     // CRUD para FLOOR (Apartment)
@@ -65,35 +78,35 @@ public class PropertyController {
     }
 
     // -----------------------------
-    // CRUD para GARAGE
+    // CRUD para parking
     // -----------------------------
 
-    @PostMapping("/garage")
-    public ResponseEntity<Garage> createGarage(@RequestBody Garage garage) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(garageRepository.save(garage));
+    @PostMapping("/parking")
+    public ResponseEntity<Parking> createparking(@RequestBody Parking parking) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(parkingRepository.save(parking));
     }
 
-    @GetMapping("/garage/{id}")
-    public ResponseEntity<Garage> getGarage(@PathVariable Long id) {
-        return garageRepository.findById(id)
+    @GetMapping("/parking/{id}")
+    public ResponseEntity<Parking> getparking(@PathVariable Long id) {
+        return parkingRepository.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @PutMapping("/garage/{id}")
-    public ResponseEntity<Garage> updateGarage(@PathVariable Long id, @RequestBody Garage updatedGarage) {
-        return garageRepository.findById(id)
+    @PutMapping("/parking/{id}")
+    public ResponseEntity<Parking> updateparking(@PathVariable Long id, @RequestBody Parking updatedparking) {
+        return parkingRepository.findById(id)
                 .map(existing -> {
-                    updatedGarage.setId(id);
-                    return ResponseEntity.ok(garageRepository.save(updatedGarage));
+                    updatedparking.setId(id);
+                    return ResponseEntity.ok(parkingRepository.save(updatedparking));
                 })
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @DeleteMapping("/garage/{id}")
-    public ResponseEntity<Void> deleteGarage(@PathVariable Long id) {
-        if (garageRepository.existsById(id)) {
-            garageRepository.deleteById(id);
+    @DeleteMapping("/parking/{id}")
+    public ResponseEntity<Void> deleteparking(@PathVariable Long id) {
+        if (parkingRepository.existsById(id)) {
+            parkingRepository.deleteById(id);
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.notFound().build();
