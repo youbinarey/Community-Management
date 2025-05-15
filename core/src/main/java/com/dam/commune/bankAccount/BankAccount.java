@@ -24,7 +24,7 @@ public class BankAccount {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false, name = "account_number")
+    @Column(nullable = false, name = "account_number", unique = true)
     private String accountNumber;
 
     @Column(nullable = false, name = "bank_name")
@@ -36,8 +36,7 @@ public class BankAccount {
     @OneToOne(mappedBy = "bankAccount")
     private Community community;
 
-    @ManyToOne
-    @JoinColumn(name = "owner_id")
+    @OneToOne(mappedBy = "bankAccount")
     private Owner owner;
 
 }
