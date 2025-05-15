@@ -20,7 +20,7 @@ import lombok.RequiredArgsConstructor;
 public class OwnerController {
     private final OwnerService ownerService;
 
-     @GetMapping
+    @GetMapping
     public List<Owner> getAll() {
         return ownerService.getAll();
     }
@@ -50,11 +50,9 @@ public class OwnerController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
-        if (!ownerService.getById(id).isPresent()) {
-            return ResponseEntity.notFound().build();
-        }
-        ownerService.delete(id);
-        return ResponseEntity.noContent().build();
+        return ownerService.deleteIfExists(id)
+                ? ResponseEntity.noContent().build()
+                : ResponseEntity.notFound().build();
     }
 
 }

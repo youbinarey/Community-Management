@@ -5,11 +5,12 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 
 @Service
 @RequiredArgsConstructor
-public class ServiceImpl implements OwnerService {
+public class OwnerServiceImpl implements OwnerService {
     private final OwnerRepository ownerRepository;
 
 
@@ -38,7 +39,7 @@ public class ServiceImpl implements OwnerService {
                     existingOwner.setEmail(owner.getEmail());
                     return ownerRepository.save(existingOwner);
                 })
-                .orElseThrow(() -> new RuntimeException("Owner not found"));
+                .orElseThrow(() -> new EntityNotFoundException("Owner with " + id  + "not found"));
     }
 
     @Override
@@ -50,6 +51,16 @@ public class ServiceImpl implements OwnerService {
     public boolean existsByDni(String dni) {
         return ownerRepository.existsByDni(dni);
     }
+
+    @Override
+public boolean deleteIfExists(Long id) {
+    if (ownerRepository.existsById(id)) {
+        ownerRepository.deleteById(id);
+        return true;
+    }
+    return false;
+}
+
 
     
 

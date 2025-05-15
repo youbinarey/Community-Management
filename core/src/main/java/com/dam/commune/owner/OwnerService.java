@@ -10,4 +10,6 @@ public interface OwnerService {
     Owner update(Long id, Owner owner);
     void delete(Long id);
     boolean existsByDni(String dni);
+    boolean deleteIfExists(Long id);
 }
+
