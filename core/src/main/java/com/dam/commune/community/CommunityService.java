@@ -12,6 +12,5 @@ public interface CommunityService {
 
     boolean deleteIfExists(Long id);
 
-    void deleteById(Long id);
-
+    
 }

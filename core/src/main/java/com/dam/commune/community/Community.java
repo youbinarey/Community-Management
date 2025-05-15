@@ -38,8 +38,8 @@ public class Community {
     @Column(name = "num_floors", nullable = false)
     private int numFloors;
 
-    @Column(name = "num_garages", nullable = false)
-    private int numGarages;
+    @Column(name = "num_parkings", nullable = false)
+    private int numparkings;
 
     @Column(name = "num_storage_rooms", nullable = false)
     private int numStorageRooms;

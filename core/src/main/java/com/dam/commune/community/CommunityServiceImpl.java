@@ -29,11 +29,6 @@ public class CommunityServiceImpl implements CommunityService {
     }
 
     @Override
-    public void deleteById(Long id) {
-       communityRepository.deleteById(id);
-    }
-
-    @Override
     public boolean deleteIfExists(Long id) {
         if(communityRepository.existsById(id)) {
             communityRepository.deleteById(id);
