@@ -1,8 +1,8 @@
 package com.dam.commune.property;
 
-import com.dam.commune.property.floor.Floor;
-import com.dam.commune.property.floor.FloorRepository;
 import com.dam.commune.property.parking.ParkingRepository;
+import com.dam.commune.property.flat.Flat;
+import com.dam.commune.property.flat.FlatRepository;
 import com.dam.commune.property.parking.Parking;
 import com.dam.commune.property.storageRoom.StorageRoom;
 import com.dam.commune.property.storageRoom.StorageRoomRepository;
@@ -21,7 +21,7 @@ import java.util.List;
 public class PropertyController {
 
     private final PropertyService propertyService;
-    private final FloorRepository floorRepository;
+    private final FlatRepository flatRepository;
     private final ParkingRepository parkingRepository;
     private final StorageRoomRepository storageRoomRepository;
 
@@ -43,35 +43,35 @@ public ResponseEntity<Void> deleteProperty(@PathVariable Long id) {
 
 
     // -----------------------------
-    // CRUD para FLOOR (Apartment)
+    // CRUD para flat (Apartment)
     // -----------------------------
 
-    @PostMapping("/floor")
-    public ResponseEntity<Floor> createFloor(@RequestBody Floor floor) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(floorRepository.save(floor));
+    @PostMapping("/flat")
+    public ResponseEntity<Flat> createflat(@RequestBody Flat flat) {
+        return ResponseEntity.status(HttpStatus.CREATED).body(flatRepository.save(flat));
     }
 
-    @GetMapping("/floor/{id}")
-    public ResponseEntity<Floor> getFloor(@PathVariable Long id) {
-        return floorRepository.findById(id)
+    @GetMapping("/flat/{id}")
+    public ResponseEntity<Flat> getflat(@PathVariable Long id) {
+        return flatRepository.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @PutMapping("/floor/{id}")
-    public ResponseEntity<Floor> updateFloor(@PathVariable Long id, @RequestBody Floor updatedFloor) {
-        return floorRepository.findById(id)
+    @PutMapping("/flat/{id}")
+    public ResponseEntity<Flat> updateflat(@PathVariable Long id, @RequestBody Flat updatedflat) {
+        return flatRepository.findById(id)
                 .map(existing -> {
-                    updatedFloor.setId(id);
-                    return ResponseEntity.ok(floorRepository.save(updatedFloor));
+                    updatedflat.setId(id);
+                    return ResponseEntity.ok(flatRepository.save(updatedflat));
                 })
                 .orElse(ResponseEntity.notFound().build());
     }
 
-    @DeleteMapping("/floor/{id}")
-    public ResponseEntity<Void> deleteFloor(@PathVariable Long id) {
-        if (floorRepository.existsById(id)) {
-            floorRepository.deleteById(id);
+    @DeleteMapping("/flat/{id}")
+    public ResponseEntity<Void> deleteflat(@PathVariable Long id) {
+        if (flatRepository.existsById(id)) {
+            flatRepository.deleteById(id);
             return ResponseEntity.noContent().build();
         }
         return ResponseEntity.notFound().build();

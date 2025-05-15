@@ -1,4 +1,4 @@
-package com.dam.commune.property.floor;
+package com.dam.commune.property.flat;
 
 import com.dam.commune.property.Property;
 
@@ -15,7 +15,7 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor
 @NoArgsConstructor
 @SuperBuilder
-public class Floor extends Property {
+public class Flat extends Property {
     private Integer floorNumber;
     private String letter;
     private int roomCount;
