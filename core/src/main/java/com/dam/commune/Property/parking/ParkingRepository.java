@@ -1,10 +1,10 @@
-package com.dam.commune.property.Garage;
+package com.dam.commune.property.parking;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface GarageRepository extends JpaRepository<Garage, Long> {
+public interface ParkingRepository extends JpaRepository<Parking, Long> {
     
 
 }

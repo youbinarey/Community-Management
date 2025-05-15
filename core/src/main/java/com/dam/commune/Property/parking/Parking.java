@@ -1,4 +1,4 @@
-package com.dam.commune.property.Garage;
+package com.dam.commune.property.parking;
 
 import com.dam.commune.property.Property;
 
