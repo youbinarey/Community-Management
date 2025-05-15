@@ -1,4 +1,4 @@
-package com.dam.commune.property.StorageRoom;
+package com.dam.commune.property.storageRoom;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;

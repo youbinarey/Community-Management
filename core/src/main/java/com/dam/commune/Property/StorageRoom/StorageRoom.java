@@ -1,16 +1,20 @@
-package com.dam.commune.property.StorageRoom;
+package com.dam.commune.property.storageRoom;
 
 import com.dam.commune.property.Property;
 
 import jakarta.persistence.Entity;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 @Entity
-@NoArgsConstructor
 @Setter
 @Getter
+@AllArgsConstructor
+@NoArgsConstructor
+@SuperBuilder
 public class StorageRoom extends Property {
   private int storageNumber;
 }
