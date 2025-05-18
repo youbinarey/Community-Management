@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 
 import com.dam.commune.community.Community;
 import com.dam.commune.owner.Owner;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -34,9 +35,11 @@ public class BankAccount {
     private BigDecimal balance;
 
     @OneToOne(mappedBy = "bankAccount")
+    @JsonIgnore
     private Community community;
 
     @OneToOne(mappedBy = "bankAccount")
+    @JsonIgnore
     private Owner owner;
 
 }

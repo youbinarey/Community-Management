@@ -2,6 +2,7 @@ package com.dam.commune.property;
 
 import com.dam.commune.community.Community;
 import com.dam.commune.owner.Owner;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorColumn;
@@ -43,9 +44,11 @@ public abstract class Property {
   
     @ManyToOne(optional = false)
     @JoinColumn(name = "community_id", nullable = false, updatable = false)
+    @JsonIgnore
     private Community community;
 
      @ManyToOne
      @JoinColumn(name = "owner_id")
+     @JsonIgnore
      private Owner owner;
 }
