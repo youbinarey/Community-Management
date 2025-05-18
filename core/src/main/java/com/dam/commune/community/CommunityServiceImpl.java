@@ -36,5 +36,12 @@ public class CommunityServiceImpl implements CommunityService {
         }
         return false;
     }
+
+    @Override
+    public List<CommunityDTO> findAllDTOs() {
+        return CommunityMapper.toDTOList(communityRepository.findAll());
+    }
+
+    
     
 }

@@ -23,11 +23,11 @@ public class CommunityController {
     }
 
     @GetMapping
-    public ResponseEntity <List<Community>> getAll() {
+    public ResponseEntity<List<Community>> getAll() {
         return ResponseEntity.ok(communityService.findAll());
     }
 
-     @GetMapping("/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<Community> getById(@PathVariable Long id) {
         return communityService.findById(id)
                 .map(ResponseEntity::ok)
@@ -38,7 +38,6 @@ public class CommunityController {
     public ResponseEntity<Community> create(@RequestBody Community community) {
         return ResponseEntity.ok(communityService.save(community));
     }
-
 
     @PutMapping("/{id}")
     public ResponseEntity<Community> update(@PathVariable Long id, @RequestBody Community updated) {
@@ -52,11 +51,15 @@ public class CommunityController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
-            if (!communityService.deleteIfExists(id)) {
-                return ResponseEntity.notFound().build();
-            }
-            return ResponseEntity.ok().build();    
+        if (!communityService.deleteIfExists(id)) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok().build();
     }
-   
+
+    @GetMapping("/dto")
+    public List<CommunityDTO> getAllCommunityDTOs() {
+        return communityService.findAllDTOs();
+    }
 
 }
