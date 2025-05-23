@@ -1,6 +1,7 @@
 package com.dam.commune.community;
 
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,7 +16,8 @@ public class CommunityDTO {
     
     @NotEmpty(message = "Address cannot be empty")
     private String address;
-    @NotEmpty(message = "Address cannot be empty")
+
+    @NotNull(message = "Postal code cannot be null")
     private String postalCode;
     
     private int propertiesCount;

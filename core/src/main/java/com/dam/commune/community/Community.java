@@ -29,7 +29,7 @@ public class Community {
     private Long id;
 
     private String address;
-
+    
     @Column(name = "postal_code")
     private String postalCode;
 

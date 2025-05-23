@@ -3,6 +3,7 @@ package com.dam.commune.community;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -44,7 +45,8 @@ public class CommunityController {
     }
 
     @PostMapping("/dto")
-    public ResponseEntity<Community> createFromDTO(@RequestBody @Valid CommunityDTO communityDTO) {
+    public ResponseEntity<?> createFromDTO(@RequestBody @Valid CommunityDTO communityDTO) {
+        
         Community community = communityService.saveCommunityFromDTO(communityDTO);
         return ResponseEntity.ok(community);
     }
