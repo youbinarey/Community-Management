@@ -1,30 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.4.5</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.dam.commune</groupId>
 	<artifactId>core</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>commune-app</name>
 	<description>Backend of Commune App (final project DAM)</description>
-	<url/>
+	<url />
 	<licenses>
-		<license/>
+		<license />
 	</licenses>
 	<developers>
-		<developer/>
+		<developer />
 	</developers>
 	<scm>
-		<connection/>
-		<developerConnection/>
-		<tag/>
-		<url/>
+		<connection />
+		<developerConnection />
+		<tag />
+		<url />
 	</scm>
 	<properties>
 		<java.version>17</java.version>
@@ -60,6 +61,25 @@
 			<artifactId>spring-boot-starter-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!-- Dependencia de Bean Validation (javax.validation) -->
+		<dependency>
+        <groupId>jakarta.validation</groupId>
+        <artifactId>jakarta.validation-api</artifactId>
+        <version>3.0.0</version>
+    </dependency>
+		<!-- Dependencia de Hibernate Validator (implementación de Bean Validation) -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-validator</artifactId>
+			<version>6.2.0.Final</version>
+		</dependency>
+		<!-- Dependencia para la integración con el JSR-303/JSR-380 (validación) -->
+		<dependency>
+			<groupId>org.glassfish</groupId>
+			<artifactId>javax.el</artifactId>
+			<version>3.0.0</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>
