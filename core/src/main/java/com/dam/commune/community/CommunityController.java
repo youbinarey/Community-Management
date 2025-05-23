@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/communities")
 @CrossOrigin(origins = "http://localhost:4200")
@@ -42,7 +44,7 @@ public class CommunityController {
     }
 
     @PostMapping("/dto")
-    public ResponseEntity<Community> createFromDTO(@RequestBody CommunityDTO communityDTO) {
+    public ResponseEntity<Community> createFromDTO(@RequestBody @Valid CommunityDTO communityDTO) {
         Community community = communityService.saveCommunityFromDTO(communityDTO);
         return ResponseEntity.ok(community);
     }
