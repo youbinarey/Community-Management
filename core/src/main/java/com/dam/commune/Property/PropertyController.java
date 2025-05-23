@@ -1,7 +1,12 @@
 package com.dam.commune.property;
 
 import com.dam.commune.property.parking.ParkingRepository;
+import com.dam.commune.community.Community;
+import com.dam.commune.community.CommunityRepository;
+import com.dam.commune.owner.Owner;
 import com.dam.commune.property.flat.Flat;
+import com.dam.commune.property.flat.FlatDTO;
+import com.dam.commune.property.flat.FlatMapper;
 import com.dam.commune.property.flat.FlatRepository;
 import com.dam.commune.property.parking.Parking;
 import com.dam.commune.property.storageRoom.StorageRoom;
@@ -14,6 +19,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.function.ToDoubleBiFunction;
 
 @RestController
 @RequestMapping("/properties")
@@ -22,6 +28,7 @@ public class PropertyController {
 
     private final PropertyService propertyService;
     private final FlatRepository flatRepository;
+    private final CommunityRepository communityRepository;
     private final ParkingRepository parkingRepository;
     private final StorageRoomRepository storageRoomRepository;
 
@@ -46,17 +53,43 @@ public ResponseEntity<Void> deleteProperty(@PathVariable Long id) {
     // CRUD para flat (Apartment)
     // -----------------------------
 
-    @PostMapping("/flat")
-    public ResponseEntity<Flat> createflat(@RequestBody Flat flat) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(flatRepository.save(flat));
+    // Crear un nuevo Flat
+@PostMapping("/flat")
+public ResponseEntity<FlatDTO> createFlat(@RequestBody FlatDTO flatDTO) {
+    Flat flat = new Flat(); // Crear un objeto Flat vacío
+
+    // Mapear el DTO a la entidad Flat
+    flat.setCadastralReference(flatDTO.getCadastastralReference());
+    flat.setSquareMeters(flatDTO.getSquareMeters());
+    flat.setFloorNumber(flatDTO.getFloorNumber());
+    flat.setLetter(flatDTO.getLetter());
+    flat.setRoomCount(flatDTO.getRoomCount());
+    flat.setBathroomCount(flatDTO.getBathroomCount());
+
+
+    Community community = communityRepository.findByAddress(flatDTO.getComunityName());
+    if (community != null) {
+        flat.setCommunity(community);
     }
 
+    // TODO 
+    // Owner owner = ownerRepository.findByName(flatDTO.getOwnerName());
+    // if (owner != null) {
+    //     flat.setOwner(owner);
+    // }
+
+  
+    Flat savedFlat = flatRepository.save(flat);
+    return ResponseEntity.status(HttpStatus.CREATED).body(FlatMapper.toDTO(savedFlat));
+}
+
+
     @GetMapping("/flat/{id}")
-    public ResponseEntity<Flat> getflat(@PathVariable Long id) {
-        return flatRepository.findById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
-    }
+    public ResponseEntity<FlatDTO> getFlat(@PathVariable Long id) {
+    return flatRepository.findById(id)
+            .map(flat -> ResponseEntity.ok(FlatMapper.toDTO(flat))) // Convertimos la entidad a DTO antes de devolverla
+            .orElse(ResponseEntity.notFound().build());
+}
 
     @PutMapping("/flat/{id}")
     public ResponseEntity<Flat> updateflat(@PathVariable Long id, @RequestBody Flat updatedflat) {
