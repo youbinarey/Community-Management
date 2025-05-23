@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Community } from '../models/community';
+import { Community } from '../models/Community';
+
+
 
 
 @Injectable({
@@ -22,6 +24,12 @@ import { Community } from '../models/community';
   getCommunityById(id: number): Observable<Community> {
     return this.http.get<Community>(`${this.apiUrl}/${id}/detail`);
   }
+
+  createCommunity(community: Community): Observable<Community>{
+    return this.http.post<Community>(this.apiUrl, community);
+  }
+
+
 }
 
 

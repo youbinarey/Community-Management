@@ -1,9 +1,9 @@
 import { NgFor, NgIf } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-
 import { CommunityService } from '../../service/community.service';
-import { Community } from '../../models/community';
+import { Community } from '../../models/Community';
+import { Modal } from 'bootstrap';
 
 
 
@@ -11,7 +11,7 @@ import { Community } from '../../models/community';
   selector: 'app-communities',
   imports: [NgFor, NgIf, FormsModule],
   templateUrl: './communities.component.html',
-  styleUrl: './communities.component.scss'
+  styleUrls: ['./communities.component.scss']
 })
 
 
@@ -21,16 +21,22 @@ export class CommunitiesComponent implements OnInit {
   filtro = '';
   selectedCommunity?: Community;
   showProperties: boolean = false;
+  isLoading: boolean = false;
+  
 
   constructor(private communityService: CommunityService) { }
 
   ngOnInit(): void {
+    this.getCommunities();
+  }
+
+
+  private getCommunities() {
     this.communityService.getCommunities().subscribe(data => {
-      console.log('Datos recibidos:', data); // 👈 esto te dirá si llegan datos
+      console.log('Datos recibidos:', data);
       this.communities = data;
     });
   }
-
 
   getFilteredCommunities(): Community[] {
     const filtered = this.communities.filter(c =>
@@ -57,36 +63,61 @@ export class CommunitiesComponent implements OnInit {
 
 
 
-  // getFilteredCommunities() {
-  //   return this.comunidades.filter(c =>
-  //     c.address.toLowerCase().includes(this.filtro.toLowerCase())
-  //   );
-  // }
+// Crear nueva comuniad
+newCommunity: Community = {
+  id: 0,
+  address: '',
+  postalCode: '',
+  propertiesCount: 0,
+  elevator: false,
+  numFloors : 0,
+  numparkings : 0,
+  numStorageRooms : 0,
+  reducedMobilityAccess : false,
+  bankAccountNumber:''
+}
 
-  // nueva = {
-  //   address: '',
-  //   postalCode: '',
-  //   elevator: true,
-  //   numFloors: 0,
-  //   numparkings: 0,
-  //   numStorageRooms: 0
-  // };
-  // crearComunidad() {
-  //   this.comunidades.push({ ...this.nueva });
-  //   this.nueva = {
-  //     address: '',
-  //     postalCode: '',
-  //     elevator: true,
-  //     numFloors: 0,
-  //     numparkings: 0,
-  //     numStorageRooms: 0
-  //   };
-  //   const modal = document.getElementById('modalNuevaComunidad');
-  //   if (modal) {
-  //     const instanciaModal = bootstrap.Modal.getInstance(modal) || new bootstrap.Modal(modal);
-  //     instanciaModal.hide();
-  //   }
-  // }
+//crear una nueva comunidad
+  addCommunity(): void {
+    this.isLoading = true;
+    this.communityService.createCommunity(this.newCommunity).subscribe({
+      next: (data) => {
+        console.log('Comunidad creada:', data);
 
+        if(data){
+        this.communities.push(data); // Añadir la nueva comunidad a la lista
+        this.cerrarModal(); // Cerrar el modal después de crear la comunidad
+        
+        } else {
+          console.error('Error: La comunidad no se creó correctamente');
+        }
+
+        this.isLoading = false; 
+      },
+      error: (e) => {console.error('Error al crear comunidad', e)
+      this.isLoading = false; // Asegurarse de que isLoading se restablezca incluso si hay un error}
+    }
+  });
+  }
+
+
+  // Método para abrir el modal
+openModal() {
+  const modal = document.getElementById('modalNewCommunity');
+  if (!modal) return; // Salir si el modal no se encuentra
+
+  const modalInstance = new Modal(modal); // Crear una nueva instancia del modal de Bootstrap
+  modalInstance.show(); // Mostrar el modal
+}
+  // Método para cerrar el modal
+cerrarModal(): void {
+  const modal = document.getElementById('modalNewCommunity');
+  if (!modal) return; // Salir si el modal no se encuentra
+
+  const modalInstance = Modal.getInstance(modal); // Obtener la instancia del modal
+  if (modalInstance) {
+    modalInstance.hide(); // Cerrar el modal
+  }
+}
 
 }
