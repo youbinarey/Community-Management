@@ -32,7 +32,7 @@ public class CommunityMapper {
             .propertiesCount(
                     community.getProperties() != null ? community.getProperties().size() : 0)
             .elevator(community.isElevator())
-            .numFloors(community.getNumFloors())
+            .numFlats(community.getNumFlats())
             .numparkings(community.getNumparkings())
             .numStorageRooms(community.getNumStorageRooms())
             .reducedMobilityAccess(community.isReducedMobilityAccess())
@@ -58,7 +58,7 @@ public class CommunityMapper {
                 .address(communityDTO.getAddress())
                 .postalCode(communityDTO.getPostalCode())
                 .elevator(communityDTO.isElevator())
-                .numFloors(communityDTO.getNumFloors())
+                .numFlats(communityDTO.getNumFlats())
                 .numparkings(communityDTO.getNumparkings())
                 .numStorageRooms(communityDTO.getNumStorageRooms())
                 .reducedMobilityAccess(communityDTO.isReducedMobilityAccess())

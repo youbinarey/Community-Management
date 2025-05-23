@@ -35,8 +35,8 @@ public class Community {
 
     private boolean elevator;
 
-    @Column(name = "num_floors", nullable = false)
-    private int numFloors;
+    @Column(name = "num_flats", nullable = false)
+    private int numFlats;
 
     @Column(name = "num_parkings", nullable = false)
     private int numparkings;

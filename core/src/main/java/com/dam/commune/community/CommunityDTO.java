@@ -23,7 +23,7 @@ public class CommunityDTO {
     private int propertiesCount;
 
     private boolean elevator;
-    private int numFloors;
+    private int numFlats;
     private int numparkings;
     private int numStorageRooms;
     private boolean reducedMobilityAccess;
