@@ -16,6 +16,9 @@ import { Modal } from 'bootstrap';
 
 
 export class CommunitiesComponent implements OnInit {
+verMasDetalles(arg0: string) {
+throw new Error('Method not implemented.');
+}
 
   communities: Community[] = [];
   filtro = '';
@@ -71,9 +74,9 @@ newCommunity: Community = {
   postalCode: '',
   propertiesCount: 0,
   elevator: false,
-  numFloors : 0,
-  numparkings : 0,
-  numStorageRooms : 0,
+  numFlats: 0,
+  numparkings: 0,
+  numStorageRooms: 0,
   reducedMobilityAccess : false,
   bankAccountNumber:''
 }

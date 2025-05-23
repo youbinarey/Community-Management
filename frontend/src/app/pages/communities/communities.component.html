@@ -41,7 +41,7 @@
   <p><strong>Dirección:</strong> {{ selectedCommunity.address }}</p>
   <p><strong>Código Postal:</strong> {{ selectedCommunity.postalCode }}</p>
   <p><strong>Ascensor:</strong> {{ selectedCommunity.elevator ? 'Sí' : 'No' }}</p>
-  <p><strong>Nº Plantas:</strong> {{ selectedCommunity.numFloors }}</p>
+  <p><strong>Nº Plantas:</strong> {{ selectedCommunity.numFlats }}</p>
   <p><strong>Parkings:</strong> {{ selectedCommunity.numparkings }}</p>
   <p><strong>Trasteros:</strong> {{ selectedCommunity.numStorageRooms }}</p>
   <p><strong>Acceso movilidad reducida:</strong> {{ selectedCommunity.reducedMobilityAccess ? 'Sí' : 'No' }}</p>
@@ -89,8 +89,8 @@
           </div>
 
           <div class="mb-3">
-            <label for="numFloors" class="form-label">Número de Plantas</label>
-            <input type="number" id="numFloors" name="numFloors" class="form-control" [(ngModel)]="newCommunity.numFloors" required min="0">
+            <label for="numFlats" class="form-label">Número de Plantas</label>
+            <input type="number" id="numFlats" name="numFlats" class="form-control" [(ngModel)]="newCommunity.numFlats" required min="0">
           </div>
 
           <div class="mb-3">
@@ -144,9 +144,20 @@
               <h5 class="card-title">{{ selectedCommunity.address }}</h5>
               <p class="card-text"><strong>Código Postal:</strong> {{ selectedCommunity.postalCode }}</p>
               <p class="card-text"><strong>Ascensor:</strong> {{ selectedCommunity.elevator ? 'Sí' : 'No' }}</p>
-              <p class="card-text"><strong>Nº Plantas:</strong> {{ selectedCommunity.numFloors }}</p>
-              <p class="card-text"><strong>Parkings:</strong> {{ selectedCommunity.numparkings }}</p>
-              <p class="card-text"><strong>Trasteros:</strong> {{ selectedCommunity.numStorageRooms }}</p>
+               <!-- Añadimos los botones "Ver" a continuación de los campos -->
+              <div class="d-flex justify-content-between">
+                <span><strong>Nº Viviendas:</strong> {{ selectedCommunity.numFlats }}</span>
+                <button class="btn btn-outline-info btn-sm" (click)="verMasDetalles('viviendas')">Ver</button>
+              </div>
+              <div class="d-flex justify-content-between">
+                <span><strong>Parkings:</strong> {{ selectedCommunity.numparkings }}</span>
+                <button class="btn btn-outline-info btn-sm" (click)="verMasDetalles('parkings')">Ver</button>
+              </div>
+              <div class="d-flex justify-content-between">
+                <span><strong>Trasteros:</strong> {{ selectedCommunity.numStorageRooms }}</span>
+                <button class="btn btn-outline-info btn-sm" (click)="verMasDetalles('trasteros')">Ver</button>
+              </div>
+              
               <p class="card-text"><strong>Acceso movilidad reducida:</strong> {{ selectedCommunity.reducedMobilityAccess ? 'Sí' : 'No' }}</p>
               <p class="card-text"><strong>Número de cuenta:</strong> {{ selectedCommunity.bankAccountNumber }}</p>
             </div>

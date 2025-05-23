@@ -7,7 +7,7 @@ export interface Community {
   address: string;
   postalCode: string;
   elevator?: boolean;
-  numFloors?: number;
+  numFlats?: number;
   numparkings?: number;
   numStorageRooms?: number;
   reducedMobilityAccess?: boolean;
