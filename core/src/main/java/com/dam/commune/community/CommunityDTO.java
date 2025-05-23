@@ -10,7 +10,16 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CommunityDTO {
+    private Long id;
     private String address;
     private String postalCode;
     private int propertiesCount;
+
+    private boolean elevator;
+    private int numFloors;
+    private int numparkings;
+    private int numStorageRooms;
+    private boolean reducedMobilityAccess;
+
+    private String bankAccountNumber;
 }
