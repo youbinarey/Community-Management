@@ -2,8 +2,7 @@ package com.dam.commune.property;
 
 import com.dam.commune.property.parking.ParkingRepository;
 import com.dam.commune.community.Community;
-import com.dam.commune.community.CommunityRepository;
-import com.dam.commune.owner.Owner;
+import com.dam.commune.community.CommunityRepository; 
 import com.dam.commune.property.flat.Flat;
 import com.dam.commune.property.flat.FlatDTO;
 import com.dam.commune.property.flat.FlatMapper;
@@ -19,7 +18,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.function.ToDoubleBiFunction;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/properties")
@@ -52,6 +51,28 @@ public ResponseEntity<Void> deleteProperty(@PathVariable Long id) {
     // -----------------------------
     // CRUD para flat (Apartment)
     // -----------------------------
+
+    // GET para obtener todos los flats
+@GetMapping("/flat")
+public ResponseEntity<List<FlatDTO>> getAllFlats() {
+    List<Flat> flats = flatRepository.findAll();  // Obtener todos los flats de la base de datos
+
+    // Convertir cada Flat a un FlatDTO
+    List<FlatDTO> flatDTOs = flats.stream().map(flat -> new FlatDTO(
+            flat.getId(),
+            flat.getCadastralReference(),
+            flat.getSquareMeters(),
+            flat.getFloorNumber(),
+            flat.getLetter(),
+            flat.getRoomCount(),
+            flat.getBathroomCount(),
+            flat.getCommunity() != null ? flat.getCommunity().getAddress() : null,
+            flat.getOwner() != null ? flat.getOwner().getName() : null
+    )).collect(Collectors.toList());
+
+    return ResponseEntity.ok(flatDTOs);  // Retorna la lista de FlatDTOs con el estado 200 OK
+}
+
 
     // Crear un nuevo Flat
 @PostMapping("/flat")
