@@ -3,6 +3,8 @@ package com.dam.commune.community;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import com.dam.commune.bankAccount.BankAccount;
+
 public class CommunityMapper {
 
     public static CommunityDTO toDTO(Community community) {
@@ -41,4 +43,26 @@ public class CommunityMapper {
             .build();
 }
 
+
+// Método para transformar el DTO en una entidad Community
+    public static Community transformDTOToEntity(CommunityDTO communityDTO) {
+        // Crear un nuevo objeto BankAccount si se proporciona el número de cuenta
+        BankAccount bankAccount = null;
+        if (communityDTO.getBankAccountNumber() != null && !communityDTO.getBankAccountNumber().isEmpty()) {
+            bankAccount = new BankAccount();
+            bankAccount.setAccountNumber(communityDTO.getBankAccountNumber());
+        }
+
+        // Crear y devolver la entidad Community usando los datos del DTO
+        return Community.builder()
+                .address(communityDTO.getAddress())
+                .postalCode(communityDTO.getPostalCode())
+                .elevator(communityDTO.isElevator())
+                .numFloors(communityDTO.getNumFloors())
+                .numparkings(communityDTO.getNumparkings())
+                .numStorageRooms(communityDTO.getNumStorageRooms())
+                .reducedMobilityAccess(communityDTO.isReducedMobilityAccess())
+                .bankAccount(bankAccount)  // Asocia el objeto BankAccount, si está presente
+                .build();
+    }
 }

@@ -42,6 +42,12 @@ public class CommunityServiceImpl implements CommunityService {
         return CommunityMapper.toDTOList(communityRepository.findAll());
     }
 
+    @Override
+    public Community saveCommunityFromDTO(CommunityDTO communityDTO) {
+        Community community = CommunityMapper.transformDTOToEntity(communityDTO);
+        return communityRepository.save(community);
+    }
+
     
     
 }

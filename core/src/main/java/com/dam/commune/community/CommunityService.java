@@ -13,6 +13,7 @@ public interface CommunityService {
     boolean deleteIfExists(Long id);
 
     List<CommunityDTO> findAllDTOs();
+    Community saveCommunityFromDTO(CommunityDTO communityDTO);
 
     
 }

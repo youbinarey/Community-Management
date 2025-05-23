@@ -41,6 +41,12 @@ public class CommunityController {
         return ResponseEntity.ok(communityService.save(community));
     }
 
+    @PostMapping("/dto")
+    public ResponseEntity<Community> createFromDTO(@RequestBody CommunityDTO communityDTO) {
+        Community community = communityService.saveCommunityFromDTO(communityDTO);
+        return ResponseEntity.ok(community);
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<Community> update(@PathVariable Long id, @RequestBody Community updated) {
         return communityService.findById(id)
