@@ -9,7 +9,7 @@
 <!-- BUSCADOR -->
 <div class="container py-4">
   <div class="mb-3">
-    <input type="text" class="form-control" [(ngModel)]="filtro" placeholder="Buscar comunidad por calle...">
+    <input type="text" name= "buscador" class="form-control" [(ngModel)]="filtro" placeholder="Buscar comunidad por calle...">
   </div>
 
   <!-- TABLA -->
@@ -82,7 +82,7 @@
 
           <div class="mb-3">
             <label for="elevator" class="form-label">Ascensor</label>
-            <select id="elevator" class="form-control" [(ngModel)]="newCommunity.elevator">
+            <select id="elevator" name="elevator" class="form-control" [(ngModel)]="newCommunity.elevator">
               <option [ngValue]="true">Sí</option>
               <option [ngValue]="false">No</option>
             </select>
@@ -105,7 +105,7 @@
 
           <div class="mb-3">
             <label for="reducedMobilityAccess" class="form-label">Acceso Movilidad Reducida</label>
-            <select id="reducedMobilityAccess" class="form-control" [(ngModel)]="newCommunity.reducedMobilityAccess">
+            <select id="reducedMobilityAccess" name="reducedMobilityAccess" class="form-control" [(ngModel)]="newCommunity.reducedMobilityAccess">
               <option [ngValue]="true">Sí</option>
               <option [ngValue]="false">No</option>
             </select>
