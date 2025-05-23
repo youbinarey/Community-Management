@@ -52,6 +52,7 @@ export class CommunitiesComponent implements OnInit {
     next: (data) => {
       this.selectedCommunity = data;
       console.log('Comunidad seleccionada:', this.selectedCommunity);
+      this.openModal('modalCommunityDetails'); 
     },
     error: (e) => console.error('Error al cargar comunidad', e)
   });
@@ -86,7 +87,7 @@ newCommunity: Community = {
 
         if(data){
         this.communities.push(data); // Añadir la nueva comunidad a la lista
-        this.cerrarModal(); // Cerrar el modal después de crear la comunidad
+        this.cerrarModal('modalNewCommunity'); // Cerrar el modal después de crear la comunidad
         
         } else {
           console.error('Error: La comunidad no se creó correctamente');
@@ -102,16 +103,16 @@ newCommunity: Community = {
 
 
   // Método para abrir el modal
-openModal() {
-  const modal = document.getElementById('modalNewCommunity');
+openModal(modalId: string):void {
+  const modal = document.getElementById(modalId);
   if (!modal) return; // Salir si el modal no se encuentra
 
   const modalInstance = new Modal(modal); // Crear una nueva instancia del modal de Bootstrap
   modalInstance.show(); // Mostrar el modal
 }
   // Método para cerrar el modal
-cerrarModal(): void {
-  const modal = document.getElementById('modalNewCommunity');
+cerrarModal(modalId: string): void {
+  const modal = document.getElementById(modalId);
   if (!modal) return; // Salir si el modal no se encuentra
 
   const modalInstance = Modal.getInstance(modal); // Obtener la instancia del modal

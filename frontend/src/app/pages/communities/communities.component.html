@@ -1,7 +1,7 @@
 <!-- HEADER + BOTÓN -->
 <div class="d-flex justify-content-between align-items-center mb-3">
   <h2 class="mb-0">Comunidades registradas</h2>
-  <button class="btn btn-success" (click)="openModal()">
+  <button class="btn btn-success" (click)="openModal('modalNewCommunity')">
     Añadir comunidad
   </button>
 </div>
@@ -65,7 +65,7 @@
 
       <div class="modal-header">
         <h5 class="modal-title" id="modalLabel">Nueva comunidad</h5>
-        <button type="button" class="btn-close" (click)="cerrarModal()" aria-label="Cerrar"></button>
+        <button type="button" class="btn-close" (click)="cerrarModal('modalNewCommunity')" aria-label="Cerrar"></button>
       </div>
 
       <div class="modal-body">
@@ -123,6 +123,40 @@
         </form>
       </div>
 
+    </div>
+  </div>
+</div>
+
+<!-- MODAL DE DETALLES DE LA COMUNIDAD -->
+<div class="modal fade" id="modalCommunityDetails" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalLabel">Detalles de la Comunidad</h5>
+        <button type="button" class="btn-close" (click)="cerrarModal('modalCommunityDetails')" aria-label="Cerrar"></button>
+      </div>
+      
+      <div class="modal-body">
+        <div *ngIf="selectedCommunity">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title">{{ selectedCommunity.address }}</h5>
+              <p class="card-text"><strong>Código Postal:</strong> {{ selectedCommunity.postalCode }}</p>
+              <p class="card-text"><strong>Ascensor:</strong> {{ selectedCommunity.elevator ? 'Sí' : 'No' }}</p>
+              <p class="card-text"><strong>Nº Plantas:</strong> {{ selectedCommunity.numFloors }}</p>
+              <p class="card-text"><strong>Parkings:</strong> {{ selectedCommunity.numparkings }}</p>
+              <p class="card-text"><strong>Trasteros:</strong> {{ selectedCommunity.numStorageRooms }}</p>
+              <p class="card-text"><strong>Acceso movilidad reducida:</strong> {{ selectedCommunity.reducedMobilityAccess ? 'Sí' : 'No' }}</p>
+              <p class="card-text"><strong>Número de cuenta:</strong> {{ selectedCommunity.bankAccountNumber }}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" (click)="cerrarModal('modalCommunityDetails')">Cerrar</button>
+      </div>
     </div>
   </div>
 </div>
