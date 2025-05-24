@@ -19,11 +19,19 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class OwnerController {
     private final OwnerService ownerService;
+    
 
     @GetMapping
     public List<Owner> getAll() {
         return ownerService.getAll();
     }
+
+    @GetMapping("/dto")
+    public List<OwnerDTO> getAllDTOs() {
+        return ownerService.getAllDTOs();
+    }
+        
+             
 
     @GetMapping("/{id}")
     public ResponseEntity<Owner> getById(@PathVariable Long id) {

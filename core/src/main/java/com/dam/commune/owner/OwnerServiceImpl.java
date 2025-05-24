@@ -2,6 +2,7 @@ package com.dam.commune.owner;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
@@ -12,6 +13,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class OwnerServiceImpl implements OwnerService {
     private final OwnerRepository ownerRepository;
+
+
 
 
     @Override
@@ -60,6 +63,13 @@ public boolean deleteIfExists(Long id) {
     }
     return false;
 }
+
+    @Override
+    public List<OwnerDTO> getAllDTOs() {
+        return ownerRepository.findAll().stream()
+                .map(OwnerMapper::toDTO)
+                .collect(Collectors.toList());
+    }
 
 
     

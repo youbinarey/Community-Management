@@ -5,6 +5,7 @@ import java.util.Optional;
 
 public interface OwnerService {
     List<Owner> getAll();
+    List<OwnerDTO> getAllDTOs();
     Optional<Owner> getById(Long id);
     Owner create(Owner owner);
     Owner update(Long id, Owner owner);
