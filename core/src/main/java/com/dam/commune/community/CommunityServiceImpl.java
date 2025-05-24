@@ -48,6 +48,24 @@ public class CommunityServiceImpl implements CommunityService {
         return communityRepository.save(community);
     }
 
+
+    /**
+     * Updates an existing community based on the provided DTO.
+     * 
+     * @param id  The ID of the community to update.
+     * @param dto The DTO containing the updated information.
+     * @return The updated CommunityDTO.
+     */
+    @Override
+    public CommunityDTO updaCommunityDTO(Long id, CommunityDTO dto) {
+        Community existingCommunity = communityRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Community not found with id: " + id));
+
+        CommunityMapper.updateEntityFromDTO(dto, existingCommunity);
+        Community saved = communityRepository.save(existingCommunity);
+        return CommunityMapper.toDetailedDTO(saved);
+    }
+
     
     
 }

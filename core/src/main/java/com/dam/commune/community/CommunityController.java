@@ -82,4 +82,15 @@ public ResponseEntity<CommunityDTO> getDetailedDTO(@PathVariable Long id) {
 }
 
 
+/**
+ * Endopint to update a community using a DTO.
+ * 
+ */
+@PutMapping("/dto/{id}")
+public ResponseEntity<CommunityDTO> updateFromDTO(@PathVariable Long id, @RequestBody @Valid CommunityDTO communityDTO) {
+    CommunityDTO updatedDTO = communityService.updaCommunityDTO(id, communityDTO);
+    return ResponseEntity.ok(updatedDTO);
+
+}
+
 }

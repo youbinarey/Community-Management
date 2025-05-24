@@ -1,5 +1,6 @@
 package com.dam.commune.community;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -65,4 +66,38 @@ public class CommunityMapper {
                 .bankAccount(bankAccount)  // Asocia el objeto BankAccount, si está presente
                 .build();
     }
+
+
+    /**
+     * UpdateEntityDTO
+     * 
+     */
+    public static void updateEntityFromDTO(CommunityDTO dto,  Community entity){
+        entity.setAddress(dto.getAddress());
+        entity.setPostalCode(dto.getPostalCode());
+        entity.setElevator(dto.isElevator());
+        entity.setNumFlats(dto.getNumFlats());
+        entity.setNumparkings(dto.getNumparkings());
+        entity.setNumStorageRooms(dto.getNumStorageRooms());
+        entity.setReducedMobilityAccess(dto.isReducedMobilityAccess());
+
+        if(dto.getBankAccountNumber() != null && !dto.getBankAccountNumber().isEmpty()) {
+            BankAccount bankAccount = entity.getBankAccount();
+            if (bankAccount != null) {
+                bankAccount.setAccountNumber(dto.getBankAccountNumber());
+            }else{
+                bankAccount = new BankAccount();
+                bankAccount.setAccountNumber(dto.getBankAccountNumber());
+                bankAccount.setBalance(BigDecimal.ZERO);
+                bankAccount.setBankName("Default Name");
+                entity.setBankAccount(bankAccount);
+            }
+        
+        } else {
+            entity.setBankAccount(null); 
+
+    }
+}
+
+    
 }
