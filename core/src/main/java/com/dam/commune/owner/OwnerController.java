@@ -16,6 +16,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.dam.commune.property.Property;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @RestController
 @RequestMapping("/owner")
@@ -34,6 +36,15 @@ public class OwnerController {
     public List<OwnerDTO> getAllDTOs() {
         return ownerService.getAllDTOs();
     }
+
+    @GetMapping("/dto/{id}")
+    public ResponseEntity<OwnerDTO> getOwnerById(@PathVariable Long id) {
+        return ownerService.getOwnerDTOById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+    
+    
         
              
 
@@ -58,6 +69,11 @@ public class OwnerController {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(ownerService.update(id, owner));
+    }
+
+    @PutMapping("/dto/{id}")
+    public ResponseEntity<OwnerDTO> updateOwnerDTO(@PathVariable Long id, @RequestBody OwnerDTO ownerDTO) {
+        return ResponseEntity.ok(ownerService.updateOwnerDTO(id, ownerDTO));
     }
 
     @DeleteMapping("/{id}")

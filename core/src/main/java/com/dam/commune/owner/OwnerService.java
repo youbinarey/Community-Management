@@ -15,5 +15,7 @@ public interface OwnerService {
     boolean existsByDni(String dni);
     boolean deleteIfExists(Long id);
     List<Property>getPropertiesByOwnerId(Long ownerId);
+    OwnerDTO updateOwnerDTO(Long id, OwnerDTO ownerDTO);
+    Optional <OwnerDTO> getOwnerDTOById(Long id);
 }
 

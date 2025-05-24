@@ -80,6 +80,21 @@ public boolean deleteIfExists(Long id) {
                 return owner.getProperties();
     }
 
+    @Override
+    public OwnerDTO updateOwnerDTO(Long id, OwnerDTO ownerDTO) {
+        Owner existiOwner = ownerRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Owner with id " + id + " not found"));
+        OwnerMapper.updateEntityFromDTO(ownerDTO, existiOwner);
+        Owner updatedOwner = ownerRepository.save(existiOwner);
+        return OwnerMapper.toDTO(updatedOwner);
+    }
+
+    @Override
+    public Optional<OwnerDTO> getOwnerDTOById(Long id) {
+        return ownerRepository.findById(id)
+                .map(OwnerMapper::toDTO);
+    }
+
 
     
 
