@@ -16,8 +16,9 @@
         <p class="mb-1">DNI: {{ owner.dni }}</p>
         <p class="mb-1">Email: {{ owner.email }}</p>
         <p class="mb-1">Phone: {{ owner.phone }}</p>
+        <p class="mb-1">Fecha Nacimiento: {{ owner.birthDate | date:'dd-MM-yyyy' }}</p>
         <p class="mb-1">Bank Account: {{ owner.bankAccountNumber }}</p>
-        <button class="btn btn-sm btn-outline-primary mt-2" (click)="viewOwnerDetails(owner)">Ver Propie</button>
+        <button class="btn btn-sm btn-outline-primary mt-2" (click)="viewOwnerDetails(owner)">Ver Propiedades</button>
       </div>
     </div>
   </div>

@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Owner } from '../../models/Owner';
 import { OwnerService } from '../../service/owner.service';
-import { NgFor, NgIf } from '@angular/common';
+import { CommonModule, NgFor, NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-owner',
-  imports: [NgIf, NgFor],
+  imports: [NgIf, NgFor, CommonModule],
   templateUrl: './owner.component.html',
   styleUrl: './owner.component.scss'
 })
