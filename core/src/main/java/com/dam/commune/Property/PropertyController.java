@@ -8,7 +8,9 @@ import com.dam.commune.property.flat.FlatDTO;
 import com.dam.commune.property.flat.FlatMapper;
 import com.dam.commune.property.flat.FlatRepository;
 import com.dam.commune.property.parking.Parking;
+import com.dam.commune.property.parking.ParkingDTO;
 import com.dam.commune.property.storageRoom.StorageRoom;
+import com.dam.commune.property.storageRoom.StorageRoomDTO;
 import com.dam.commune.property.storageRoom.StorageRoomRepository;
 
 import jakarta.persistence.EntityNotFoundException;
@@ -108,7 +110,7 @@ public ResponseEntity<FlatDTO> createFlat(@RequestBody FlatDTO flatDTO) {
 }
 
 @GetMapping("parking/community/{communityId}")
-public ResponseEntity<List<Parking>> getParkingsByCommunity(@PathVariable Long communityId) {
+public ResponseEntity<List<ParkingDTO>> getParkingsByCommunity(@PathVariable Long communityId) {
     // Buscar la comunidad por su ID
     Community community = communityRepository.findById(communityId)
         .orElse(null);
@@ -117,12 +119,21 @@ public ResponseEntity<List<Parking>> getParkingsByCommunity(@PathVariable Long c
     }
     List<Parking> parkings = parkingRepository.findByCommunity(community);
 
-    return ResponseEntity.ok(parkings);
+    List<ParkingDTO> parkingDTOs = parkings.stream().map(parking -> new ParkingDTO(
+            parking.getId(),
+            parking.getCadastralReference(),
+            parking.getSquareMeters(),
+            parking.getNum(),
+            parking.getCommunity() != null ? parking.getCommunity().getAddress() : null,
+            parking.getOwner() != null ? parking.getOwner().getName() : null
+    )).collect(Collectors.toList());
+
+    return ResponseEntity.ok(parkingDTOs);
 
     }
 
 @GetMapping("storageroom/community/{communityId}")
-public ResponseEntity<List<StorageRoom>> getStorageRoomsByCommunity(@PathVariable Long communityId) {
+public ResponseEntity<List<StorageRoomDTO>> getStorageRoomsByCommunity(@PathVariable Long communityId) {
     // Buscar la comunidad por su ID
     Community community = communityRepository.findById(communityId)
         .orElse(null);
@@ -131,12 +142,17 @@ public ResponseEntity<List<StorageRoom>> getStorageRoomsByCommunity(@PathVariabl
     }
     List<StorageRoom> storageRooms = storageRoomRepository.findByCommunity(community);
 
-    return ResponseEntity.ok(storageRooms);
+    List<StorageRoomDTO> storageRoomDTOs = storageRooms.stream().map(storageRoom -> new StorageRoomDTO(
+            storageRoom.getId(),
+            storageRoom.getCadastralReference(),
+            storageRoom.getSquareMeters(),
+            storageRoom.getStorageNumber(),
+            storageRoom.getCommunity() != null ? storageRoom.getCommunity().getAddress() : null,
+            storageRoom.getOwner() != null ? storageRoom.getOwner().getName() : null
+    )).collect(Collectors.toList());
+
+    return ResponseEntity.ok(storageRoomDTOs);
     }
-
-
-
-
 
 
 @GetMapping("/flat/community/{communityId}")

@@ -10,6 +10,9 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class StorageRoomDTO {
+    private Long id;
+    private String cadastralReference;
+    private Double squareMeters;
     private int storageNumber;
     private String communityName;
     private String ownerName;

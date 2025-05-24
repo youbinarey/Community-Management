@@ -9,6 +9,9 @@ public class ParkingMapper {
             return null;
         }
         ParkingDTO parkingDTO = new ParkingDTO();
+        parkingDTO.setId(parking.getId());
+        parkingDTO.setCadastralReference(parking.getCadastralReference());
+        parkingDTO.setSquareMeters(parking.getSquareMeters());
         parkingDTO.setNum(parking.getNum());
         parkingDTO.setCommunityName(parking.getCommunity() != null ? parking.getCommunity().getAddress() : null);
         
