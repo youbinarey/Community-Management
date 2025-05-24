@@ -13,7 +13,6 @@ export class FlatService {
   // PUREBA PASAR DATOS 
   private apiUrl = 'http://localhost:8080/api/commune';
   
-  private  : string= ''// Actualiza con la URL de tu API
 
   constructor(private http: HttpClient) { }
 
