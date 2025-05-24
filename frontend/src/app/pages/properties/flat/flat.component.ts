@@ -17,13 +17,12 @@ export class FlatComponent implements OnInit {
   communityId: number | undefined;
   communityName: string | undefined ;
   constructor(private flatService: FlatService, private route: ActivatedRoute, private router: Router) { }
-
   ngOnInit(): void {
     
     this.route.paramMap.subscribe(params => {
       const id = params.get('communityId');
       if (id) {
-        this.communityId = +id;  // Convertir el parámetro a número
+        this.communityId = +id; 
         this.getFlatsByCommunity(this.communityId);
       }
     });
@@ -31,14 +30,12 @@ export class FlatComponent implements OnInit {
      const navigation = this.router.getCurrentNavigation();
     if (navigation?.extras.state) {
       this.communityName = navigation.extras.state['communityName'];
-      console.log(this.communityName);  // Mostrar el nombre de la comunidad
+      console.log(this.communityName);  
     }
     
   }
 
 
-
-  // Método para obtener los Flats por comunidad
   getFlatsByCommunity(communityId: number): void {
     this.flatService.getFlatsByCommunity(communityId).subscribe({
       next: (data) => {
