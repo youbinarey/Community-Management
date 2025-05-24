@@ -3,6 +3,8 @@ package com.dam.commune.owner;
 import java.util.List;
 import java.util.Optional;
 
+import com.dam.commune.property.Property;
+
 public interface OwnerService {
     List<Owner> getAll();
     List<OwnerDTO> getAllDTOs();
@@ -12,5 +14,6 @@ public interface OwnerService {
     void delete(Long id);
     boolean existsByDni(String dni);
     boolean deleteIfExists(Long id);
+    List<Property>getPropertiesByOwnerId(Long ownerId);
 }
 

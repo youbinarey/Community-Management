@@ -6,6 +6,8 @@ import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
 
+import com.dam.commune.property.Property;
+
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 
@@ -69,6 +71,13 @@ public boolean deleteIfExists(Long id) {
         return ownerRepository.findAll().stream()
                 .map(OwnerMapper::toDTO)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Property> getPropertiesByOwnerId(Long ownerId) {
+        Owner owner = ownerRepository.findById(ownerId)
+                .orElseThrow(() -> new EntityNotFoundException("Owner with id " + ownerId + " not found"));
+                return owner.getProperties();
     }
 
 

@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.dam.commune.property.Property;
+
 import lombok.RequiredArgsConstructor;
 
 @RestController
@@ -63,6 +65,11 @@ public class OwnerController {
         return ownerService.deleteIfExists(id)
                 ? ResponseEntity.noContent().build()
                 : ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/{ownerId}/properties")
+    public List<Property> getPropertiesByOwnerId(@PathVariable Long ownerId) {
+        return ownerService.getPropertiesByOwnerId(ownerId);
     }
 
 }
