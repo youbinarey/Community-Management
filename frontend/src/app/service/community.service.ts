@@ -13,6 +13,8 @@ import { Community } from '../models/Community';
     private apiUrl = 'http://localhost:8080/api/commune/communities/dto';
 
     communities: Community[];
+    private _dato = 'Hola mundo'; // Ejemplo de dato privado
+
   constructor(private http: HttpClient) {
       this.communities = [];
    }
@@ -27,6 +29,10 @@ import { Community } from '../models/Community';
 
   createCommunity(community: Community): Observable<Community>{
     return this.http.post<Community>(this.apiUrl, community);
+  }
+
+  get dato(): string {
+    return this._dato; // Getter para acceder al dato privado
   }
 
 
