@@ -11,7 +11,7 @@ public class OwnerMapper {
         }
 
         OwnerDTO ownerDTO = new OwnerDTO();
-
+        ownerDTO.setId(owner.getId());
         ownerDTO.setDni(owner.getDni());
         ownerDTO.setName(owner.getName());
         ownerDTO.setSurname(owner.getSurname());

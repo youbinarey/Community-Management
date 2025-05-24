@@ -13,6 +13,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class OwnerDTO {
+    private Long id;
     private String dni;
     private String name;
     private String surname;

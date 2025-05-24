@@ -19,6 +19,9 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @RestController
 @RequestMapping("/properties")
@@ -196,10 +199,21 @@ public ResponseEntity<List<FlatDTO>> getFlatsByCommunity(@PathVariable Long comm
         return ResponseEntity.notFound().build();
     }
 
+    @GetMapping("parking")
+    public List<Parking> getAllParkings() {
+        return parkingRepository.findAll();
+    }
+    
+    
+
     // -----------------------------
     // CRUD para STORAGE ROOM
     // -----------------------------
-
+    
+    @GetMapping("/storageroom")
+    public List<StorageRoom> getAllStorageRooms() {
+        return storageRoomRepository.findAll();
+    }
     @PostMapping("/storageroom")
     public ResponseEntity<StorageRoom> createStorageRoom(@RequestBody StorageRoom storageRoom) {
         return ResponseEntity.status(HttpStatus.CREATED).body(storageRoomRepository.save(storageRoom));
