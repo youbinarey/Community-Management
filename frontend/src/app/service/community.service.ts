@@ -10,6 +10,9 @@ import { Community } from '../models/Community';
   providedIn: 'root'
 })
   export class CommunityService {
+
+
+  
     private apiUrl = 'http://localhost:8080/api/commune/communities/dto';
 
     communities: Community[];
@@ -36,6 +39,12 @@ import { Community } from '../models/Community';
   }
 
 
+  /**
+   * Update a community by its ID.
+   */
+  updateCommunity(id: number, updateCommunity: Community): Observable<Community>{
+    return this.http.put<Community>(`${this.apiUrl}/${id}`, updateCommunity);
+  };
 }
 
 

@@ -9,7 +9,8 @@
 <!-- BUSCADOR -->
 <div class="container py-4">
   <div class="mb-3">
-    <input type="text" name= "buscador" class="form-control" [(ngModel)]="filtro" placeholder="Buscar comunidad por calle...">
+    <input type="text" name="buscador" class="form-control" [(ngModel)]="filtro"
+      placeholder="Buscar comunidad por calle...">
   </div>
 
   <!-- TABLA -->
@@ -29,7 +30,6 @@
         <td>{{ community.propertiesCount }}</td>
         <td>
           <button class="btn btn-sm btn-outline-info me-1" (click)="verComunidad(community.id)">Ver</button>
-          <button class="btn btn-sm btn-outline-secondary">Editar</button>
         </td>
       </tr>
     </tbody>
@@ -52,12 +52,14 @@
         <form (ngSubmit)="addCommunity()">
           <div class="mb-3">
             <label for="address" class="form-label">Dirección</label>
-            <input type="text" id="address" name="address" class="form-control" [(ngModel)]="newCommunity.address" required>
+            <input type="text" id="address" name="address" class="form-control" [(ngModel)]="newCommunity.address"
+              required>
           </div>
 
           <div class="mb-3">
             <label for="postalCode" class="form-label">Código Postal</label>
-            <input type="text" id="postalCode" name="postalCode" class="form-control" [(ngModel)]="newCommunity.postalCode" required>
+            <input type="text" id="postalCode" name="postalCode" class="form-control"
+              [(ngModel)]="newCommunity.postalCode" required>
           </div>
 
           <div class="mb-3">
@@ -70,22 +72,26 @@
 
           <div class="mb-3">
             <label for="numFlats" class="form-label">Número de Plantas</label>
-            <input type="number" id="numFlats" name="numFlats" class="form-control" [(ngModel)]="newCommunity.numFlats" required min="0">
+            <input type="number" id="numFlats" name="numFlats" class="form-control" [(ngModel)]="newCommunity.numFlats"
+              required min="0">
           </div>
 
           <div class="mb-3">
             <label for="numparkings" class="form-label">Número de Parkings</label>
-            <input type="number" id="numparkings" name="numparkings" class="form-control" [(ngModel)]="newCommunity.numparkings" required min="0">
+            <input type="number" id="numparkings" name="numparkings" class="form-control"
+              [(ngModel)]="newCommunity.numparkings" required min="0">
           </div>
 
           <div class="mb-3">
             <label for="numStorageRooms" class="form-label">Número de Trasteros</label>
-            <input type="number" id="numStorageRooms" name="numStorageRooms" class="form-control" [(ngModel)]="newCommunity.numStorageRooms" required min="0">
+            <input type="number" id="numStorageRooms" name="numStorageRooms" class="form-control"
+              [(ngModel)]="newCommunity.numStorageRooms" required min="0">
           </div>
 
           <div class="mb-3">
             <label for="reducedMobilityAccess" class="form-label">Acceso Movilidad Reducida</label>
-            <select id="reducedMobilityAccess" name="reducedMobilityAccess" class="form-control" [(ngModel)]="newCommunity.reducedMobilityAccess">
+            <select id="reducedMobilityAccess" name="reducedMobilityAccess" class="form-control"
+              [(ngModel)]="newCommunity.reducedMobilityAccess">
               <option [ngValue]="true">Sí</option>
               <option [ngValue]="false">No</option>
             </select>
@@ -94,10 +100,11 @@
           <!-- Cuenta Bancaria (Opcional) -->
           <div class="mb-3">
             <label for="bankAccount" class="form-label">Número de Cuenta Bancaria</label>
-            <input type="text" id="bankAccount" name="bankAccount" class="form-control" [(ngModel)]="newCommunity.bankAccountNumber">
+            <input type="text" id="bankAccount" name="bankAccount" class="form-control"
+              [(ngModel)]="newCommunity.bankAccountNumber">
           </div>
           <div *ngIf="isLoading" class="spinner-border text-primary" role="status">
-          <span class="sr-only">Cargando...</span>
+            <span class="sr-only">Cargando...</span>
           </div>
           <button type="submit" class="btn btn-primary">Guardar</button>
         </form>
@@ -111,26 +118,46 @@
 <div class="modal fade" id="modalCommunityDetails" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg">
     <div class="modal-content">
-      
+
       <div class="modal-header">
-        <h5 class="modal-title" id="modalLabel">Detalles de la Comunidad</h5>
-        <button type="button" class="btn-close" (click)="cerrarModal('modalCommunityDetails')" aria-label="Cerrar"></button>
+        <h5 class="modal-title" id="modalLabel">
+          Detalles de la Comunidad
+        </h5>
+        <button type="button" class="btn-close" (click)="cerrarModal('modalCommunityDetails')"
+          aria-label="Cerrar"></button>
       </div>
-      
+
       <div class="modal-body">
         <div *ngIf="selectedCommunity">
           <div class="card">
-            <div class="card-body">
-              <h5 class="card-title">{{ selectedCommunity.address }}</h5>
-              <p class="card-text"><strong>Código Postal:</strong> {{ selectedCommunity.postalCode }}</p>
-              <p class="card-text"><strong>Ascensor:</strong> {{ selectedCommunity.elevator ? 'Sí' : 'No' }}</p>
 
-               <!-- Añadimos los botones "Ver" a continuación de los campos -->
+            <div class="card-body">
+              <h5 class="card-title">
+                <span *ngIf="!isEditMode">{{ selectedCommunity.address }}</span>
+                <input *ngIf="isEditMode" [(ngModel)]="selectedCommunity.address" class="form-control" />
+              </h5>
+
+              <p class="card-text">
+                <strong>Código Postal:</strong>
+                <span *ngIf="!isEditMode">{{ selectedCommunity.postalCode }}</span>
+                <input *ngIf="isEditMode" [(ngModel)]="selectedCommunity.postalCode" class="form-control" />
+              </p>
+
+              <p class="card-text">
+                <strong>Ascensor:</strong>
+                <span *ngIf="!isEditMode">{{ selectedCommunity.elevator ? 'Sí' : 'No' }}</span>
+                <select *ngIf="isEditMode" [(ngModel)]="selectedCommunity.elevator" class="form-control">
+                  <option [ngValue]="true">Sí</option>
+                  <option [ngValue]="false">No</option>
+                </select>
+              </p>
+
+              <!-- Añadimos los botones "Ver" a continuación de los campos -->
               <div class="d-flex justify-content-between">
                 <span><strong>Nº Viviendas:</strong> {{ selectedCommunity.numFlats }}</span>
                 <button class="btn btn-outline-info btn-sm" (click)="verMasDetalles('flats')">Ver</button>
               </div>
-              
+
               <div class="d-flex justify-content-between">
                 <span><strong>Parkings:</strong> {{ selectedCommunity.numparkings }}</span>
                 <button class="btn btn-outline-info btn-sm" (click)="verMasDetalles('parkings')">Ver</button>
@@ -140,18 +167,32 @@
                 <span><strong>Trasteros:</strong> {{ selectedCommunity.numStorageRooms }}</span>
                 <button class="btn btn-outline-info btn-sm" (click)="verMasDetalles('trasteros')">Ver</button>
               </div>
-              
-              <p class="card-text"><strong>Acceso movilidad reducida:</strong> {{ selectedCommunity.reducedMobilityAccess ? 'Sí' : 'No' }}</p>
-              <p class="card-text"><strong>Número de cuenta:</strong> {{ selectedCommunity.bankAccountNumber }}</p>
+
+              <p class="card-text">
+                <strong>Acceso movilidad reducida:</strong> 
+                <span *ngIf="!isEditMode">{{ selectedCommunity.reducedMobilityAccess ? 'Sí' : 'No' }}</span>
+                <select *ngIf="isEditMode" [(ngModel)]="selectedCommunity.reducedMobilityAccess" class="form-control">
+                  <option [ngValue]="true">Sí</option>
+                  <option [ngValue]="false">No</option>
+                </select>
+               </p>
+              <p class="card-text">
+                <strong>Número de cuenta:</strong>
+                <span *ngIf="!isEditMode">{{ selectedCommunity.bankAccountNumber }}</span>
+                <input *ngIf="isEditMode" [(ngModel)]="selectedCommunity.bankAccountNumber" class="form-control" />
+              </p>
             </div>
           </div>
         </div>
       </div>
 
       <div class="modal-footer">
+        <button *ngIf="isEditMode" class="btn btn-success" (click)="saveChanges()">Guardar cambios</button>
+        <button class="btn btn-outline-primary btn-sm" (click)="isEditMode = !isEditMode">
+          {{ isEditMode ? 'Cancelar' : 'Editar' }}
+        </button>
         <button type="button" class="btn btn-secondary" (click)="cerrarModal('modalCommunityDetails')">Cerrar</button>
       </div>
     </div>
   </div>
 </div>
-

@@ -23,6 +23,8 @@ export class CommunitiesComponent implements OnInit {
   filtro = '';
   selectedCommunity?: Community;
   isLoading: boolean = false;
+  isEditMode: boolean = false;
+
   
 
   constructor(private communityService: CommunityService, private router: Router) { }
@@ -132,6 +134,25 @@ verMasDetalles(tipo: string) {
   } else if (tipo === 'trasteros') {
     this.cerrarModal('modalCommunityDetails'); 
     this.router.navigate(['/properties/storageroom', this.selectedCommunity?.id], {state: { communityName: this.selectedCommunity?.address }});
+  }
+}
+
+
+saveChanges(): void{
+  if (this.selectedCommunity && this.selectedCommunity.id){
+    this.communityService.updateCommunity(this.selectedCommunity.id, this.selectedCommunity).subscribe({
+      next:(updatedCommunity) => {
+        console.log('Comunidad actualizada:', updatedCommunity);
+        this.selectedCommunity = updatedCommunity;
+        this.isEditMode = false;
+
+      },
+      error: (e) => {
+        console.error('Error al actualizar la comunidad', e);
+      }
+    });
+  }else {
+    console.error('No se puede actualizar la comunidad: ID no disponible');
   }
 }
 
