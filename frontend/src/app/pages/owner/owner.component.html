@@ -8,19 +8,44 @@
   <!-- Lista de propietarios -->
   <!-- <div *ngIf="owners.length > 0; else noOwners"> -->
     <div class="list-group">
-      <div class="list-group-item list-group-item-action" *ngFor="let owner of owners">
-        <div class="d-flex w-100 justify-content-between">
-          <h5 class="mb-1">{{ owner.name }} {{ owner.surname }}</h5>
-          <small>{{ owner.propertiesCount }} properties</small>
-        </div>
-        <p class="mb-1">DNI: {{ owner.dni }}</p>
-        <p class="mb-1">Email: {{ owner.email }}</p>
-        <p class="mb-1">Phone: {{ owner.phone }}</p>
-        <p class="mb-1">Fecha Nacimiento: {{ owner.birthDate | date:'dd-MM-yyyy' }}</p>
-        <p class="mb-1">Bank Account: {{ owner.bankAccountNumber }}</p>
-        <button class="btn btn-sm btn-outline-primary mt-2" (click)="viewOwnerProperties(owner.id)">Ver Propiedades</button>
+    <div class="list-group-item list-group-item-action" *ngFor="let owner of owners">
+      <div class="d-flex w-100 justify-content-between">
+        <h5 class="mb-1">
+          <span *ngIf="!owner.isEditMode">{{ owner.name }} {{ owner.surname }}</span>
+          <input *ngIf="owner.isEditMode" [(ngModel)]="owner.name" placeholder="Name" />
+          <input *ngIf="owner.isEditMode" [(ngModel)]="owner.surname" placeholder="Surname" />
+        </h5>
+        <small>{{ owner.propertiesCount }} properties</small>
       </div>
+
+      <p class="mb-1">DNI: 
+        <span *ngIf="!owner.isEditMode">{{ owner.dni }}</span>
+        <input *ngIf="owner.isEditMode" [(ngModel)]="owner.dni" placeholder="DNI" />
+      </p>
+      <p class="mb-1">Email: 
+        <span *ngIf="!owner.isEditMode">{{ owner.email }}</span>
+        <input *ngIf="owner.isEditMode" [(ngModel)]="owner.email" placeholder="Email" />
+      </p>
+      <p class="mb-1">Phone: 
+        <span *ngIf="!owner.isEditMode">{{ owner.phone }}</span>
+        <input *ngIf="owner.isEditMode" [(ngModel)]="owner.phone" placeholder="Phone" />
+      </p>
+      <p class="mb-1">Fecha Nacimiento: 
+        <span *ngIf="!owner.isEditMode">{{ owner.birthDate | date:'dd-MM-yyyy' }}</span>
+        <input *ngIf="owner.isEditMode" type="date" [(ngModel)]="owner.birthDate" />
+      </p>
+      <p class="mb-1">Bank Account: 
+        <span *ngIf="!owner.isEditMode">{{ owner.bankAccountNumber }}</span>
+        <input *ngIf="owner.isEditMode" [(ngModel)]="owner.bankAccountNumber" placeholder="Bank Account" />
+      </p>
+
+      <button *ngIf="!owner.isEditMode" class="btn btn-sm btn-outline-primary mt-2" (click)="viewOwnerProperties(owner.id)">Ver Propiedades</button>
+      <button *ngIf="!owner.isEditMode" class="btn btn-sm btn-outline-secondary mt-2" (click)="owner.isEditMode = true">Editar</button>
+      <button *ngIf="owner.isEditMode" class="btn btn-sm btn-success mt-2" (click)="saveChanges(owner)">Guardar</button>
+      <button *ngIf="owner.isEditMode" class="btn btn-sm btn-warning mt-2" (click)="owner.isEditMode = false">Cancelar</button>
     </div>
+  </div>
+</div>
   <!-- </div> -->
 
   <!-- Template alternativo si no hay propietarios -->

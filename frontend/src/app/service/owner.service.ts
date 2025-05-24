@@ -19,6 +19,10 @@ export class OwnerService {
   getPropertiesByOwner(ownerId: number): Observable<any[]> {
     return this.http.get<any[]>(`${this.apiUrl}/${ownerId}/properties`);
   }
+
+  updateOwnerByID(ownerId: number, updateOwner: Owner): Observable<Owner> {
+    return this.http.put<Owner>(`${this.apiUrl}/dto/${ownerId}`, updateOwner );
+  }
     
    
 }

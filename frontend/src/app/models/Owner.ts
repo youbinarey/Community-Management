@@ -1,4 +1,5 @@
 export interface Owner {
+isEditMode: any;
   id: number;
   dni: string;
   name: string;

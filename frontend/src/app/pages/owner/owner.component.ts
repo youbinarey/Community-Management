@@ -3,10 +3,11 @@ import { Owner } from '../../models/Owner';
 import { OwnerService } from '../../service/owner.service';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { Modal } from 'bootstrap'; // Import Bootstrap Modal
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-owner',
-  imports: [NgIf, NgFor, CommonModule],
+  imports: [NgIf, NgFor, CommonModule, FormsModule],
   templateUrl: './owner.component.html',
   styleUrl: './owner.component.scss'
 })
@@ -49,5 +50,16 @@ export class OwnerComponent implements OnInit {
     const modalElement = document.getElementById('propertiesModal');
     const modal = Modal.getInstance(modalElement!);
     modal?.hide();
+  }
+
+  saveChanges(owner: Owner): void {
+    this.ownerService.updateOwnerByID(owner.id, owner).subscribe({
+      next: (updatedOwner) => {
+        Object.assign(owner, updatedOwner); // Actualiza los datos en la lista
+        owner.isEditMode = false; // Vuelve a modo visualización
+        console.log('Propietario actualizado:', updatedOwner);
+      },
+      error: (error) => console.error('Error al actualizar propietario:', error)
+    });
   }
 }
