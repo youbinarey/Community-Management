@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Owner } from '../../models/Owner';
 import { OwnerService } from '../../service/owner.service';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
+import { Modal } from 'bootstrap'; // Import Bootstrap Modal
 
 @Component({
   selector: 'app-owner',
@@ -10,10 +11,10 @@ import { CommonModule, NgFor, NgIf } from '@angular/common';
   styleUrl: './owner.component.scss'
 })
 export class OwnerComponent implements OnInit {
-viewOwnerDetails(_t12: Owner) {
-throw new Error('Method not implemented.');
-}
+
   owners: Owner[] = [];
+  ownerProperties: any[] = [];
+  selectedOwner: Owner | null = null;
 
   constructor(private ownerService: OwnerService) { }
 
@@ -23,6 +24,30 @@ throw new Error('Method not implemented.');
     });   
   }
 
-  // Additional methods and properties can be added as needed
+  viewOwnerProperties(ownerId: number): void {
+    this.selectedOwner = this.owners.find(owner => owner.id === ownerId) || null;
+    this.ownerService.getPropertiesByOwner(ownerId).subscribe({
+      next: (data: any) => {
+        this.ownerProperties = data;
+        this.openPropertiesModal();
+      },
+      error: (error: any) => {
+        console.error('Error fetching properties for owner:', error);
+      }
+    });
+  }
 
+
+  openPropertiesModal(): void {
+    const modalElement = document.getElementById('propertiesModal');
+    const modal = new Modal(modalElement!);
+    modal.show(); 
+  
+  }
+
+  closePropertiesModal(): void{
+    const modalElement = document.getElementById('propertiesModal');
+    const modal = Modal.getInstance(modalElement!);
+    modal?.hide();
+  }
 }

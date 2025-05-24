@@ -15,6 +15,10 @@ export class OwnerService {
   getAllOwners(): Observable<Owner[]> {
     return this.http.get<Owner[]>(`${this.apiUrl}/dto`);
   }
+
+  getPropertiesByOwner(ownerId: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.apiUrl}/${ownerId}/properties`);
+  }
     
    
 }

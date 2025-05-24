@@ -18,7 +18,7 @@
         <p class="mb-1">Phone: {{ owner.phone }}</p>
         <p class="mb-1">Fecha Nacimiento: {{ owner.birthDate | date:'dd-MM-yyyy' }}</p>
         <p class="mb-1">Bank Account: {{ owner.bankAccountNumber }}</p>
-        <button class="btn btn-sm btn-outline-primary mt-2" (click)="viewOwnerDetails(owner)">Ver Propiedades</button>
+        <button class="btn btn-sm btn-outline-primary mt-2" (click)="viewOwnerProperties(owner.id)">Ver Propiedades</button>
       </div>
     </div>
   </div>
@@ -30,3 +30,53 @@
     </div>
   </ng-template>
 </div>
+
+<!-- MODAL PARA VER PROPIEDADES -->
+<div class="modal fade" id="propertiesModal" tabindex="-1" aria-labelledby="propertiesModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title" id="propertiesModalLabel">Propiedades de {{ selectedOwner?.name }}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body">
+        <div *ngIf="(ownerProperties?.length ?? 0) > 0; else noProperties">
+          <div class="row">
+            <div class="col-md-4" *ngFor="let property of ownerProperties">
+              <div class="card mb-3">
+                <div class="card-body">
+                   <!-- Verificar el tipo de propiedad y mostrar el nombre adecuado -->
+                  <h5 class="card-title">
+                    <!-- Verificar si es Vivienda, Trastero o Garaje -->
+                    <span *ngIf="property.floorNumber">Vivienda</span>
+                    <span *ngIf="property.storageNumber">Trastero</span>
+                    <span *ngIf="property.num">Plaza de Garaje</span>
+                  </h5>
+                  <p class="card-text">Referencia catastral: {{ property.cadastralReference }}</p>
+                  <p class="card-text">Tamaño: {{ property.squareMeters }} m²</p>
+                  <p class="card-text" *ngIf="property.floorNumber">Piso: {{ property.floorNumber }}</p>
+                  <p class="card-text" *ngIf="property.letter">Puerta: {{ property.letter }}</p>
+                  <p class="card-text" *ngIf="property.roomCount">Habitaciones: {{ property.roomCount }}</p>
+                  <p class="card-text" *ngIf="property.roomCount">Baños: {{ property.bathroomCount }}</p>
+                  <p class="card-text" *ngIf="property.storageNumber">Número de Trastero: {{ property.storageNumber }}</p>
+                  <p class="card-text" *ngIf="property.num">Plaza número: {{ property.num }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+        <ng-template #noProperties>
+          <p>No hay propiedades para este propietario.</p>
+        </ng-template>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
