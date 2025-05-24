@@ -127,8 +127,14 @@ cerrarModal(modalId: string): void {
 //PISOS VER
 verMasDetalles(tipo: string) {
   if(tipo === 'flats'){
-    this.cerrarModal('modalCommunityDetails'); // Cerrar el modal de detalles de la comunidad
+    this.cerrarModal('modalCommunityDetails');
     this.router.navigate(['/properties/flat', this.selectedCommunity?.id], {state: { communityName: this.selectedCommunity?.address }});
+  } else if (tipo === 'parkings') {
+    this.cerrarModal('modalCommunityDetails'); 
+    this.router.navigate(['/properties/parking', this.selectedCommunity?.id], {state: { communityName: this.selectedCommunity?.address }});
+  } else if (tipo === 'trasteros') {
+    this.cerrarModal('modalCommunityDetails'); 
+    this.router.navigate(['/properties/storageroom', this.selectedCommunity?.id], {state: { communityName: this.selectedCommunity?.address }});
   }
 }
 
