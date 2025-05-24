@@ -19,7 +19,7 @@
         <th>Dirección</th>
         <th>Código Postal</th>
         <th>Nº Propiedades</th>
-        <th>Acciones</th>
+        <th>Más info</th>
       </tr>
     </thead>
     <tbody>
@@ -144,15 +144,18 @@
               <h5 class="card-title">{{ selectedCommunity.address }}</h5>
               <p class="card-text"><strong>Código Postal:</strong> {{ selectedCommunity.postalCode }}</p>
               <p class="card-text"><strong>Ascensor:</strong> {{ selectedCommunity.elevator ? 'Sí' : 'No' }}</p>
+
                <!-- Añadimos los botones "Ver" a continuación de los campos -->
               <div class="d-flex justify-content-between">
                 <span><strong>Nº Viviendas:</strong> {{ selectedCommunity.numFlats }}</span>
-                <button class="btn btn-outline-info btn-sm" (click)="verMasDetalles('viviendas')">Ver</button>
+                <button class="btn btn-outline-info btn-sm" (click)="verMasDetalles('flats')">Ver</button>
               </div>
+              
               <div class="d-flex justify-content-between">
                 <span><strong>Parkings:</strong> {{ selectedCommunity.numparkings }}</span>
                 <button class="btn btn-outline-info btn-sm" (click)="verMasDetalles('parkings')">Ver</button>
               </div>
+
               <div class="d-flex justify-content-between">
                 <span><strong>Trasteros:</strong> {{ selectedCommunity.numStorageRooms }}</span>
                 <button class="btn btn-outline-info btn-sm" (click)="verMasDetalles('trasteros')">Ver</button>
