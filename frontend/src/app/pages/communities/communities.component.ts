@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { CommunityService } from '../../service/community.service';
 import { Community } from '../../models/Community';
 import { Modal } from 'bootstrap';
+import { Router } from '@angular/router';
 
 
 
@@ -16,9 +17,7 @@ import { Modal } from 'bootstrap';
 
 
 export class CommunitiesComponent implements OnInit {
-verMasDetalles(arg0: string) {
-throw new Error('Method not implemented.');
-}
+
 
   communities: Community[] = [];
   filtro = '';
@@ -27,7 +26,7 @@ throw new Error('Method not implemented.');
   isLoading: boolean = false;
   
 
-  constructor(private communityService: CommunityService) { }
+  constructor(private communityService: CommunityService, private router: Router) { }
 
   ngOnInit(): void {
     this.getCommunities();
@@ -121,6 +120,15 @@ cerrarModal(modalId: string): void {
   const modalInstance = Modal.getInstance(modal); // Obtener la instancia del modal
   if (modalInstance) {
     modalInstance.hide(); // Cerrar el modal
+  }
+}
+
+
+//PISOS VER
+verMasDetalles(tipo: string) {
+  if(tipo === 'flats'){
+    this.cerrarModal('modalCommunityDetails'); // Cerrar el modal de detalles de la comunidad
+    this.router.navigate(['/properties/flat', this.selectedCommunity?.id], {state: { communityName: this.selectedCommunity?.address }});
   }
 }
 
