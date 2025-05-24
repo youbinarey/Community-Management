@@ -7,5 +7,7 @@ public interface PropertyService {
        List<Property> getAllProperties();
         boolean existsByCadastralReference(String ref);
         void deleteProperty(Long id);
+        
+       
 
 }

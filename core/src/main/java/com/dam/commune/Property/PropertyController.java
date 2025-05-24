@@ -61,7 +61,6 @@ public ResponseEntity<Void> deleteProperty(@PathVariable Long id) {
 public ResponseEntity<List<FlatDTO>> getAllFlats() {
     List<Flat> flats = flatRepository.findAll();  // Obtener todos los flats de la base de datos
 
-    // Convertir cada Flat a un FlatDTO
     List<FlatDTO> flatDTOs = flats.stream().map(flat -> new FlatDTO(
             flat.getId(),
             flat.getCadastralReference(),
@@ -108,6 +107,38 @@ public ResponseEntity<FlatDTO> createFlat(@RequestBody FlatDTO flatDTO) {
     return ResponseEntity.status(HttpStatus.CREATED).body(FlatMapper.toDTO(savedFlat));
 }
 
+@GetMapping("parking/community/{communityId}")
+public ResponseEntity<List<Parking>> getParkingsByCommunity(@PathVariable Long communityId) {
+    // Buscar la comunidad por su ID
+    Community community = communityRepository.findById(communityId)
+        .orElse(null);
+    if (community == null) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null); 
+    }
+    List<Parking> parkings = parkingRepository.findByCommunity(community);
+
+    return ResponseEntity.ok(parkings);
+
+    }
+
+@GetMapping("storageroom/community/{communityId}")
+public ResponseEntity<List<StorageRoom>> getStorageRoomsByCommunity(@PathVariable Long communityId) {
+    // Buscar la comunidad por su ID
+    Community community = communityRepository.findById(communityId)
+        .orElse(null);
+    if (community == null) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null); 
+    }
+    List<StorageRoom> storageRooms = storageRoomRepository.findByCommunity(community);
+
+    return ResponseEntity.ok(storageRooms);
+    }
+
+
+
+
+
+
 @GetMapping("/flat/community/{communityId}")
 public ResponseEntity<List<FlatDTO>> getFlatsByCommunity(@PathVariable Long communityId) {
     // Buscar la comunidad por su ID
@@ -134,7 +165,7 @@ public ResponseEntity<List<FlatDTO>> getFlatsByCommunity(@PathVariable Long comm
             flat.getOwner() != null ? flat.getOwner().getName() : null
     )).collect(Collectors.toList());
 
-    return ResponseEntity.ok(flatDTOs);  // Retorna la lista de FlatDTOs con el estado 200 OK
+    return ResponseEntity.ok(flatDTOs); 
 }
 
 
@@ -168,6 +199,22 @@ public ResponseEntity<List<FlatDTO>> getFlatsByCommunity(@PathVariable Long comm
     // CRUD para parking
     // -----------------------------
 
+
+    // @GetMapping("/parking/dto")
+    // public List<Parking> getAllParkingsDTO() {
+    //     return parkingRepository.findAll().stream()
+    //             .map(parking -> new Parking(
+    //                     parking.getId(),
+    //                     parking.getNum(),
+    //                     parking.getCommunity() != null ? parking.getCommunity().getAddress() : null,
+    //                     parking.getOwner() != null ? parking.getOwner().getName() : null
+    //             )).collect(Collectors.toList());
+    // }
+
+    public String getMethodName(@RequestParam String param) {
+        return new String();
+    }
+    
     @PostMapping("/parking")
     public ResponseEntity<Parking> createparking(@RequestBody Parking parking) {
         return ResponseEntity.status(HttpStatus.CREATED).body(parkingRepository.save(parking));
