@@ -23,6 +23,7 @@ import java.util.stream.Collectors;
 @RestController
 @RequestMapping("/properties")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:4200")
 public class PropertyController {
 
     private final PropertyService propertyService;
@@ -80,7 +81,7 @@ public ResponseEntity<FlatDTO> createFlat(@RequestBody FlatDTO flatDTO) {
     Flat flat = new Flat(); // Crear un objeto Flat vacío
 
     // Mapear el DTO a la entidad Flat
-    flat.setCadastralReference(flatDTO.getCadastastralReference());
+    flat.setCadastralReference(flatDTO.getCadastralReference());
     flat.setSquareMeters(flatDTO.getSquareMeters());
     flat.setFloorNumber(flatDTO.getFloorNumber());
     flat.setLetter(flatDTO.getLetter());
@@ -88,7 +89,7 @@ public ResponseEntity<FlatDTO> createFlat(@RequestBody FlatDTO flatDTO) {
     flat.setBathroomCount(flatDTO.getBathroomCount());
 
 
-    Community community = communityRepository.findByAddress(flatDTO.getComunityName());
+    Community community = communityRepository.findByAddress(flatDTO.getCommunityName());
     if (community != null) {
         flat.setCommunity(community);
     }
@@ -104,11 +105,40 @@ public ResponseEntity<FlatDTO> createFlat(@RequestBody FlatDTO flatDTO) {
     return ResponseEntity.status(HttpStatus.CREATED).body(FlatMapper.toDTO(savedFlat));
 }
 
+@GetMapping("/flat/community/{communityId}")
+public ResponseEntity<List<FlatDTO>> getFlatsByCommunity(@PathVariable Long communityId) {
+    // Buscar la comunidad por su ID
+    Community community = communityRepository.findById(communityId)
+            .orElse(null); // Si no se encuentra, retornamos un valor nulo
+
+    if (community == null) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null); // Comunidad no encontrada
+    }
+
+    // Obtener los flats que pertenecen a esta comunidad
+    List<Flat> flats = flatRepository.findByCommunity(community);
+
+    // Mapear los Flats a FlatDTO
+    List<FlatDTO> flatDTOs = flats.stream().map(flat -> new FlatDTO(
+            flat.getId(),
+            flat.getCadastralReference(),
+            flat.getSquareMeters(),
+            flat.getFloorNumber(),
+            flat.getLetter(),
+            flat.getRoomCount(),
+            flat.getBathroomCount(),
+            flat.getCommunity() != null ? flat.getCommunity().getAddress() : null,
+            flat.getOwner() != null ? flat.getOwner().getName() : null
+    )).collect(Collectors.toList());
+
+    return ResponseEntity.ok(flatDTOs);  // Retorna la lista de FlatDTOs con el estado 200 OK
+}
+
 
     @GetMapping("/flat/{id}")
     public ResponseEntity<FlatDTO> getFlat(@PathVariable Long id) {
     return flatRepository.findById(id)
-            .map(flat -> ResponseEntity.ok(FlatMapper.toDTO(flat))) // Convertimos la entidad a DTO antes de devolverla
+            .map(flat -> ResponseEntity.ok(FlatMapper.toDTO(flat)))
             .orElse(ResponseEntity.notFound().build());
 }
 

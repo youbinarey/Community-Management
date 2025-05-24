@@ -11,7 +11,7 @@ public class FlatMapper {
         }
         FlatDTO flatDTO = new FlatDTO();
         flatDTO.setId(flat.getId());
-        flatDTO.setCadastastralReference(flat.getCadastralReference());
+        flatDTO.setCadastralReference(flat.getCadastralReference());
         flatDTO.setSquareMeters(flat.getSquareMeters());
         flatDTO.setFloorNumber(flat.getFloorNumber());
         flatDTO.setLetter(flat.getLetter());
@@ -20,7 +20,7 @@ public class FlatMapper {
         
         Community community = flat.getCommunity();
         if(community != null) {
-            flatDTO.setComunityName(community.getAddress());
+            flatDTO.setCommunityName(community.getAddress());
         }
 
         Owner owner = flat.getOwner();
