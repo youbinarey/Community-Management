@@ -22,7 +22,6 @@ export class CommunitiesComponent implements OnInit {
   communities: Community[] = [];
   filtro = '';
   selectedCommunity?: Community;
-  showProperties: boolean = false;
   isLoading: boolean = false;
   
 
@@ -60,9 +59,7 @@ export class CommunitiesComponent implements OnInit {
   });
 }
 
-  toggleProperties(): void {
-    this.showProperties = !this.showProperties;
-  }
+
 
 
 

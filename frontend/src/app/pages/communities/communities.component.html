@@ -36,26 +36,6 @@
   </table>
 </div>
 
-<div *ngIf="selectedCommunity" class="card mt-4 p-3 shadow-sm">
-  <h4>Detalles de la comunidad</h4>
-  <p><strong>Dirección:</strong> {{ selectedCommunity.address }}</p>
-  <p><strong>Código Postal:</strong> {{ selectedCommunity.postalCode }}</p>
-  <p><strong>Ascensor:</strong> {{ selectedCommunity.elevator ? 'Sí' : 'No' }}</p>
-  <p><strong>Nº Plantas:</strong> {{ selectedCommunity.numFlats }}</p>
-  <p><strong>Parkings:</strong> {{ selectedCommunity.numparkings }}</p>
-  <p><strong>Trasteros:</strong> {{ selectedCommunity.numStorageRooms }}</p>
-  <p><strong>Acceso movilidad reducida:</strong> {{ selectedCommunity.reducedMobilityAccess ? 'Sí' : 'No' }}</p>
-  <p><strong>Número de cuenta:</strong> {{ selectedCommunity.bankAccountNumber }}</p>
-
-  <button class="btn btn-outline-primary mt-3" (click)="toggleProperties()">
-    {{ showProperties ? 'Ocultar propiedades' : 'Ver propiedades' }}
-  </button>
-
-  <div *ngIf="showProperties" class="mt-3">
-    <h5>Propiedades</h5>
-    <p>(Aquí podrías listar las propiedades si las incluyes más adelante)</p>
-  </div>
-</div>
 
 
 <!-- MODAL DE NUEVA COMUNIDAD -->
