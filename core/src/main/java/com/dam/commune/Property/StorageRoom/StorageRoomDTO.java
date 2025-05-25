@@ -16,4 +16,6 @@ public class StorageRoomDTO {
     private int storageNumber;
     private String communityName;
     private String ownerName;
+    private String ownerDni;
+
 }

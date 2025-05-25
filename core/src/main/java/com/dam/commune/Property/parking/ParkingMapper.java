@@ -13,7 +13,6 @@ public class ParkingMapper {
         parkingDTO.setCadastralReference(parking.getCadastralReference());
         parkingDTO.setSquareMeters(parking.getSquareMeters());
         parkingDTO.setNum(parking.getNum());
-        parkingDTO.setCommunityName(parking.getCommunity() != null ? parking.getCommunity().getAddress() : null);
         
          Community community = parking.getCommunity();
         if(community != null) {

@@ -16,4 +16,6 @@ public class ParkingDTO {
     private int num;
     private String communityName;
     private String ownerName;
+    private String ownerDni;
+
 }

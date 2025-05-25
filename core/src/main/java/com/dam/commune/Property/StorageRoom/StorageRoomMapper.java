@@ -10,8 +10,10 @@ public class StorageRoomMapper {
             return null;
         }
         StorageRoomDTO storageRoomDTO = new StorageRoomDTO();
+        storageRoomDTO.setId(storageRoom.getId());
+        storageRoomDTO.setCadastralReference(storageRoom.getCadastralReference());
+        storageRoomDTO.setSquareMeters(storageRoom.getSquareMeters());
         storageRoomDTO.setStorageNumber(storageRoom.getStorageNumber());
-        storageRoomDTO.setCommunityName(storageRoom.getCommunity() != null ? storageRoom.getCommunity().getAddress() : null);
         
          Community community = storageRoom.getCommunity();
         if(community != null) {
