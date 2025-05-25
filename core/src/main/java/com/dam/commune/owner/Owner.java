@@ -52,7 +52,7 @@ public class Owner {
     private BankAccount bankAccount;
 
     @Builder.Default
-    @OneToMany(mappedBy = "owner")
+    @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Property> properties = new ArrayList<>();
 
 }

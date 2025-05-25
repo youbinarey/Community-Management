@@ -1,0 +1,28 @@
+/* Reducir el espacio general entre tarjetas */
+.modal-body .row {
+  margin: 0; /* Elimina márgenes automáticos de las filas */
+}
+
+.modal-body .col-md-4 {
+  padding: 5px; /* Reduce el padding alrededor de cada columna */
+}
+
+.modal-body .card {
+  margin-bottom: 5px; /* Reduce el espacio entre tarjetas */
+}
+
+.modal-body .card-body {
+  padding: 8px; /* Reduce el espacio dentro de cada tarjeta */
+}
+
+.modal-body .card-title {
+  margin-bottom: 4px; /* Reduce espacio debajo del título */
+}
+
+.modal-body .card-text {
+  margin-bottom: 2px; /* Reduce espacio entre líneas de texto */
+}
+
+.modal-body {
+  padding: 10px; /* Reduce espacio general del contenido del modal */
+}

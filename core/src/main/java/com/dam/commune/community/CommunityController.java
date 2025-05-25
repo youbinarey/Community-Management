@@ -3,6 +3,7 @@ package com.dam.commune.community;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,8 +13,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping("/communities")
+@CrossOrigin(origins = "http://localhost:4200")
 public class CommunityController {
 
     private final CommunityService communityService;
@@ -39,6 +43,13 @@ public class CommunityController {
         return ResponseEntity.ok(communityService.save(community));
     }
 
+    @PostMapping("/dto")
+    public ResponseEntity<?> createFromDTO(@RequestBody @Valid CommunityDTO communityDTO) {
+        
+        Community community = communityService.saveCommunityFromDTO(communityDTO);
+        return ResponseEntity.ok(community);
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<Community> update(@PathVariable Long id, @RequestBody Community updated) {
         return communityService.findById(id)
@@ -61,5 +72,25 @@ public class CommunityController {
     public List<CommunityDTO> getAllCommunityDTOs() {
         return communityService.findAllDTOs();
     }
+
+    @GetMapping("/dto/{id}/detail")
+public ResponseEntity<CommunityDTO> getDetailedDTO(@PathVariable Long id) {
+    return communityService.findById(id)
+            .map(CommunityMapper::toDetailedDTO)
+            .map(ResponseEntity::ok)
+            .orElse(ResponseEntity.notFound().build());
+}
+
+
+/**
+ * Endopint to update a community using a DTO.
+ * 
+ */
+@PutMapping("/dto/{id}")
+public ResponseEntity<CommunityDTO> updateFromDTO(@PathVariable Long id, @RequestBody @Valid CommunityDTO communityDTO) {
+    CommunityDTO updatedDTO = communityService.updaCommunityDTO(id, communityDTO);
+    return ResponseEntity.ok(updatedDTO);
+
+}
 
 }

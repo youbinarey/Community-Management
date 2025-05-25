@@ -29,14 +29,14 @@ public class Community {
     private Long id;
 
     private String address;
-
+    
     @Column(name = "postal_code")
     private String postalCode;
 
     private boolean elevator;
 
-    @Column(name = "num_floors", nullable = false)
-    private int numFloors;
+    @Column(name = "num_flats", nullable = false)
+    private int numFlats;
 
     @Column(name = "num_parkings", nullable = false)
     private int numparkings;
@@ -55,6 +55,11 @@ public class Community {
     @OneToMany(mappedBy = "community", cascade = CascadeType.ALL, orphanRemoval = true)
     @Builder.Default
     private List<Property> properties = new ArrayList<>();
+
+    public Community orElseThrow(Object object) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'orElseThrow'");
+    }
 
  
 }

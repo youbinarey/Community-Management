@@ -13,6 +13,9 @@ public interface CommunityService {
     boolean deleteIfExists(Long id);
 
     List<CommunityDTO> findAllDTOs();
+    Community saveCommunityFromDTO(CommunityDTO communityDTO);
+
+    CommunityDTO updaCommunityDTO(Long id, CommunityDTO communityDTO);
 
     
 }

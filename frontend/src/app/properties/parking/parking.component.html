@@ -1,0 +1,28 @@
+<div class="parkings-list">
+  <h2>Lista de Parkings en Comunidad: {{ this.communityName }}</h2>
+
+  <!-- Tabla de Parkings -->
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Referencia Catastral</th>
+        <th>Metros Cuadrados</th>
+        <th>Número de Parking</th>
+        <th>Comunidad</th>
+        <th>Propietario</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Recorremos los Parkings y los mostramos en cada fila -->
+      <tr *ngFor="let parking of parkings">
+        <td>{{ parking.id }}</td>
+        <td>{{ parking.cadastralReference }}</td>
+        <td>{{ parking.squareMeters }}</td>
+        <td>{{ parking.num }}</td>
+        <td>{{ parking.communityName }}</td>
+        <td>{{ parking.ownerName }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -3,6 +3,7 @@ package com.dam.commune.owner;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,18 +13,40 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.dam.commune.property.Property;
+
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @RestController
 @RequestMapping("/owner")
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:4200")
 public class OwnerController {
     private final OwnerService ownerService;
+    
 
     @GetMapping
     public List<Owner> getAll() {
         return ownerService.getAll();
     }
+
+    @GetMapping("/dto")
+    public List<OwnerDTO> getAllDTOs() {
+        return ownerService.getAllDTOs();
+    }
+
+    @GetMapping("/dto/{id}")
+    public ResponseEntity<OwnerDTO> getOwnerById(@PathVariable Long id) {
+        return ownerService.getOwnerDTOById(id)
+                .map(ResponseEntity::ok)
+                .orElse(ResponseEntity.notFound().build());
+    }
+    
+    
+        
+             
 
     @GetMapping("/{id}")
     public ResponseEntity<Owner> getById(@PathVariable Long id) {
@@ -48,11 +71,21 @@ public class OwnerController {
         return ResponseEntity.ok(ownerService.update(id, owner));
     }
 
+    @PutMapping("/dto/{id}")
+    public ResponseEntity<OwnerDTO> updateOwnerDTO(@PathVariable Long id, @RequestBody OwnerDTO ownerDTO) {
+        return ResponseEntity.ok(ownerService.updateOwnerDTO(id, ownerDTO));
+    }
+
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         return ownerService.deleteIfExists(id)
                 ? ResponseEntity.noContent().build()
                 : ResponseEntity.notFound().build();
+    }
+
+    @GetMapping("/{ownerId}/properties")
+    public List<Property> getPropertiesByOwnerId(@PathVariable Long ownerId) {
+        return ownerService.getPropertiesByOwnerId(ownerId);
     }
 
 }

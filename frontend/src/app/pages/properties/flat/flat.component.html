@@ -1,0 +1,34 @@
+<div class="flats-list">
+  <h2>Lista de Flats en Comunidad: {{ this.communityName }}</h2>
+
+  <!-- Tabla de Flats -->
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Referencia Catastral</th>
+        <th>Metros Cuadrados</th>
+        <th>Piso</th>
+        <th>Letra</th>
+        <th>Habitaciones</th>
+        <th>Baños</th>
+        <th>Comunidad</th>
+        <th>Propietario</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Recorremos los Flats y los mostramos en cada fila -->
+      <tr *ngFor="let flat of flats">
+        <td>{{ flat.id }}</td>
+        <td>{{ flat.cadastralReference }}</td>
+        <td>{{ flat.squareMeters }}</td>
+        <td>{{ flat.floorNumber }}</td>
+        <td>{{ flat.letter }}</td>
+        <td>{{ flat.roomCount }}</td>
+        <td>{{ flat.bathroomCount }}</td>
+        <td>{{ flat.communityName }}</td>
+        <td>{{ flat.ownerName }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

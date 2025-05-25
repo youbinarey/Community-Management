@@ -2,8 +2,11 @@ package com.dam.commune.owner;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.stereotype.Service;
+
+import com.dam.commune.property.Property;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +15,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class OwnerServiceImpl implements OwnerService {
     private final OwnerRepository ownerRepository;
+
+
 
 
     @Override
@@ -60,6 +65,35 @@ public boolean deleteIfExists(Long id) {
     }
     return false;
 }
+
+    @Override
+    public List<OwnerDTO> getAllDTOs() {
+        return ownerRepository.findAll().stream()
+                .map(OwnerMapper::toDTO)
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Property> getPropertiesByOwnerId(Long ownerId) {
+        Owner owner = ownerRepository.findById(ownerId)
+                .orElseThrow(() -> new EntityNotFoundException("Owner with id " + ownerId + " not found"));
+                return owner.getProperties();
+    }
+
+    @Override
+    public OwnerDTO updateOwnerDTO(Long id, OwnerDTO ownerDTO) {
+        Owner existiOwner = ownerRepository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Owner with id " + id + " not found"));
+        OwnerMapper.updateEntityFromDTO(ownerDTO, existiOwner);
+        Owner updatedOwner = ownerRepository.save(existiOwner);
+        return OwnerMapper.toDTO(updatedOwner);
+    }
+
+    @Override
+    public Optional<OwnerDTO> getOwnerDTOById(Long id) {
+        return ownerRepository.findById(id)
+                .map(OwnerMapper::toDTO);
+    }
 
 
     
