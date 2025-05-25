@@ -8,5 +8,6 @@ export interface Flat {
   roomCount: number;
   bathroomCount: number;
   communityName: string;
-  ownerName: string;
+  ownerName?: string;
+  ownerDni?: string; 
 }

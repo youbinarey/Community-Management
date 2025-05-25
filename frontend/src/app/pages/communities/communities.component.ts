@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { StorageRoom } from '../../models/StorageRoom';
 import { Parking } from '../../models/Parking';
 import { Flat } from '../../models/Flat';
+import { FlatService } from '../../service/flat.service';
 
 
 
@@ -32,9 +33,9 @@ export class CommunitiesComponent implements OnInit {
   newParking: Parking = {} as Parking;
   newStorage: StorageRoom = {} as StorageRoom;
 
-  
 
-  constructor(private communityService: CommunityService, private router: Router) { }
+
+  constructor(private communityService: CommunityService, private flatService: FlatService, private router: Router) { }
 
   ngOnInit(): void {
     this.getCommunities();
@@ -58,171 +59,193 @@ export class CommunitiesComponent implements OnInit {
 
 
   verComunidad(id: number): void {
-  this.communityService.getCommunityById(id).subscribe({
-    next: (data) => {
-      this.selectedCommunity = data;
-      console.log('Comunidad seleccionada:', this.selectedCommunity);
-      this.openModal('modalCommunityDetails'); 
-    },
-    error: (e) => console.error('Error al cargar comunidad', e)
-  });
-}
+    this.communityService.getCommunityById(id).subscribe({
+      next: (data) => {
+        this.selectedCommunity = data;
+        console.log('Comunidad seleccionada:', this.selectedCommunity);
+        this.openModal('modalCommunityDetails');
+      },
+      error: (e) => console.error('Error al cargar comunidad', e)
+    });
+  }
 
 
 
 
 
-// Crear nueva comuniad
-newCommunity: Community = {
-  id: 0,
-  address: '',
-  postalCode: '',
-  propertiesCount: 0,
-  elevator: false,
-  numFlats: 0,
-  numparkings: 0,
-  numStorageRooms: 0,
-  reducedMobilityAccess : false,
-  bankAccountNumber:''
-}
+  // Crear nueva comuniad
+  newCommunity: Community = {
+    id: 0,
+    address: '',
+    postalCode: '',
+    propertiesCount: 0,
+    elevator: false,
+    numFlats: 0,
+    numparkings: 0,
+    numStorageRooms: 0,
+    reducedMobilityAccess: false,
+    bankAccountNumber: ''
+  }
 
-//crear una nueva comunidad
+  //crear una nueva comunidad
   addCommunity(): void {
     this.isLoading = true;
     this.communityService.createCommunity(this.newCommunity).subscribe({
       next: (data) => {
         console.log('Comunidad creada:', data);
 
-        if(data){
-        this.communities.push(data); // Añadir la nueva comunidad a la lista
-        this.cerrarModal('modalNewCommunity'); // Cerrar el modal después de crear la comunidad
-        
+        if (data) {
+          this.communities.push(data); // Añadir la nueva comunidad a la lista
+          this.cerrarModal('modalNewCommunity'); // Cerrar el modal después de crear la comunidad
+
         } else {
           console.error('Error: La comunidad no se creó correctamente');
         }
 
-        this.isLoading = false; 
+        this.isLoading = false;
       },
-      error: (e) => {console.error('Error al crear comunidad', e)
-      this.isLoading = false; // Asegurarse de que isLoading se restablezca incluso si hay un error}
-    }
-  });
+      error: (e) => {
+        console.error('Error al crear comunidad', e)
+        this.isLoading = false; // Asegurarse de que isLoading se restablezca incluso si hay un error}
+      }
+    });
   }
 
 
   // Método para abrir el modal
-openModal(modalId: string):void {
-  const modal = document.getElementById(modalId);
-  if (!modal) return; // Salir si el modal no se encuentra
+  openModal(modalId: string): void {
+    const modal = document.getElementById(modalId);
+    if (!modal) return; // Salir si el modal no se encuentra
 
-  const modalInstance = new Modal(modal); // Crear una nueva instancia del modal de Bootstrap
-  modalInstance.show(); // Mostrar el modal
-}
+    const modalInstance = new Modal(modal); // Crear una nueva instancia del modal de Bootstrap
+    modalInstance.show(); // Mostrar el modal
+  }
   // Método para cerrar el modal
-cerrarModal(modalId: string): void {
-  const modal = document.getElementById(modalId);
-  if (!modal) return; // Salir si el modal no se encuentra
+  cerrarModal(modalId: string): void {
+    const modal = document.getElementById(modalId);
+    if (!modal) return; // Salir si el modal no se encuentra
 
-  const modalInstance = Modal.getInstance(modal); // Obtener la instancia del modal
-  if (modalInstance) {
-    modalInstance.hide(); // Cerrar el modal
+    const modalInstance = Modal.getInstance(modal); // Obtener la instancia del modal
+    if (modalInstance) {
+      modalInstance.hide(); // Cerrar el modal
+    }
   }
-}
 
 
-//PISOS VER
-verMasDetalles(tipo: string) {
-  if(tipo === 'flats'){
-    this.cerrarModal('modalCommunityDetails');
-    this.router.navigate(['/properties/flat', this.selectedCommunity?.id], {state: { communityName: this.selectedCommunity?.address }});
-  } else if (tipo === 'parkings') {
-    this.cerrarModal('modalCommunityDetails'); 
-    this.router.navigate(['/properties/parking', this.selectedCommunity?.id], {state: { communityName: this.selectedCommunity?.address }});
-  } else if (tipo === 'trasteros') {
-    this.cerrarModal('modalCommunityDetails'); 
-    this.router.navigate(['/properties/storageroom', this.selectedCommunity?.id], {state: { communityName: this.selectedCommunity?.address }});
+  //VER PROPIEDADES
+  verMasDetalles(tipo: string) {
+    if (tipo === 'flats') {
+      this.cerrarModal('modalCommunityDetails');
+      this.router.navigate(['/properties/flat', this.selectedCommunity?.id], { state: { communityName: this.selectedCommunity?.address } });
+    } else if (tipo === 'parkings') {
+      this.cerrarModal('modalCommunityDetails');
+      this.router.navigate(['/properties/parking', this.selectedCommunity?.id], { state: { communityName: this.selectedCommunity?.address } });
+    } else if (tipo === 'trasteros') {
+      this.cerrarModal('modalCommunityDetails');
+      this.router.navigate(['/properties/storageroom', this.selectedCommunity?.id], { state: { communityName: this.selectedCommunity?.address } });
+    }
   }
-}
 
 
-saveChanges(): void{
-  if (this.selectedCommunity && this.selectedCommunity.id){
-    this.communityService.updateCommunity(this.selectedCommunity.id, this.selectedCommunity).subscribe({
-      next:(updatedCommunity) => {
-        console.log('Comunidad actualizada:', updatedCommunity);
-        this.selectedCommunity = updatedCommunity;
-        this.isEditMode = false;
+  saveChanges(): void {
+    if (this.selectedCommunity && this.selectedCommunity.id) {
+      this.communityService.updateCommunity(this.selectedCommunity.id, this.selectedCommunity).subscribe({
+        next: (updatedCommunity) => {
+          console.log('Comunidad actualizada:', updatedCommunity);
+          this.selectedCommunity = updatedCommunity;
+          this.isEditMode = false;
 
-      },
-      error: (e) => {
-        console.error('Error al actualizar la comunidad', e);
-      }
-    });
-  }else {
-    console.error('No se puede actualizar la comunidad: ID no disponible');
+        },
+        error: (e) => {
+          console.error('Error al actualizar la comunidad', e);
+        }
+      });
+    } else {
+      console.error('No se puede actualizar la comunidad: ID no disponible');
+    }
   }
-}
 
 
   openModalFlat() {
-    this.newFlat = { 
+    this.newFlat = {
       id: 0,
-      cadastralReference: '', 
-      squareMeters: 0, 
-      floorNumber: 0, 
-      letter: '', 
-      roomCount: 0, 
-      bathroomCount: 0, 
-      communityId: this.selectedCommunity?.id!, 
-      communityName: '', 
-      ownerName: '' 
+      cadastralReference: '',
+      squareMeters: 0,
+      floorNumber: 0,
+      letter: '',
+      roomCount: 0,
+      bathroomCount: 0,
+      communityId: this.selectedCommunity?.id!,
+      communityName: this.selectedCommunity?.address,
+      ownerDni: '',
     } as Flat;
     this.openModal('modalFlat');
   }
 
   openModalParking() {
-    this.newParking = { 
+    this.newParking = {
       id: 0,
-      squareMeters: 0, 
-      parkingNumber: '', 
-      cadastralReference: '', // Add missing property
-      num: 0, // Add missing property
-      communityId: this.selectedCommunity?.id!, 
-      communityName: '', 
-      ownerName: '' 
+      squareMeters: 0,
+      parkingNumber: '',
+      cadastralReference: '',
+      num: 0,
+      communityId: this.selectedCommunity?.id!,
+      communityName: this.selectedCommunity?.address,
+      ownerName: ''
     } as Parking;
     this.openModal('modalParking');
   }
 
   openModalStorage() {
-      this.newStorage = { 
-        id: 0,
-        squareMeters: 0, 
-        storageNumber: 0, 
-        cadastralReference: '',
-        num: 0,
-        communityId: this.selectedCommunity?.id!, 
-        communityName: '', 
-        ownerName: '' 
-      } as StorageRoom;
-      this.openModal('modalStorage');
-    }
+    this.newStorage = {
+      id: 0,
+      squareMeters: 0,
+      storageNumber: 0,
+      cadastralReference: '',
+      num: 0,
+      communityId: this.selectedCommunity?.id!,
+      communityName: this.selectedCommunity?.address,
+      ownerName: '',
+    } as StorageRoom;
+    this.openModal('modalStorage');
+  }
 
-    saveFlat() {
+  saveFlat() {
     console.log('Guardando Flat:', this.newFlat);
-    // Llama al servicio para guardar Flat
-    this.cerrarModal('modalFlat');
+    this.flatService.createFlat(this.newFlat).subscribe({
+      next: (flat) => {
+        console.log('Flat guardado:', flat);
+        this.cerrarModal('modalFlat');
+
+        if (this.selectedCommunity && this.selectedCommunity.id) {
+          this.communityService.getCommunityById(this.selectedCommunity.id).subscribe({
+            next: (community) => {
+              this.selectedCommunity = community; // Actualizar la comunidad seleccionada
+              console.log('Comunidad actualizada:', this.selectedCommunity);
+            },
+            error: (error) => {
+              console.error('Error al guardar Flat:', error)
+            }
+            });
+        }
+        this.getCommunities();
+      },
+      error: (error) => {
+        console.error('Error al guardar Flat:', error);
+      }
+    });
   }
 
-  saveParking() {
-    console.log('Guardando Parking:', this.newParking);
-    // Llama al servicio para guardar Parking
-    this.cerrarModal('modalParking');
-  }
 
-  saveStorage() {
-    console.log('Guardando StorageRoom:', this.newStorage);
-    // Llama al servicio para guardar StorageRoom
-    this.cerrarModal('modalStorage');
-  }
-}
+        saveParking() {
+          console.log('Guardando Parking:', this.newParking);
+          // Llama al servicio para guardar Parking
+          this.cerrarModal('modalParking');
+        }
+
+        saveStorage() {
+          console.log('Guardando StorageRoom:', this.newStorage);
+          // Llama al servicio para guardar StorageRoom
+          this.cerrarModal('modalStorage');
+        }
+      }

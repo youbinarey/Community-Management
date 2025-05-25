@@ -28,7 +28,7 @@ export class FlatService {
 
   // Crear un nuevo flat
   createFlat(flat: Flat): Observable<Flat> {
-    return this.http.post<Flat>(`${this.apiUrl}/properties/flat`, flat);
+    return this.http.post<Flat>(`${this.apiUrl}/properties/create-flat`, flat);
   }
 
   // Actualizar un flat
