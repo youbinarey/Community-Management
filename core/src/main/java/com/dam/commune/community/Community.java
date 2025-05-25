@@ -56,6 +56,11 @@ public class Community {
     @Builder.Default
     private List<Property> properties = new ArrayList<>();
 
+    public Community orElseThrow(Object object) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'orElseThrow'");
+    }
+
  
 }
     

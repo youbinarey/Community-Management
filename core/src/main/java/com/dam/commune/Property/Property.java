@@ -4,6 +4,7 @@ import com.dam.commune.community.Community;
 import com.dam.commune.owner.Owner;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.DiscriminatorColumn;
 import jakarta.persistence.Entity;
@@ -42,12 +43,12 @@ public abstract class Property {
     private Double squareMeters;
 
   
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "community_id", nullable = false, updatable = false)
     @JsonIgnore
     private Community community;
 
-     @ManyToOne
+     @ManyToOne(cascade = CascadeType.ALL)
      @JoinColumn(name = "owner_id")
      @JsonIgnore
      private Owner owner;

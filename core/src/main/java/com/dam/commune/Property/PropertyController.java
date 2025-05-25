@@ -2,7 +2,9 @@ package com.dam.commune.property;
 
 import com.dam.commune.property.parking.ParkingRepository;
 import com.dam.commune.community.Community;
-import com.dam.commune.community.CommunityRepository; 
+import com.dam.commune.community.CommunityRepository;
+import com.dam.commune.owner.Owner;
+import com.dam.commune.owner.OwnerRepository;
 import com.dam.commune.property.flat.Flat;
 import com.dam.commune.property.flat.FlatDTO;
 import com.dam.commune.property.flat.FlatMapper;
@@ -21,8 +23,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 @RestController
@@ -36,6 +36,8 @@ public class PropertyController {
     private final CommunityRepository communityRepository;
     private final ParkingRepository parkingRepository;
     private final StorageRoomRepository storageRoomRepository;
+    private final PropertyServiceImpl propertyServiceImpl;
+    private final OwnerRepository ownerRepository;
 
     // 🔹 Obtener todos los inmuebles
     @GetMapping
@@ -72,8 +74,10 @@ public ResponseEntity<List<FlatDTO>> getAllFlats() {
             flat.getRoomCount(),
             flat.getBathroomCount(),
             flat.getCommunity() != null ? flat.getCommunity().getAddress() : null,
-            flat.getOwner() != null ? flat.getOwner().getName() : null
+            flat.getOwner() != null ? flat.getOwner().getName() : null,
+            flat.getOwner() != null ? flat.getOwner().getDni() : null
     )).collect(Collectors.toList());
+
 
     return ResponseEntity.ok(flatDTOs);  // Retorna la lista de FlatDTOs con el estado 200 OK
 }
@@ -178,7 +182,8 @@ public ResponseEntity<List<FlatDTO>> getFlatsByCommunity(@PathVariable Long comm
             flat.getRoomCount(),
             flat.getBathroomCount(),
             flat.getCommunity() != null ? flat.getCommunity().getAddress() : null,
-            flat.getOwner() != null ? flat.getOwner().getName() : null
+            flat.getOwner() != null ? flat.getOwner().getName() : null,
+            flat.getOwner() != null ? flat.getOwner().getDni() : null
     )).collect(Collectors.toList());
 
     return ResponseEntity.ok(flatDTOs); 
@@ -307,4 +312,60 @@ public ResponseEntity<List<FlatDTO>> getFlatsByCommunity(@PathVariable Long comm
         }
         return ResponseEntity.notFound().build();
     }
+
+
+
+
+    // ENDPOINT EDITAR FLAT
+
+    @PutMapping("/{id}")
+    public ResponseEntity<FlatDTO> updateFlat(@PathVariable Long id, @RequestBody FlatDTO flatDTO) {
+        flatDTO.setId(id);  // Aseguramos que el id en path y body coincidan
+        Flat updatedFlat = propertyServiceImpl.updateFlat(flatDTO);
+
+        // Convertir a DTO para devolver
+        FlatDTO responseDto = new FlatDTO(
+                updatedFlat.getId(),
+                updatedFlat.getCadastralReference(),
+                updatedFlat.getSquareMeters(),
+                updatedFlat.getFloorNumber(),
+                updatedFlat.getLetter(),
+                updatedFlat.getRoomCount(),
+                updatedFlat.getBathroomCount(),
+                updatedFlat.getCommunity().getAddress(),
+                updatedFlat.getOwner() != null ? updatedFlat.getOwner().getName() : null,
+                updatedFlat.getOwner() != null ? updatedFlat.getOwner().getDni() : null
+        );
+
+        return ResponseEntity.ok(responseDto);
+    }
+
+
+    @PostMapping("/create-flat")
+public ResponseEntity<FlatDTO> createFlatDTO(@RequestBody FlatDTO flatDTO) {
+    Flat flat = new Flat(); // Crear un objeto Flat vacío
+
+    // Mapear el DTO a la entidad Flat
+    flat.setCadastralReference(flatDTO.getCadastralReference());
+    flat.setSquareMeters(flatDTO.getSquareMeters());
+    flat.setFloorNumber(flatDTO.getFloorNumber());
+    flat.setLetter(flatDTO.getLetter());
+    flat.setRoomCount(flatDTO.getRoomCount());
+    flat.setBathroomCount(flatDTO.getBathroomCount());
+
+    Community community = communityRepository.findByAddress(flatDTO.getCommunityName());
+    if (community != null) {
+        flat.setCommunity(community);
+    }
+
+  
+    Owner owner = ownerRepository.findByDni(flatDTO.getOwnerDni())
+            .orElse(null); // Cambiar a buscar por DNI
+    if (owner != null) {
+        flat.setOwner(owner);
+    }
+
+    Flat savedFlat = flatRepository.save(flat);
+    return ResponseEntity.status(HttpStatus.CREATED).body(FlatMapper.toDTO(savedFlat));
+}
 }

@@ -11,5 +11,7 @@ import com.dam.commune.community.Community;
 public interface FlatRepository extends JpaRepository<Flat, Long> {
 
     List<Flat> findByCommunity(Community community);
+
+    boolean existsByCadastralReference(String cadastralReference);
     
 }

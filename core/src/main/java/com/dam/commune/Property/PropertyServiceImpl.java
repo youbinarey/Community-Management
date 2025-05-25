@@ -3,8 +3,13 @@ package com.dam.commune.property;
 import java.util.List;
 import org.springframework.stereotype.Service;
 
+import com.dam.commune.community.Community;
+import com.dam.commune.community.CommunityRepository;
 import com.dam.commune.owner.Owner;
 import com.dam.commune.owner.OwnerRepository;
+import com.dam.commune.property.flat.Flat;
+import com.dam.commune.property.flat.FlatDTO;
+import com.dam.commune.property.flat.FlatRepository;
 
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
@@ -16,6 +21,8 @@ import lombok.RequiredArgsConstructor;
 public class PropertyServiceImpl implements PropertyService {
     private final PropertyRepository propertyRepository;
     private final OwnerRepository ownerRepository;
+    private final FlatRepository flatRepository;
+    private final CommunityRepository communityRepository;
     
     
     @Override
@@ -45,4 +52,35 @@ public class PropertyServiceImpl implements PropertyService {
         }
 
     }
+
+     @Transactional
+    public Flat updateFlat(FlatDTO flatDTO) {
+        Flat existingFlat = flatRepository.findById(flatDTO.getId())
+                .orElseThrow(() -> new IllegalArgumentException("Flat not found with id: " + flatDTO.getId()));
+
+        existingFlat.setCadastralReference(flatDTO.getCadastralReference());
+        existingFlat.setSquareMeters(flatDTO.getSquareMeters());
+        existingFlat.setFloorNumber(flatDTO.getFloorNumber());
+        existingFlat.setLetter(flatDTO.getLetter());
+        existingFlat.setRoomCount(flatDTO.getRoomCount());
+        existingFlat.setBathroomCount(flatDTO.getBathroomCount());
+
+        if (flatDTO.getCommunityName() != null &&
+            !flatDTO.getCommunityName().equals(existingFlat.getCommunity().getAddress())) {
+            Community community = communityRepository.findByAddress(flatDTO.getCommunityName());
+            if (community == null) {
+                throw new IllegalArgumentException("Community not found with address: " + flatDTO.getCommunityName());
+            }
+            existingFlat.setCommunity(community);
+        }
+
+        if (flatDTO.getOwnerDni() != null) {  // Cambiar a ownerDni
+            Owner owner = ownerRepository.findByDni(flatDTO.getOwnerDni())
+                    .orElseThrow(() -> new IllegalArgumentException("Owner not found with DNI: " + flatDTO.getOwnerDni()));
+            existingFlat.setOwner(owner);
+        }
+
+        return flatRepository.save(existingFlat);
+    }
+
 }

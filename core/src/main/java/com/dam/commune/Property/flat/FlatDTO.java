@@ -19,4 +19,5 @@ public class FlatDTO {
     private int bathroomCount;
     private String communityName;
     private String ownerName;
+    private String ownerDni;
 }
