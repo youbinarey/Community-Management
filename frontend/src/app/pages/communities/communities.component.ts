@@ -5,6 +5,9 @@ import { CommunityService } from '../../service/community.service';
 import { Community } from '../../models/Community';
 import { Modal } from 'bootstrap';
 import { Router } from '@angular/router';
+import { StorageRoom } from '../../models/StorageRoom';
+import { Parking } from '../../models/Parking';
+import { Flat } from '../../models/Flat';
 
 
 
@@ -24,6 +27,10 @@ export class CommunitiesComponent implements OnInit {
   selectedCommunity?: Community;
   isLoading: boolean = false;
   isEditMode: boolean = false;
+
+  newFlat: Flat = {} as Flat;
+  newParking: Parking = {} as Parking;
+  newStorage: StorageRoom = {} as StorageRoom;
 
   
 
@@ -156,4 +163,66 @@ saveChanges(): void{
   }
 }
 
+
+  openModalFlat() {
+    this.newFlat = { 
+      id: 0,
+      cadastralReference: '', 
+      squareMeters: 0, 
+      floorNumber: 0, 
+      letter: '', 
+      roomCount: 0, 
+      bathroomCount: 0, 
+      communityId: this.selectedCommunity?.id!, 
+      communityName: '', 
+      ownerName: '' 
+    } as Flat;
+    this.openModal('modalFlat');
+  }
+
+  openModalParking() {
+    this.newParking = { 
+      id: 0,
+      squareMeters: 0, 
+      parkingNumber: '', 
+      cadastralReference: '', // Add missing property
+      num: 0, // Add missing property
+      communityId: this.selectedCommunity?.id!, 
+      communityName: '', 
+      ownerName: '' 
+    } as Parking;
+    this.openModal('modalParking');
+  }
+
+  openModalStorage() {
+      this.newStorage = { 
+        id: 0,
+        squareMeters: 0, 
+        storageNumber: 0, 
+        cadastralReference: '',
+        num: 0,
+        communityId: this.selectedCommunity?.id!, 
+        communityName: '', 
+        ownerName: '' 
+      } as StorageRoom;
+      this.openModal('modalStorage');
+    }
+
+    saveFlat() {
+    console.log('Guardando Flat:', this.newFlat);
+    // Llama al servicio para guardar Flat
+    this.cerrarModal('modalFlat');
+  }
+
+  saveParking() {
+    console.log('Guardando Parking:', this.newParking);
+    // Llama al servicio para guardar Parking
+    this.cerrarModal('modalParking');
+  }
+
+  saveStorage() {
+    console.log('Guardando StorageRoom:', this.newStorage);
+    // Llama al servicio para guardar StorageRoom
+    this.cerrarModal('modalStorage');
+  }
 }

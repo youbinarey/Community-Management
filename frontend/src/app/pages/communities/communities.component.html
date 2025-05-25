@@ -155,27 +155,39 @@
               <!-- Añadimos los botones "Ver" a continuación de los campos -->
               <div class="d-flex justify-content-between">
                 <span><strong>Nº Viviendas:</strong> {{ selectedCommunity.numFlats }}</span>
-                <button class="btn btn-outline-info btn-sm" (click)="verMasDetalles('flats')">Ver</button>
+                <div>
+                  <button class="btn btn-outline-info btn-sm" (click)="verMasDetalles('flats')">Ver</button>
+                  <button class="btn btn-outline-success btn-sm"
+                    (click)="openModalFlat()">Añadir</button>
+                </div>
               </div>
 
               <div class="d-flex justify-content-between">
                 <span><strong>Parkings:</strong> {{ selectedCommunity.numparkings }}</span>
-                <button class="btn btn-outline-info btn-sm" (click)="verMasDetalles('parkings')">Ver</button>
+                <div>
+                  <button class="btn btn-outline-info btn-sm" (click)="verMasDetalles('parkings')">Ver</button>
+                  <button class="btn btn-outline-success btn-sm"
+                    (click)="openModalParking()">Añadir</button>
+                </div>
               </div>
 
               <div class="d-flex justify-content-between">
                 <span><strong>Trasteros:</strong> {{ selectedCommunity.numStorageRooms }}</span>
-                <button class="btn btn-outline-info btn-sm" (click)="verMasDetalles('trasteros')">Ver</button>
+                <div>
+                  <button class="btn btn-outline-info btn-sm" (click)="verMasDetalles('storageroom')">Ver</button>
+                  <button class="btn btn-outline-success btn-sm"
+                    (click)="openModalStorage()">Añadir</button>
+                </div>
               </div>
 
               <p class="card-text">
-                <strong>Acceso movilidad reducida:</strong> 
+                <strong>Acceso movilidad reducida:</strong>
                 <span *ngIf="!isEditMode">{{ selectedCommunity.reducedMobilityAccess ? 'Sí' : 'No' }}</span>
                 <select *ngIf="isEditMode" [(ngModel)]="selectedCommunity.reducedMobilityAccess" class="form-control">
                   <option [ngValue]="true">Sí</option>
                   <option [ngValue]="false">No</option>
                 </select>
-               </p>
+              </p>
               <p class="card-text">
                 <strong>Número de cuenta:</strong>
                 <span *ngIf="!isEditMode">{{ selectedCommunity.bankAccountNumber }}</span>
@@ -193,6 +205,128 @@
         </button>
         <button type="button" class="btn btn-secondary" (click)="cerrarModal('modalCommunityDetails')">Cerrar</button>
       </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- Modal Flat -->
+<div class="modal fade" id="modalFlat" tabindex="-1" aria-labelledby="modalFlatLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalFlatLabel">Añadir Vivienda</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+
+      <div class="modal-body">
+        <form (ngSubmit)="saveFlat()">
+          <div class="mb-3">
+            <label for="refFlat" class="form-label">Referencia Catastral</label>
+            <input type="text" id="refFlat" [(ngModel)]="newFlat.cadastralReference" name="refFlat" class="form-control" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="sqmFlat" class="form-label">Metros Cuadrados</label>
+            <input type="number" id="sqmFlat" [(ngModel)]="newFlat.squareMeters" name="sqmFlat" class="form-control" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="floorFlat" class="form-label">Piso</label>
+            <input type="number" id="floorFlat" [(ngModel)]="newFlat.floorNumber" name="floorFlat" class="form-control" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="letterFlat" class="form-label">Letra</label>
+            <input type="text" id="letterFlat" [(ngModel)]="newFlat.letter" name="letterFlat" class="form-control" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="roomsFlat" class="form-label">Número de Habitaciones</label>
+            <input type="number" id="roomsFlat" [(ngModel)]="newFlat.roomCount" name="roomsFlat" class="form-control" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="bathsFlat" class="form-label">Número de Baños</label>
+            <input type="number" id="bathsFlat" [(ngModel)]="newFlat.bathroomCount" name="bathsFlat" class="form-control" required>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Guardar</button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+
+<!-- Modal Parking -->
+<div class="modal fade" id="modalParking" tabindex="-1" aria-labelledby="modalParkingLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalParkingLabel">Añadir Parking</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+
+      <div class="modal-body">
+        <form (ngSubmit)="saveParking()">
+          <div class="mb-3">
+            <label for="refParking" class="form-label">Referencia Catastral</label>
+            <input type="text" id="refParking" [(ngModel)]="newParking.cadastralReference" name="refParking" class="form-control" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="sqmParking" class="form-label">Metros Cuadrados</label>
+            <input type="number" id="sqmParking" [(ngModel)]="newParking.squareMeters" name="sqmParking" class="form-control" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="numParking" class="form-label">Número de Plaza</label>
+            <input type="number" id="numParking" [(ngModel)]="newParking.num" name="numParking" class="form-control" required>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Guardar</button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!-- Modal StorageRoom -->
+<div class="modal fade" id="modalStorage" tabindex="-1" aria-labelledby="modalStorageLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalStorageLabel">Añadir Trastero</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
+      </div>
+
+      <div class="modal-body">
+        <form (ngSubmit)="saveStorage()">
+          <div class="mb-3">
+            <label for="refStorage" class="form-label">Referencia Catastral</label>
+            <input type="text" id="refStorage" [(ngModel)]="newStorage.cadastralReference" name="refStorage" class="form-control" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="sqmStorage" class="form-label">Metros Cuadrados</label>
+            <input type="number" id="sqmStorage" [(ngModel)]="newStorage.squareMeters" name="sqmStorage" class="form-control" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="numStorage" class="form-label">Número de Trastero</label>
+            <input type="number" id="numStorage" [(ngModel)]="newStorage.storageNumber" name="numStorage" class="form-control" required>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Guardar</button>
+        </form>
+      </div>
+
     </div>
   </div>
 </div>
