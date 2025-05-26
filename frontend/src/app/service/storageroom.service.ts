@@ -15,4 +15,8 @@ export class StorageroomService {
     return this.http.get<StorageRoom[]>(`${this.apiUrl}/properties/storageroom/community/${communityId}`);
   }
 
+  createStorageRoom(storageRoom: StorageRoom): Observable<StorageRoom> {
+    return this.http.post<StorageRoom>(`${this.apiUrl}/properties/create-storage-room`, storageRoom);
+  }
+
 }
