@@ -3,12 +3,17 @@
   <!-- Encabezado -->
   <div class="d-flex justify-content-between align-items-center mb-3">
     <h2 class="mb-0">Owner List</h2>
+
+    <!-- FILTRO -->
+    <input type="text" class="form-control w-25" placeholder="nombre, apellido, email, móvil"
+      [(ngModel)]="searchTerm" />
   </div>
 
   <!-- Lista de propietarios -->
   <!-- <div *ngIf="owners.length > 0; else noOwners"> -->
     <div class="list-group">
-    <div class="list-group-item list-group-item-action" *ngFor="let owner of owners">
+    <div class="list-group-item list-group-item-action" *ngFor="let owner of filteredOwners()">
+
       <div class="d-flex w-100 justify-content-between">
         <h5 class="mb-1">
           <span *ngIf="!owner.isEditMode">{{ owner.name }} {{ owner.surname }}</span>

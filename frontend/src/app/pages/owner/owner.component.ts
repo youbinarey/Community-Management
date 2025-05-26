@@ -16,6 +16,7 @@ export class OwnerComponent implements OnInit {
   owners: Owner[] = [];
   ownerProperties: any[] = [];
   selectedOwner: Owner | null = null;
+  searchTerm: string = '';
 
   constructor(private ownerService: OwnerService) { }
 
@@ -61,5 +62,21 @@ export class OwnerComponent implements OnInit {
       },
       error: (error) => console.error('Error al actualizar propietario:', error)
     });
+  }
+
+
+   filteredOwners(): Owner[] {
+    if (!this.searchTerm) {
+      return this.owners;
+    }
+
+    const term = this.searchTerm.toLowerCase();
+    return this.owners.filter(owner =>
+      (owner.name?.toLowerCase().includes(term)) ||
+      (owner.surname?.toLowerCase().includes(term)) ||
+      (owner.email?.toLowerCase().includes(term)) ||
+      (owner.phone?.toLowerCase().includes(term)) ||
+      (owner.dni?.toLowerCase().includes(term))
+    );
   }
 }
