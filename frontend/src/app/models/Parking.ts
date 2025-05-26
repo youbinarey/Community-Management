@@ -4,5 +4,6 @@ export interface Parking {
     squareMeters: number;
     num: number;
     communityName: string
-    ownerName: string
+    ownerName?: string;
+    ownerDni?: string;
 }

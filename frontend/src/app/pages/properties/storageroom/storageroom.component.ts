@@ -1,8 +1,9 @@
 import { NgFor } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { StorageroomService } from '../../service/storageroom.service';
-import { StorageRoom } from '../../models/StorageRoom';
+import { StorageroomService } from '../../../service/storageroom.service';
+import { StorageRoom } from '../../../models/StorageRoom';
+
 
 @Component({
   selector: 'app-storageroom',

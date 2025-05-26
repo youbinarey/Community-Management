@@ -3,8 +3,9 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { CommunitiesComponent } from './pages/communities/communities.component';
 import { FlatComponent } from './pages/properties/flat/flat.component';
 import { OwnerComponent } from './pages/owner/owner.component';
-import { StorageroomComponent } from './properties/storageroom/storageroom.component';
-import { ParkingComponent } from './properties/parking/parking.component';
+
+import { ParkingComponent } from './pages/properties/parking/parking.component';
+import { StorageroomComponent } from './pages/properties/storageroom/storageroom.component';
 
 
 

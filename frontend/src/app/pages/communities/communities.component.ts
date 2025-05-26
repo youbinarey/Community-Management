@@ -140,7 +140,7 @@ export class CommunitiesComponent implements OnInit {
     } else if (tipo === 'parkings') {
       this.cerrarModal('modalCommunityDetails');
       this.router.navigate(['/properties/parking', this.selectedCommunity?.id], { state: { communityName: this.selectedCommunity?.address } });
-    } else if (tipo === 'trasteros') {
+    } else if (tipo === 'storageroom') {
       this.cerrarModal('modalCommunityDetails');
       this.router.navigate(['/properties/storageroom', this.selectedCommunity?.id], { state: { communityName: this.selectedCommunity?.address } });
     }
