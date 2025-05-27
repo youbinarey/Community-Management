@@ -19,6 +19,9 @@ public class InvoiceMapper {
                 .communityId(
                     invoice.getCommunity() != null ? invoice.getCommunity().getId() : null
                 )
+                .communityName(
+                    invoice.getCommunity() != null ? invoice.getCommunity().getAddress() : null
+                )
                 .build();
     }
 
