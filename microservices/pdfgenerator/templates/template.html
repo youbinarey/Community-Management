@@ -1,0 +1,39 @@
+<html>
+<head>
+  <style>
+    /* (tu CSS aquí) */
+  </style>
+</head>
+<body>
+  <!-- Usa los campos entre llaves -->
+  <div class="cabecera">
+    <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/6/6b/Bitmap_Icon_Example.png">
+    <div class="datos-admin">
+      <b>Administración de Fincas Ejemplo S.L.</b><br>
+      Calle Principal 123, 28001 Madrid<br>
+      Tel: 999 123 456<br>
+      info@fincas-ejemplo.es
+    </div>
+  </div>
+  <h1>Recibo de Comunidad</h1>
+  <b>Comunidad:</b> {address} <br>
+  <b>Fecha:</b> {date}
+  <div class="comunicado">
+    Estimado propietario,<br>
+    Adjuntamos el recibo correspondiente a la liquidación de gastos de su comunidad. <br>
+    Para cualquier consulta, no dude en ponerse en contacto con la administración.<br>
+  </div>
+  <table>
+    <tr><th>Concepto</th><th>Importe (€)</th></tr>
+    <tr><td>Luz</td><td>{electricity}</td></tr>
+    <tr><td>Agua</td><td>{water}</td></tr>
+    <tr><td>Basuras</td><td>{trash}</td></tr>
+    <tr><td>Ascensor</td><td>{elevator}</td></tr>
+    <tr><td>Mantenimiento</td><td>{maintenance}</td></tr>
+  </table>
+  <div class="firma">
+    ____________________________<br>
+    Firma o sello de la administración
+  </div>
+</body>
+</html>
