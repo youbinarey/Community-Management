@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.dam.commune.bankAccount.BankAccount;
+import com.dam.commune.invoice.Invoice;
 import com.dam.commune.property.Property;
 
 import jakarta.persistence.*;
@@ -12,8 +13,6 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-
 
 @Entity
 @Table(name = "communities")
@@ -29,7 +28,7 @@ public class Community {
     private Long id;
 
     private String address;
-    
+
     @Column(name = "postal_code")
     private String postalCode;
 
@@ -43,7 +42,6 @@ public class Community {
 
     @Column(name = "num_storage_rooms", nullable = false)
     private int numStorageRooms;
-   
 
     @Column(name = "reduced_mobility_access")
     private boolean reducedMobilityAccess;
@@ -56,11 +54,8 @@ public class Community {
     @Builder.Default
     private List<Property> properties = new ArrayList<>();
 
-    public Community orElseThrow(Object object) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'orElseThrow'");
-    }
+    @OneToMany(mappedBy = "community", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
+    private List<Invoice> invoices = new ArrayList<>();
 
- 
 }
-    
