@@ -17,5 +17,6 @@ public class InvoiceDTO {
     private Double trash;
     private Double elevator;
     private Double maintenance;
-    private Long communityId; // solo el id de la comunidad
+    private Long communityId;
+    private String communityName;
 }
