@@ -1,7 +1,7 @@
 import { NgFor } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { Parking } from '../../models/Parking';
-import { ParkingService } from '../../service/parking.service';
+import { Parking } from '../../../models/Parking';
+import { ParkingService } from '../../../service/parking.service';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 
 @Component({

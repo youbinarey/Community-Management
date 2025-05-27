@@ -307,6 +307,18 @@
               required>
           </div>
 
+          <div class="mb-3">
+            <label for="communityNameParking" class="form-label">Nombre de Comunidad</label>
+            <input type="text" id="communityNameParking" [(ngModel)]="newParking.communityName" name="communityNameParking"
+              class="form-control" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="ownerDniParking" class="form-label">DNI del Propietario</label>
+            <input type="text" id="ownerDniParking" [(ngModel)]="newParking.ownerDni" name="ownerDniParking" class="form-control"
+              required>
+          </div>
+
           <button type="submit" class="btn btn-primary">Guardar</button>
         </form>
       </div>
@@ -342,6 +354,18 @@
             <label for="numStorage" class="form-label">Número de Trastero</label>
             <input type="number" id="numStorage" [(ngModel)]="newStorage.storageNumber" name="numStorage"
               class="form-control" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="communityNameStorageRoom" class="form-label">Nombre de Comunidad</label>
+            <input type="text" id="communityNameStorageRoom" [(ngModel)]="newStorage.communityName" name="communityNameStorageRoom"
+              class="form-control" required>
+          </div>
+
+          <div class="mb-3">
+            <label for="ownerDniStorageRoom" class="form-label">DNI del Propietario</label>
+            <input type="text" id="ownerDniStorageRoom" [(ngModel)]="newStorage.ownerDni" name="ownerDniStorageRoom" class="form-control"
+              required>
           </div>
 
           <button type="submit" class="btn btn-primary">Guardar</button>

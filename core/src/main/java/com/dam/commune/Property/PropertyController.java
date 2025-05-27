@@ -392,9 +392,10 @@ public class PropertyController {
         storageRoom.setCommunity(community);
 
         Owner owner = ownerRepository.findByDni(storageRoomDTO.getOwnerDni())
-                .orElseThrow(() -> new IllegalArgumentException(
-                        "Owner not found with DNI: " + storageRoomDTO.getOwnerDni()));
-        storageRoom.setOwner(owner);
+                .orElse(null); // No lanza error si no encuentra
+        if (owner != null) {
+            storageRoom.setOwner(owner);
+        }
 
         StorageRoom saveStorageRoom = storageRoomRepository.save(storageRoom);
         return ResponseEntity.status(HttpStatus.CREATED).body(StorageRoomMapper.toDTO(saveStorageRoom));

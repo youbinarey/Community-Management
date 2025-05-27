@@ -9,6 +9,8 @@ import { StorageRoom } from '../../models/StorageRoom';
 import { Parking } from '../../models/Parking';
 import { Flat } from '../../models/Flat';
 import { FlatService } from '../../service/flat.service';
+import { StorageroomService } from '../../service/storageroom.service';
+import { ParkingService } from '../../service/parking.service';
 
 
 
@@ -35,7 +37,11 @@ export class CommunitiesComponent implements OnInit {
 
 
 
-  constructor(private communityService: CommunityService, private flatService: FlatService, private router: Router) { }
+  constructor(private communityService: CommunityService,
+    private flatService: FlatService,
+    private storageroomService: StorageroomService,
+    private parkingService: ParkingService,
+    private router: Router) { }
 
   ngOnInit(): void {
     this.getCommunities();
@@ -140,7 +146,7 @@ export class CommunitiesComponent implements OnInit {
     } else if (tipo === 'parkings') {
       this.cerrarModal('modalCommunityDetails');
       this.router.navigate(['/properties/parking', this.selectedCommunity?.id], { state: { communityName: this.selectedCommunity?.address } });
-    } else if (tipo === 'trasteros') {
+    } else if (tipo === 'storageroom') {
       this.cerrarModal('modalCommunityDetails');
       this.router.navigate(['/properties/storageroom', this.selectedCommunity?.id], { state: { communityName: this.selectedCommunity?.address } });
     }
@@ -191,7 +197,7 @@ export class CommunitiesComponent implements OnInit {
       num: 0,
       communityId: this.selectedCommunity?.id!,
       communityName: this.selectedCommunity?.address,
-      ownerName: ''
+      ownerDni: ''
     } as Parking;
     this.openModal('modalParking');
   }
@@ -205,7 +211,7 @@ export class CommunitiesComponent implements OnInit {
       num: 0,
       communityId: this.selectedCommunity?.id!,
       communityName: this.selectedCommunity?.address,
-      ownerName: '',
+      ownerDni: '',
     } as StorageRoom;
     this.openModal('modalStorage');
   }
@@ -226,7 +232,7 @@ export class CommunitiesComponent implements OnInit {
             error: (error) => {
               console.error('Error al guardar Flat:', error)
             }
-            });
+          });
         }
         this.getCommunities();
       },
@@ -236,16 +242,57 @@ export class CommunitiesComponent implements OnInit {
     });
   }
 
+  saveParking() {
+  console.log('Guardando Parking:', this.newParking);
+  this.parkingService.createParking(this.newParking).subscribe({
+    next: (parking) => {
+      console.log('Parking guardado:', parking);
+      this.cerrarModal('modalParking');
 
-        saveParking() {
-          console.log('Guardando Parking:', this.newParking);
-          // Llama al servicio para guardar Parking
-          this.cerrarModal('modalParking');
-        }
-
-        saveStorage() {
-          console.log('Guardando StorageRoom:', this.newStorage);
-          // Llama al servicio para guardar StorageRoom
-          this.cerrarModal('modalStorage');
-        }
+      if (this.selectedCommunity && this.selectedCommunity.id) {
+        this.communityService.getCommunityById(this.selectedCommunity.id).subscribe({
+          next: (community) => {
+            this.selectedCommunity = community; // Actualizar la comunidad seleccionada
+            console.log('Comunidad actualizada:', this.selectedCommunity);
+          },
+          error: (error) => {
+            console.error('Error al actualizar comunidad:', error);
+          }
+        });
       }
+      this.getCommunities();
+    },
+    error: (error) => {
+      console.error('Error al guardar Parking:', error);
+    }
+  });
+}
+
+
+
+  saveStorage() {
+    console.log('Guardando StorageRoom:', this.newStorage);
+    this.storageroomService.createStorageRoom(this.newStorage).subscribe({
+      next: (storageRoom) => {
+        console.log('StorageRoom guardado:', storageRoom);
+        this.cerrarModal('modalStorageRoom');
+
+        if (this.selectedCommunity && this.selectedCommunity.id) {
+          this.communityService.getCommunityById(this.selectedCommunity.id).subscribe({
+            next: (community) => {
+              this.selectedCommunity = community; // Actualizar la comunidad seleccionada
+              console.log('Comunidad actualizada:', this.selectedCommunity);
+            },
+            error: (error) => {
+              console.error('Error al actualizar comunidad:', error);
+            }
+          });
+        }
+        this.getCommunities();
+      },
+      error: (error) => {
+        console.error('Error al guardar StorageRoom:', error);
+      }
+    });
+  }
+}

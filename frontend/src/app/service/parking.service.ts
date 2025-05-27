@@ -15,4 +15,8 @@ export class ParkingService {
   getParkingsByCommunity(communityId: number) : Observable<Parking[]> {
     return this.http.get<Parking[]>(`${this.apiUrl}/properties/parking/community/${communityId}`);
   }
+
+  createParking(parking: Parking): Observable<Parking> {
+      return this.http.post<Parking>(`${this.apiUrl}/properties/create-parking`, parking);
+    }
 }
