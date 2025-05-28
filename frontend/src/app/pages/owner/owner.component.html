@@ -84,12 +84,13 @@
                     <span *ngIf="property.storageNumber">Trastero</span>
                     <span *ngIf="property.num">Plaza de Garaje</span>
                   </h5>
-                  <p class="card-text">Referencia catastral: {{ property.cadastralReference }}</p>
-                  <p class="card-text">Tamaño: {{ property.squareMeters }} m²</p>
+                  <p class="card-text">REF: {{ property.cadastralReference }}</p>
+                  <p class="card-text">Tamaño: {{ property.squareMeters }}m²</p>
                   <p class="card-text" *ngIf="property.floorNumber">Piso: {{ property.floorNumber }}</p>
                   <p class="card-text" *ngIf="property.letter">Puerta: {{ property.letter }}</p>
                   <p class="card-text" *ngIf="property.roomCount">Habitaciones: {{ property.roomCount }}</p>
                   <p class="card-text" *ngIf="property.roomCount">Baños: {{ property.bathroomCount }}</p>
+                  <p class="card-text" *ngIf="property.coefficient">Coeficiente: {{ property.coefficient }}</p>
                   <p class="card-text" *ngIf="property.storageNumber">Número de Trastero: {{ property.storageNumber }}</p>
                   <p class="card-text" *ngIf="property.num">Plaza número: {{ property.num }}</p>
                 </div>

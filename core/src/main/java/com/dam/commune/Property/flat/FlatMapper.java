@@ -13,6 +13,7 @@ public class FlatMapper {
         flatDTO.setId(flat.getId());
         flatDTO.setCadastralReference(flat.getCadastralReference());
         flatDTO.setSquareMeters(flat.getSquareMeters());
+        flatDTO.setCoefficient(flat.getCoefficient());
         flatDTO.setFloorNumber(flat.getFloorNumber());
         flatDTO.setLetter(flat.getLetter());
         flatDTO.setRoomCount(flat.getRoomCount());

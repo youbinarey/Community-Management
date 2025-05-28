@@ -13,6 +13,8 @@ public class ParkingDTO {
     private Long id;
     private String cadastralReference;
     private Double squareMeters;
+    private Double coefficient;
+
     private int num;
     private String communityName;
     private String ownerName;

@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.dam.commune.property.Property;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 @RestController

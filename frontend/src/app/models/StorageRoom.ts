@@ -3,6 +3,7 @@ export interface StorageRoom {
     cadastralReference: string;
     squareMeters: number;
     storageNumber: number;
+    coefficient?: number;
     communityName: string;
     ownerName?: string;
     ownerDni?: string;

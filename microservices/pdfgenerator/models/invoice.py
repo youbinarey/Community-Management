@@ -9,3 +9,4 @@ class Invoice:
     trash: float
     elevator: float
     maintenance: float
+    
