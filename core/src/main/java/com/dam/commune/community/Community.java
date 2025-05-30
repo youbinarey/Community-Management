@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name = "communities")
+@Table(name = "communities", uniqueConstraints = @UniqueConstraint(columnNames = { "postal_code", "address" }))
 @Getter
 @Setter
 @NoArgsConstructor
@@ -29,7 +29,7 @@ public class Community {
 
     private String address;
 
-    @Column(name = "postal_code")
+    @Column(name = "postal_code",nullable = false)
     private String postalCode;
 
     private boolean elevator;
