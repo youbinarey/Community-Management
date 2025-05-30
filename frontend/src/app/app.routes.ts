@@ -6,6 +6,7 @@ import { OwnerComponent } from './pages/owner/owner.component';
 
 import { ParkingComponent } from './pages/properties/parking/parking.component';
 import { StorageroomComponent } from './pages/properties/storageroom/storageroom.component';
+import { InvoicesComponent } from './pages/invoices/invoices.component';
 
 
 
@@ -15,6 +16,8 @@ export const routes: Routes = [
     {path: 'properties/flat/:communityId', component: FlatComponent},
     {path: 'properties/storageroom/:communityId', component: StorageroomComponent},
     {path: 'properties/parking/:communityId', component: ParkingComponent},
-    {path: 'owners', component: OwnerComponent}
+    {path: 'owners', component: OwnerComponent},
+    {path: 'invoices/:communityId', component: InvoicesComponent},
+
 
 ];
