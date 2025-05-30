@@ -13,6 +13,7 @@ public class StorageRoomMapper {
         storageRoomDTO.setId(storageRoom.getId());
         storageRoomDTO.setCadastralReference(storageRoom.getCadastralReference());
         storageRoomDTO.setSquareMeters(storageRoom.getSquareMeters());
+        storageRoomDTO.setCoefficient(storageRoom.getCoefficient());
         storageRoomDTO.setStorageNumber(storageRoom.getStorageNumber());
         
          Community community = storageRoom.getCommunity();

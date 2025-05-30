@@ -59,26 +59,7 @@ public class PropertyController {
     // CRUD para flat (Apartment)
     // -----------------------------
 
-    // GET para obtener todos los flats
-    @GetMapping("/flat")
-    public ResponseEntity<List<FlatDTO>> getAllFlats() {
-        List<Flat> flats = flatRepository.findAll(); // Obtener todos los flats de la base de datos
-
-        List<FlatDTO> flatDTOs = flats.stream().map(flat -> new FlatDTO(
-                flat.getId(),
-                flat.getCadastralReference(),
-                flat.getSquareMeters(),
-                flat.getFloorNumber(),
-                flat.getLetter(),
-                flat.getRoomCount(),
-                flat.getBathroomCount(),
-                flat.getCommunity() != null ? flat.getCommunity().getAddress() : null,
-                flat.getOwner() != null ? flat.getOwner().getName() : null,
-                flat.getOwner() != null ? flat.getOwner().getDni() : null)).collect(Collectors.toList());
-
-        return ResponseEntity.ok(flatDTOs); // Retorna la lista de FlatDTOs con el estado 200 OK
-    }
-
+   
     // Crear un nuevo Flat
     @PostMapping("/flat")
     public ResponseEntity<FlatDTO> createFlat(@RequestBody FlatDTO flatDTO) {
@@ -121,6 +102,7 @@ public class PropertyController {
                 parking.getId(),
                 parking.getCadastralReference(),
                 parking.getSquareMeters(),
+                parking.getCoefficient(),
                 parking.getNum(),
                 parking.getCommunity() != null ? parking.getCommunity().getAddress() : null,
                 parking.getOwner() != null ? parking.getOwner().getName() : null,
@@ -145,6 +127,7 @@ public class PropertyController {
                 storageRoom.getCadastralReference(),
                 storageRoom.getSquareMeters(),
                 storageRoom.getStorageNumber(),
+                storageRoom.getCoefficient(),
                 storageRoom.getCommunity() != null ? storageRoom.getCommunity().getAddress() : null,
                 storageRoom.getOwner() != null ? storageRoom.getOwner().getName() : null,
                 storageRoom.getOwner() != null ? storageRoom.getOwner().getDni() : null)).collect(Collectors.toList());
@@ -170,6 +153,7 @@ public class PropertyController {
                 flat.getId(),
                 flat.getCadastralReference(),
                 flat.getSquareMeters(),
+                flat.getCoefficient(),
                 flat.getFloorNumber(),
                 flat.getLetter(),
                 flat.getRoomCount(),
@@ -314,6 +298,7 @@ public class PropertyController {
                 updatedFlat.getId(),
                 updatedFlat.getCadastralReference(),
                 updatedFlat.getSquareMeters(),
+                updatedFlat.getCoefficient(),
                 updatedFlat.getFloorNumber(),
                 updatedFlat.getLetter(),
                 updatedFlat.getRoomCount(),
@@ -336,6 +321,7 @@ public class PropertyController {
         flat.setLetter(flatDTO.getLetter());
         flat.setRoomCount(flatDTO.getRoomCount());
         flat.setBathroomCount(flatDTO.getBathroomCount());
+        flat.setCoefficient(flatDTO.getCoefficient()); // Asegurarse de que el DTO tenga este campo
 
         Community community = communityRepository.findByAddress(flatDTO.getCommunityName());
         if (community != null) {
@@ -359,6 +345,7 @@ public class PropertyController {
         parking.setCadastralReference(parkingDTO.getCadastralReference());
         parking.setSquareMeters(parkingDTO.getSquareMeters());
         parking.setNum(parkingDTO.getNum());
+        parking.setCoefficient(parkingDTO.getCoefficient());
 
         Community community = communityRepository.findByAddress(parkingDTO.getCommunityName());
         if (community != null) {
@@ -382,6 +369,7 @@ public class PropertyController {
         storageRoom.setCadastralReference(storageRoomDTO.getCadastralReference());
         storageRoom.setSquareMeters(storageRoomDTO.getSquareMeters());
         storageRoom.setStorageNumber(storageRoomDTO.getStorageNumber());
+        storageRoom.setCoefficient(storageRoomDTO.getCoefficient());
 
         // Aquí NO debes usar getCommunityName() en StorageRoom, sino en StorageRoomDTO
         Community community = communityRepository.findByAddress(storageRoomDTO.getCommunityName());

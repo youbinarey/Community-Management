@@ -72,6 +72,7 @@ public class PropertyServiceImpl implements PropertyService {
         existingFlat.setLetter(flatDTO.getLetter());
         existingFlat.setRoomCount(flatDTO.getRoomCount());
         existingFlat.setBathroomCount(flatDTO.getBathroomCount());
+        existingFlat.setCoefficient(flatDTO.getCoefficient());
 
         if (flatDTO.getCommunityName() != null &&
             !flatDTO.getCommunityName().equals(existingFlat.getCommunity().getAddress())) {
@@ -99,6 +100,7 @@ public Parking updateParking(ParkingDTO parkingDTO) {
     existingParking.setCadastralReference(parkingDTO.getCadastralReference());
     existingParking.setSquareMeters(parkingDTO.getSquareMeters());
     existingParking.setNum(parkingDTO.getNum());
+    existingParking.setCoefficient(parkingDTO.getCoefficient());
 
     if (parkingDTO.getCommunityName() != null &&
         !parkingDTO.getCommunityName().equals(existingParking.getCommunity().getAddress())) {
@@ -127,6 +129,7 @@ public Parking updateParking(ParkingDTO parkingDTO) {
         existingStorageRoom.setCadastralReference(storageRoomDTO.getCadastralReference());
         existingStorageRoom.setSquareMeters(storageRoomDTO.getSquareMeters());
         existingStorageRoom.setStorageNumber(storageRoomDTO.getStorageNumber());
+        existingStorageRoom.setCoefficient(storageRoomDTO.getCoefficient());
         
 
         if (storageRoomDTO.getCommunityName() != null &&

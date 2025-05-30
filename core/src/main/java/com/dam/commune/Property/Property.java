@@ -15,6 +15,7 @@ import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -42,7 +43,8 @@ public abstract class Property {
     @Column(name= "square_meters", nullable = false)
     private Double squareMeters;
 
-  
+    private Double coefficient;
+
     @ManyToOne(optional = false, cascade = CascadeType.ALL)
     @JoinColumn(name = "community_id", nullable = false, updatable = false)
     @JsonIgnore
@@ -52,4 +54,5 @@ public abstract class Property {
      @JoinColumn(name = "owner_id")
      @JsonIgnore
      private Owner owner;
+
 }

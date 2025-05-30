@@ -4,4 +4,5 @@ export interface Property {
   squareMeters: number;
   num?: number;
   storageNumber?: number;
+  coefficient?: number;
 }

@@ -3,6 +3,7 @@ export interface Parking {
     cadastralReference: string;
     squareMeters: number;
     num: number;
+  coefficient?: number;
     communityName: string
     ownerName?: string;
     ownerDni?: string;

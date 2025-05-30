@@ -14,6 +14,7 @@ public class StorageRoomDTO {
     private String cadastralReference;
     private Double squareMeters;
     private int storageNumber;
+    private Double coefficient;
     private String communityName;
     private String ownerName;
     private String ownerDni;

@@ -11,36 +11,37 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
+import com.dam.commune.invoice.owner.OwnerInvoiceService;
+
 import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/invoices")
+@RequiredArgsConstructor
 public class InvoiceController {
 
     private final InvoiceService invoiceService;
+    private final OwnerInvoiceService ownerInvoiceService;
 
-    public InvoiceController(InvoiceService invoiceService) {
-        this.invoiceService = invoiceService;
-    }
-
-    @PostMapping("/create-invoice")
+    @PostMapping("/create-community-invoice")
     public ResponseEntity<InvoiceDTO> createInvoice(@RequestBody InvoiceDTO dto) {
         InvoiceDTO savedInvoice = invoiceService.saveInvoice(dto);
         return ResponseEntity.ok(savedInvoice);
     }
 
-    @GetMapping("/dt/community/{communityId}")
+    @GetMapping("/dto/community/{communityId}")
     public ResponseEntity<List<InvoiceDTO>> getInvoicesByCommunity(@PathVariable Long communityId) {
         return ResponseEntity.ok(invoiceService.getInvoicesByCommunity(communityId));
     }
 
-    @GetMapping("/dto/{id}")
+    @GetMapping("/dto/invoice/{id}")
     public ResponseEntity<InvoiceDTO> getInvoiceById(@PathVariable Long id) {
         InvoiceDTO dto = invoiceService.getInvoiceById(id);
         return dto != null ? ResponseEntity.ok(dto) : ResponseEntity.notFound().build();
     }
 
-    @DeleteMapping("/dto/{id}")
+    @DeleteMapping("/dto/community/{id}")
     public ResponseEntity<Void> deleteInvoice(@PathVariable Long id) {
         invoiceService.deleteInvoice(id);
         return ResponseEntity.noContent().build();

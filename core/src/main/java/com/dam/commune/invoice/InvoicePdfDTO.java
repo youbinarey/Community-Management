@@ -1,22 +1,22 @@
 package com.dam.commune.invoice;
 
-import lombok.*;
-
-import java.time.LocalDate;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class InvoiceDTO {
-    private Long id;
-    private LocalDate date;
+public class InvoicePdfDTO {
+    private String address;
+    private String date;      
     private Double electricity;
     private Double water;
     private Double trash;
     private Double elevator;
     private Double maintenance;
-    private Long communityId;
-    private String communityName;
 }

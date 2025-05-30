@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Recibo de Comunidad</title>
+    <!-- <link rel="stylesheet" href="css/owner_template_styles.css"> -->
+</head>
+
+<body>
+    <div class="header">
+        <div class="logo">A</div>
+        <div>
+            <div class="admin-info">
+                Administración de Fincas<br>
+                Tel: 912 345 678<br>
+                Email: info@adminfincas.com<br>
+                Dirección: Calle Mayor 123, Madrid
+            </div>
+        </div>
+    </div>
+    <div class="main-title">Recibo de Comunidad</div>
+
+    <div class="section">
+        <div class="row"><span class="label">ID Recibo:</span> <span>{id}</span></div>
+        <div class="row"><span class="label">Fecha:</span> <span>{date}</span></div>
+        <div class="row"><span class="label">ID Factura Comunidad:</span> <span>{invoiceId}</span></div>
+        <div class="row"><span class="label">Propietario:</span> <span>{ownerName} {ownerSurname}</span></div>
+        <div class="row"><span class="label">Cuenta Bancaria:</span> <span>{ownerBankAccount}</span></div>
+        <div class="row"><span class="label">Comunidad:</span> <span>{communityName}</span></div>
+        <div class="row"><span class="label">Coeficiente de participación:</span> <span>{coefficient}%</span></div>
+        <div class="amount">Total a pagar: {amount} €</div>
+
+    </div>
+
+    <div class="footer">
+        Este recibo es válido como justificante del pago de la cuota comunitaria.<br>
+        Si tiene cualquier duda contacte con la administración.
+    </div>
+
+    <div class="signature">
+        <br><br>
+        ________________________<br>
+        Firma / Sello Administración
+    </div>
+</body>
+
+</html>
