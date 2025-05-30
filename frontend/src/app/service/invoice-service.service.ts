@@ -15,4 +15,9 @@ export class InvoiceService {
   getInvoicesByCommunity(communityId: number): Observable<Invoice[]> {
     return this.http.get<Invoice[]>(`${this.apiUrl}/dto/community/${communityId}`);
   }
+
+  downloadInvoice(invoiceId: number): Observable<Blob> {
+  return this.http.get(`${this.apiUrl}/${invoiceId}/pdf`, { responseType: 'blob' });
+}
+
 }

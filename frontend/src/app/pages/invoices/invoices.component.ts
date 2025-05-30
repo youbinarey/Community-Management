@@ -12,6 +12,8 @@ import { CommonModule, NgFor } from '@angular/common';
 })
 export class InvoicesComponent implements OnInit {
 
+
+
   communityId!: number;
   invoices: Invoice[] = [];
 
@@ -32,4 +34,17 @@ export class InvoicesComponent implements OnInit {
   }
 
  // TODO DESCARGAR PDF
+ downloadInvoicePdf(invoiceId: number) {
+  this.invoiceService.downloadInvoice(invoiceId).subscribe(blob => {
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `recibo_comunidad_${invoiceId}.pdf`;
+    a.click();
+    window.URL.revokeObjectURL(url);
+  }, error => {
+    console.error('Error al descargar el PDF:', error);
+  });
+}
+
 }

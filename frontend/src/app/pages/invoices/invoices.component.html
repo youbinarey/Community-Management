@@ -22,8 +22,13 @@
         <td>{{ invoice.trash | currency:'EUR' }}</td>
         <td>{{ invoice.elevator | currency:'EUR' }}</td>
         <td>{{ invoice.maintenance | currency:'EUR' }}</td>
+        
+        <td>
+          <button class="btn btn-primary" (click)="downloadInvoicePdf(invoice.id)">Descargar Factura</button>  
+        </td>
       </tr>
     </tbody>
+    
   </table>
 
   <p *ngIf="invoices.length === 0">No hay facturas disponibles para esta comunidad.</p>
