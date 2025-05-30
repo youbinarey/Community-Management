@@ -185,11 +185,15 @@
                   <option [ngValue]="false">No</option>
                 </select>
               </p>
+              <div class="d-flex justify-content-between">
+                
+      
               <p class="card-text">
-                <strong>Número de cuenta:</strong>
+                <span><strong>Cuenta Bancaria:</strong></span>
                 <span *ngIf="!isEditMode">{{ selectedCommunity.bankAccountNumber }}</span>
-                <input *ngIf="isEditMode" [(ngModel)]="selectedCommunity.bankAccountNumber" class="form-control" />
+                <input *ngIf="isEditMode" [(ngModel)]="selectedCommunity.bankAccountNumber" class="form-control" /> 
               </p>
+              <button class="btn btn-outline-success btn-sm" (click)="openInvoice(selectedCommunity.id)">Recibos</button>
             </div>
           </div>
         </div>
