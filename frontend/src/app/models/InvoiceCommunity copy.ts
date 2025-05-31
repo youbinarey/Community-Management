@@ -1,4 +1,4 @@
-export interface Invoice {
+export interface InvoiceCommunity {
   id: number;
   date: string;
   electricity: number;
