@@ -1,0 +1,35 @@
+<div class="container mt-4">
+  <h2>Facturas de la Comunidad {{ communityId }}</h2>
+
+  <table class="table table-striped" *ngIf="invoices.length > 0">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Fecha</th>
+        <th>Electricidad</th>
+        <th>Agua</th>
+        <th>Basura</th>
+        <th>Ascensor</th>
+        <th>Mantenimiento</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let invoice of invoices">
+        <td>{{ invoice.id }}</td>
+        <td>{{ invoice.date }}</td>
+        <td>{{ invoice.electricity | currency:'EUR' }}</td>
+        <td>{{ invoice.water | currency:'EUR' }}</td>
+        <td>{{ invoice.trash | currency:'EUR' }}</td>
+        <td>{{ invoice.elevator | currency:'EUR' }}</td>
+        <td>{{ invoice.maintenance | currency:'EUR' }}</td>
+        
+        <td>
+          <button class="btn btn-primary" (click)="downloadInvoicePdf(invoice.id)">Descargar Factura</button>  
+        </td>
+      </tr>
+    </tbody>
+    
+  </table>
+
+  <p *ngIf="invoices.length === 0">No hay facturas disponibles para esta comunidad.</p>
+</div>

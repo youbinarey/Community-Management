@@ -25,6 +25,7 @@ import { ParkingService } from '../../service/parking.service';
 export class CommunitiesComponent implements OnInit {
 
 
+
   communities: Community[] = [];
   filtro = '';
   selectedCommunity?: Community;
@@ -140,14 +141,13 @@ export class CommunitiesComponent implements OnInit {
 
   //VER PROPIEDADES
   verMasDetalles(tipo: string) {
-    if (tipo === 'flats') {
       this.cerrarModal('modalCommunityDetails');
+
+    if (tipo === 'flats') {
       this.router.navigate(['/properties/flat', this.selectedCommunity?.id], { state: { communityName: this.selectedCommunity?.address } });
     } else if (tipo === 'parkings') {
-      this.cerrarModal('modalCommunityDetails');
       this.router.navigate(['/properties/parking', this.selectedCommunity?.id], { state: { communityName: this.selectedCommunity?.address } });
     } else if (tipo === 'storageroom') {
-      this.cerrarModal('modalCommunityDetails');
       this.router.navigate(['/properties/storageroom', this.selectedCommunity?.id], { state: { communityName: this.selectedCommunity?.address } });
     }
   }
@@ -243,30 +243,30 @@ export class CommunitiesComponent implements OnInit {
   }
 
   saveParking() {
-  console.log('Guardando Parking:', this.newParking);
-  this.parkingService.createParking(this.newParking).subscribe({
-    next: (parking) => {
-      console.log('Parking guardado:', parking);
-      this.cerrarModal('modalParking');
+    console.log('Guardando Parking:', this.newParking);
+    this.parkingService.createParking(this.newParking).subscribe({
+      next: (parking) => {
+        console.log('Parking guardado:', parking);
+        this.cerrarModal('modalParking');
 
-      if (this.selectedCommunity && this.selectedCommunity.id) {
-        this.communityService.getCommunityById(this.selectedCommunity.id).subscribe({
-          next: (community) => {
-            this.selectedCommunity = community; // Actualizar la comunidad seleccionada
-            console.log('Comunidad actualizada:', this.selectedCommunity);
-          },
-          error: (error) => {
-            console.error('Error al actualizar comunidad:', error);
-          }
-        });
+        if (this.selectedCommunity && this.selectedCommunity.id) {
+          this.communityService.getCommunityById(this.selectedCommunity.id).subscribe({
+            next: (community) => {
+              this.selectedCommunity = community; // Actualizar la comunidad seleccionada
+              console.log('Comunidad actualizada:', this.selectedCommunity);
+            },
+            error: (error) => {
+              console.error('Error al actualizar comunidad:', error);
+            }
+          });
+        }
+        this.getCommunities();
+      },
+      error: (error) => {
+        console.error('Error al guardar Parking:', error);
       }
-      this.getCommunities();
-    },
-    error: (error) => {
-      console.error('Error al guardar Parking:', error);
-    }
-  });
-}
+    });
+  }
 
 
 
@@ -294,5 +294,12 @@ export class CommunitiesComponent implements OnInit {
         console.error('Error al guardar StorageRoom:', error);
       }
     });
+  }
+
+
+  // RECIBOS
+  openInvoice(communityId: number) {
+    this.cerrarModal('modalCommunityDetails');
+    this.router.navigate(['invoices',communityId])
   }
 }

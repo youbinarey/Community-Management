@@ -4,6 +4,8 @@ import { OwnerService } from '../../service/owner.service';
 import { CommonModule, NgFor, NgIf } from '@angular/common';
 import { Modal } from 'bootstrap'; // Import Bootstrap Modal
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-owner',
@@ -13,12 +15,13 @@ import { FormsModule } from '@angular/forms';
 })
 export class OwnerComponent implements OnInit {
 
+
   owners: Owner[] = [];
   ownerProperties: any[] = [];
   selectedOwner: Owner | null = null;
   searchTerm: string = '';
 
-  constructor(private ownerService: OwnerService) { }
+  constructor(private ownerService: OwnerService,private router: Router) { }
 
   ngOnInit(): void {
     this.ownerService.getAllOwners().subscribe((data) =>{
@@ -79,4 +82,9 @@ export class OwnerComponent implements OnInit {
       (owner.dni?.toLowerCase().includes(term))
     );
   }
+
+
+ viewOwnerInvoices(ownerId: number) {
+  this.router.navigate(['/invoices/owner', ownerId]);
+}
 }
