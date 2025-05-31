@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { Invoice } from '../../models/Invoice';
+
 import { InvoiceService } from '../../service/invoice-service.service';
 import { CommonModule, NgFor } from '@angular/common';
+import { InvoiceCommunity } from '../../models/InvoiceCommunity copy';
 
 @Component({
   selector: 'app-invoices',
@@ -15,7 +16,7 @@ export class InvoicesComponent implements OnInit {
 
 
   communityId!: number;
-  invoices: Invoice[] = [];
+  invoices: InvoiceCommunity[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -23,8 +24,10 @@ export class InvoicesComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    this.communityId = Number(this.route.snapshot.paramMap.get('communityId'));
-    this.loadInvoices();
+    this.route.params.subscribe(params => {
+      this.communityId = +params['communityId']; // Convertir a número
+      this.loadInvoices();
+    });
   }
 
   loadInvoices() {
@@ -35,7 +38,7 @@ export class InvoicesComponent implements OnInit {
 
  // TODO DESCARGAR PDF
  downloadInvoicePdf(invoiceId: number) {
-  this.invoiceService.downloadInvoice(invoiceId).subscribe(blob => {
+  this.invoiceService.downloadCommunityInvoice(invoiceId).subscribe(blob => {
     const url = window.URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;

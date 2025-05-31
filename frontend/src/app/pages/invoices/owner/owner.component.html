@@ -1,0 +1,40 @@
+<div class="container mt-4">
+  <h2>Listado de Recibos del Propietario</h2>
+
+  <table class="table table-bordered table-striped">
+    <thead>
+      <tr>
+        <th>Fecha</th>
+        <th>Importe (€)</th>
+        <th>Factura ID</th>
+        <th>Nombre</th>
+        <th>Apellidos</th>
+        <th>Cuenta Bancaria</th>
+        <th>Coeficiente</th>
+        <th>Comunidad</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let invoice of invoices">
+        <td>{{ invoice.date }}</td>
+        <td>{{ invoice.amount | currency: 'EUR':'symbol':'1.2-2' }}</td>
+        <td>{{ invoice.invoiceId }}</td>
+        <td>{{ invoice.ownerName }}</td>
+        <td>{{ invoice.ownerSurname }}</td>
+        <td>{{ invoice.ownerBankAccount }}</td>
+        <td>{{ invoice.coefficient | number:'1.2-2' }}</td>
+        <td>{{ invoice.communityName }}</td>
+        <td>
+          <button class="btn btn-outline-primary btn-sm" (click)="downloadInvoice(invoice.id)">
+            Descargar PDF
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div *ngIf="invoices.length === 0" class="alert alert-info">
+    No hay recibos disponibles para este propietario.
+  </div>
+</div>

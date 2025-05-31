@@ -46,6 +46,7 @@
 
       <button *ngIf="!owner.isEditMode" class="btn btn-sm btn-outline-primary mt-2" (click)="viewOwnerProperties(owner.id)">Ver Propiedades</button>
       <button *ngIf="!owner.isEditMode" class="btn btn-sm btn-outline-secondary mt-2" (click)="owner.isEditMode = true">Editar</button>
+      <button *ngIf="!owner.isEditMode" class="btn btn-sm btn-outline-secondary mt-2" (click)="viewOwnerInvoices(owner.id)">Recibos</button>
       <button *ngIf="owner.isEditMode" class="btn btn-sm btn-success mt-2" (click)="saveChanges(owner)">Guardar</button>
       <button *ngIf="owner.isEditMode" class="btn btn-sm btn-warning mt-2" (click)="owner.isEditMode = false">Cancelar</button>
     </div>
