@@ -18,6 +18,7 @@ import lombok.RequiredArgsConstructor;
 @RequestMapping("/owner-invoices")
 @CrossOrigin(origins = "http://localhost:4200")
 
+
 public class OwnerInvoiceController {
 
       private final OwnerInvoiceService ownerInvoiceService;
