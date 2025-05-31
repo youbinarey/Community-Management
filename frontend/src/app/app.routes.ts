@@ -7,6 +7,7 @@ import { OwnerComponent } from './pages/owner/owner.component';
 import { ParkingComponent } from './pages/properties/parking/parking.component';
 import { StorageroomComponent } from './pages/properties/storageroom/storageroom.component';
 import { InvoicesComponent } from './pages/invoices/invoices.component';
+import { OwnerInvoicesComponent } from './pages/invoices/owner/owner.component';
 
 
 
@@ -18,6 +19,5 @@ export const routes: Routes = [
     {path: 'properties/parking/:communityId', component: ParkingComponent},
     {path: 'owners', component: OwnerComponent},
     {path: 'invoices/:communityId', component: InvoicesComponent},
-
-
+    {path: 'invoices/owner/:ownerId', component: OwnerInvoicesComponent},
 ];
