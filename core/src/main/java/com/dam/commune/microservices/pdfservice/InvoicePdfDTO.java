@@ -1,4 +1,4 @@
-package com.dam.commune.invoice;
+package com.dam.commune.microservices.pdfservice;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

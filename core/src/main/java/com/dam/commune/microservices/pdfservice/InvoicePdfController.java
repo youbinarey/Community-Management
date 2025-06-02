@@ -1,10 +1,12 @@
-package com.dam.commune.invoice;
+package com.dam.commune.microservices.pdfservice;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import com.dam.commune.invoice.InvoiceDTO;
+import com.dam.commune.invoice.InvoiceService;
 import com.dam.commune.invoice.owner.OwnerInvoiceDTO;
 import com.dam.commune.invoice.owner.OwnerInvoiceService;
 

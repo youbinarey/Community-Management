@@ -1,6 +1,8 @@
-package com.dam.commune.invoice;
+package com.dam.commune.microservices.pdfservice;
 
 import java.time.format.DateTimeFormatter;
+
+import com.dam.commune.invoice.InvoiceDTO;
 
 public class InvoicePdfMapper {
     public static InvoicePdfDTO from(InvoiceDTO dto) {

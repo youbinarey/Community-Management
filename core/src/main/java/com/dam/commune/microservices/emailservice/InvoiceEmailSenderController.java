@@ -1,4 +1,7 @@
-package com.dam.commune.invoice;
+package com.dam.commune.microservices.emailservice;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.dam.commune.invoice.owner.OwnerInvoiceDTO;
 import com.dam.commune.invoice.owner.OwnerInvoiceService;
+import com.dam.commune.microservices.pdfservice.PdfService;
 
 
 import lombok.RequiredArgsConstructor;
@@ -28,6 +32,7 @@ public class InvoiceEmailSenderController {
 public ResponseEntity<?> sendOwnerInvoiceByEmail(
         @PathVariable Long id,
         @RequestParam String email) {
+            Map<String, String> response = new HashMap<>();
     try {
         // 1. Recupera el OwnerInvoiceDTO
         OwnerInvoiceDTO ownerInvoiceDTO = ownerInvoiceService.getById(id);
@@ -40,11 +45,14 @@ public ResponseEntity<?> sendOwnerInvoiceByEmail(
             pdfBytes,
             email,
             "Factura de propietario",
-            "Adjuntamos su factura de propietario/a en PDF."
+            "Adjuntamos su factura de propietario en PDF."
         );
-
-        return ResponseEntity.ok("Email enviado correctamente");
+        response.put("status", "ok");
+        response.put("message", "Email enviado correctamente");
+        return ResponseEntity.ok(response);
     } catch (Exception e) {
+        response.put("status", "error");
+        response.put("message", "Error: " + e.getMessage());
         return ResponseEntity.internalServerError().body("Error: " + e.getMessage());
     }
 }

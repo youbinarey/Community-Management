@@ -1,4 +1,4 @@
-package com.dam.commune.invoice;
+package com.dam.commune.microservices.emailservice;
 
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpEntity;
