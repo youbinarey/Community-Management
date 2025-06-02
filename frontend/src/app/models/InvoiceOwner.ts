@@ -9,4 +9,5 @@ export interface InvoiceOwner {
   // properties?: PropertyDTO[];
   coefficient: number;
   communityName: string;
+  email: string;
 }

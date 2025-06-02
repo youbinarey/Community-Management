@@ -13,3 +13,4 @@ class OwnerInvoice:
     coefficient: float
     communityName: str
     properties: Optional[list] = None  # TODO
+    email: Optional[str] = None
