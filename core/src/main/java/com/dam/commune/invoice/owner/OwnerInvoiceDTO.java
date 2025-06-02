@@ -22,4 +22,5 @@ public class OwnerInvoiceDTO {
     // private List<Properties> properties;
     private Double coefficient;
     private String communityName;
+    private String email;
 }

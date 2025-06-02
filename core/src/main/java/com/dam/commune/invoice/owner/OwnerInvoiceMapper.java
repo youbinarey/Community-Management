@@ -15,6 +15,7 @@ public interface OwnerInvoiceMapper {
     @Mapping(target = "ownerBankAccount", source = "owner.bankAccount.id")
     @Mapping(target = "coefficient", source = "property.coefficient")
     @Mapping(target = "communityName", source = "invoice.community.address")
+    @Mapping(target = "email", source = "owner.email")
     OwnerInvoiceDTO toDto(OwnerInvoice ownerInvoice);
 
    
