@@ -28,6 +28,12 @@ export class InvoiceService {
   downloadOwnerInvoice(invoiceId: number): Observable<Blob> {
   return this.http.get(`${this.apiUrl}/invoices/owner-invoice/${invoiceId}/pdf`, { responseType: 'blob' });
   }
+
+  sendByEmail(invoiceId: number, email: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/invoices/emails/owner-invoice/${invoiceId}/send`,null,{ params: {email}});
+
+}
+
  
 
 

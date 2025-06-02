@@ -29,6 +29,9 @@
           <button class="btn btn-outline-primary btn-sm" (click)="downloadInvoice(invoice.id)">
             Descargar PDF
           </button>
+          <button class="btn btn-outline-success btn-sm" (click)="sendByEmail(invoice.id,invoice.email)">
+            Enviar por email
+          </button>
         </td>
       </tr>
     </tbody>

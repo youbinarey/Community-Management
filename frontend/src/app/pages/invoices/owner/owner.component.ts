@@ -12,6 +12,7 @@ import { InvoiceService } from '../../../service/invoice-service.service';
 })
 export class OwnerInvoicesComponent implements OnInit {
 
+
    ownerId!: number;
   invoices: InvoiceOwner[] = []; 
 
@@ -54,6 +55,45 @@ export class OwnerInvoicesComponent implements OnInit {
       }
     });
   }
+
+  sendByEmail(invoiceId: number, email: string) {
+  if (!email) {
+    alert('No se encuentra el email del destinatario.');
+    return;
+  }
+
+  this.invoiceService.sendByEmail(invoiceId, email)
+    .subscribe({
+      next: () => {
+        alert('Factura enviada por email correctamente.');
+        // Aquí podrías usar un toast o resetear algún estado si lo necesitas
+      },
+      error: err => {
+        // Procesa el error para mostrar el mensaje más informativo posible
+        let errorMsg = 'Desconocido';
+
+        // Si es texto plano (lo habitual con responseType: 'text')
+        if (typeof err.error === 'string') {
+          errorMsg = err.error;
+        }
+        // Si viene como objeto con un campo 'message'
+        else if (err.error && typeof err.error === 'object' && err.error.message) {
+          errorMsg = err.error.message;
+        }
+        // Si hay un mensaje general
+        else if (err.message) {
+          errorMsg = err.message;
+        }
+        // Si es otro tipo de objeto/error
+        else if (err.error) {
+          errorMsg = JSON.stringify(err.error);
+        }
+
+        alert('Error al enviar la factura: ' + errorMsg);
+      }
+    });
+}
+
 
 
 
