@@ -21,7 +21,6 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 
-
 @Service
 @RequiredArgsConstructor
 public class PropertyServiceImpl implements PropertyService {
@@ -31,8 +30,7 @@ public class PropertyServiceImpl implements PropertyService {
     private final ParkingRepository parkingRepository;
     private final StorageRoomRepository storageRoomRepository;
     private final CommunityRepository communityRepository;
-    
-    
+
     @Override
     public List<Property> getAllProperties() {
         return propertyRepository.findAll();
@@ -61,10 +59,28 @@ public class PropertyServiceImpl implements PropertyService {
 
     }
 
-     @Transactional
+    @Transactional
     public Flat updateFlat(FlatDTO flatDTO) {
         Flat existingFlat = flatRepository.findById(flatDTO.getId())
                 .orElseThrow(() -> new IllegalArgumentException("Flat not found with id: " + flatDTO.getId()));
+
+        Community community = existingFlat.getCommunity();
+
+        // Si quiere cambiar la comunidad, actualiza la referencia
+        if (flatDTO.getCommunityName() != null &&
+                !flatDTO.getCommunityName().equals(existingFlat.getCommunity().getAddress())) {
+            community = communityRepository.findByAddress(flatDTO.getCommunityName());
+            if (community == null) {
+                throw new IllegalArgumentException("Community not found with address: " + flatDTO.getCommunityName());
+            }
+            existingFlat.setCommunity(community);
+        }
+
+        // VALIDACION
+        if (flatRepository.existsByLetterAndFloorNumberAndCommunityAndIdNot(
+                flatDTO.getLetter(), flatDTO.getFloorNumber(), community, flatDTO.getId())) {
+            throw new IllegalArgumentException("Ya existe un piso con esa letra y planta en esta comunidad.");
+        }
 
         existingFlat.setCadastralReference(flatDTO.getCadastralReference());
         existingFlat.setSquareMeters(flatDTO.getSquareMeters());
@@ -74,18 +90,10 @@ public class PropertyServiceImpl implements PropertyService {
         existingFlat.setBathroomCount(flatDTO.getBathroomCount());
         existingFlat.setCoefficient(flatDTO.getCoefficient());
 
-        if (flatDTO.getCommunityName() != null &&
-            !flatDTO.getCommunityName().equals(existingFlat.getCommunity().getAddress())) {
-            Community community = communityRepository.findByAddress(flatDTO.getCommunityName());
-            if (community == null) {
-                throw new IllegalArgumentException("Community not found with address: " + flatDTO.getCommunityName());
-            }
-            existingFlat.setCommunity(community);
-        }
-
-        if (flatDTO.getOwnerDni() != null) {  // Cambiar a ownerDni
+        if (flatDTO.getOwnerDni() != null) {
             Owner owner = ownerRepository.findByDni(flatDTO.getOwnerDni())
-                    .orElseThrow(() -> new IllegalArgumentException("Owner not found with DNI: " + flatDTO.getOwnerDni()));
+                    .orElseThrow(
+                            () -> new IllegalArgumentException("Owner not found with DNI: " + flatDTO.getOwnerDni()));
             existingFlat.setOwner(owner);
         }
 
@@ -93,33 +101,34 @@ public class PropertyServiceImpl implements PropertyService {
     }
 
     @Transactional
-public Parking updateParking(ParkingDTO parkingDTO) {
-    Parking existingParking = parkingRepository.findById(parkingDTO.getId())
-            .orElseThrow(() -> new IllegalArgumentException("Parking not found with id: " + parkingDTO.getId()));
+    public Parking updateParking(ParkingDTO parkingDTO) {
+        Parking existingParking = parkingRepository.findById(parkingDTO.getId())
+                .orElseThrow(() -> new IllegalArgumentException("Parking not found with id: " + parkingDTO.getId()));
 
-    existingParking.setCadastralReference(parkingDTO.getCadastralReference());
-    existingParking.setSquareMeters(parkingDTO.getSquareMeters());
-    existingParking.setNum(parkingDTO.getNum());
-    existingParking.setCoefficient(parkingDTO.getCoefficient());
+        existingParking.setCadastralReference(parkingDTO.getCadastralReference());
+        existingParking.setSquareMeters(parkingDTO.getSquareMeters());
+        existingParking.setNum(parkingDTO.getNum());
+        existingParking.setCoefficient(parkingDTO.getCoefficient());
 
-    if (parkingDTO.getCommunityName() != null &&
-        !parkingDTO.getCommunityName().equals(existingParking.getCommunity().getAddress())) {
-        Community community = communityRepository.findByAddress(parkingDTO.getCommunityName());
-        if (community == null) {
-            throw new IllegalArgumentException("Community not found with address: " + parkingDTO.getCommunityName());
+        if (parkingDTO.getCommunityName() != null &&
+                !parkingDTO.getCommunityName().equals(existingParking.getCommunity().getAddress())) {
+            Community community = communityRepository.findByAddress(parkingDTO.getCommunityName());
+            if (community == null) {
+                throw new IllegalArgumentException(
+                        "Community not found with address: " + parkingDTO.getCommunityName());
+            }
+            existingParking.setCommunity(community);
         }
-        existingParking.setCommunity(community);
+
+        if (parkingDTO.getOwnerDni() != null) {
+            Owner owner = ownerRepository.findByDni(parkingDTO.getOwnerDni())
+                    .orElseThrow(() -> new IllegalArgumentException(
+                            "Owner not found with DNI: " + parkingDTO.getOwnerDni()));
+            existingParking.setOwner(owner);
+        }
+
+        return parkingRepository.save(existingParking);
     }
-
-    if (parkingDTO.getOwnerDni() != null) {
-        Owner owner = ownerRepository.findByDni(parkingDTO.getOwnerDni())
-                .orElseThrow(() -> new IllegalArgumentException("Owner not found with DNI: " + parkingDTO.getOwnerDni()));
-        existingParking.setOwner(owner);
-    }
-
-    return parkingRepository.save(existingParking);
-}
-
 
     @Transactional
     public StorageRoom updateStorageRoom(StorageRoomDTO storageRoomDTO) {
@@ -130,26 +139,84 @@ public Parking updateParking(ParkingDTO parkingDTO) {
         existingStorageRoom.setSquareMeters(storageRoomDTO.getSquareMeters());
         existingStorageRoom.setStorageNumber(storageRoomDTO.getStorageNumber());
         existingStorageRoom.setCoefficient(storageRoomDTO.getCoefficient());
-        
 
         if (storageRoomDTO.getCommunityName() != null &&
-            !storageRoomDTO.getCommunityName().equals(existingStorageRoom.getCommunity().getAddress())) {
+                !storageRoomDTO.getCommunityName().equals(existingStorageRoom.getCommunity().getAddress())) {
             Community community = communityRepository.findByAddress(storageRoomDTO.getCommunityName());
             if (community == null) {
-                throw new IllegalArgumentException("Community not found with address: " + storageRoomDTO.getCommunityName());
+                throw new IllegalArgumentException(
+                        "Community not found with address: " + storageRoomDTO.getCommunityName());
             }
             existingStorageRoom.setCommunity(community);
         }
 
-        if (storageRoomDTO.getOwnerDni() != null) { 
+        if (storageRoomDTO.getOwnerDni() != null) {
             Owner owner = ownerRepository.findByDni(storageRoomDTO.getOwnerDni())
-                    .orElseThrow(() -> new IllegalArgumentException("Owner not found with DNI: " + storageRoomDTO.getOwnerDni()));
+                    .orElseThrow(() -> new IllegalArgumentException(
+                            "Owner not found with DNI: " + storageRoomDTO.getOwnerDni()));
             existingStorageRoom.setOwner(owner);
         }
 
         return storageRoomRepository.save(existingStorageRoom);
     }
 
-    
+    @Transactional
+public Parking createParking(ParkingDTO parkingDTO) {
+    Community community = communityRepository.findByAddress(parkingDTO.getCommunityName());
+    if (community == null) {
+        throw new IllegalArgumentException("Community not found with address: " + parkingDTO.getCommunityName());
+    }
+
+    // Validar duplicidad
+    if (parkingRepository.existsByNumAndCommunity(parkingDTO.getNum(), community)) {
+        throw new IllegalArgumentException("Ya existe un parking con ese número en esta comunidad.");
+    }
+
+    Parking parking = new Parking();
+    parking.setCadastralReference(parkingDTO.getCadastralReference());
+    parking.setSquareMeters(parkingDTO.getSquareMeters());
+    parking.setNum(parkingDTO.getNum());
+    parking.setCoefficient(parkingDTO.getCoefficient());
+    parking.setCommunity(community);
+
+    // Si quieres también asignar owner:
+    if (parkingDTO.getOwnerDni() != null && !parkingDTO.getOwnerDni().isBlank()) {
+        Owner owner = ownerRepository.findByDni(parkingDTO.getOwnerDni())
+            .orElseThrow(() -> new IllegalArgumentException("Owner not found with DNI: " + parkingDTO.getOwnerDni()));
+        parking.setOwner(owner);
+    }
+
+    return parkingRepository.save(parking);
+}
+
+@Transactional
+public StorageRoom createStorageRoom(StorageRoomDTO storageRoomDTO) {
+    Community community = communityRepository.findByAddress(storageRoomDTO.getCommunityName());
+    if (community == null) {
+        throw new IllegalArgumentException("Community not found with address: " + storageRoomDTO.getCommunityName());
+    }
+
+    // Validar duplicidad
+    if (storageRoomRepository.existsByStorageNumberAndCommunity(storageRoomDTO.getStorageNumber(), community)) {
+        throw new IllegalArgumentException("Ya existe un trastero con ese número en esta comunidad.");
+    }
+
+    StorageRoom storageRoom = new StorageRoom();
+    storageRoom.setCadastralReference(storageRoomDTO.getCadastralReference());
+    storageRoom.setSquareMeters(storageRoomDTO.getSquareMeters());
+    storageRoom.setStorageNumber(storageRoomDTO.getStorageNumber());
+    storageRoom.setCoefficient(storageRoomDTO.getCoefficient());
+    storageRoom.setCommunity(community);
+
+    if (storageRoomDTO.getOwnerDni() != null && !storageRoomDTO.getOwnerDni().isBlank()) {
+        Owner owner = ownerRepository.findByDni(storageRoomDTO.getOwnerDni())
+            .orElseThrow(() -> new IllegalArgumentException("Owner not found with DNI: " + storageRoomDTO.getOwnerDni()));
+        storageRoom.setOwner(owner);
+    }
+
+    return storageRoomRepository.save(storageRoom);
+}
+
+
 
 }

@@ -59,7 +59,6 @@ public class PropertyController {
     // CRUD para flat (Apartment)
     // -----------------------------
 
-   
     // Crear un nuevo Flat
     @PostMapping("/flat")
     public ResponseEntity<FlatDTO> createFlat(@RequestBody FlatDTO flatDTO) {
@@ -75,7 +74,13 @@ public class PropertyController {
 
         Community community = communityRepository.findByAddress(flatDTO.getCommunityName());
         if (community != null) {
-            flat.setCommunity(community);
+            if (flatRepository.existsByLetterAndFloorNumberAndCommunity(
+                    flatDTO.getLetter(),
+                    flatDTO.getFloorNumber(),
+                    community)) {
+                throw new IllegalArgumentException("Ya existe un piso con esa letra y planta en esta comunidad.");
+            }
+
         }
 
         // TODO
@@ -169,16 +174,6 @@ public class PropertyController {
     public ResponseEntity<FlatDTO> getFlat(@PathVariable Long id) {
         return flatRepository.findById(id)
                 .map(flat -> ResponseEntity.ok(FlatMapper.toDTO(flat)))
-                .orElse(ResponseEntity.notFound().build());
-    }
-
-    @PutMapping("/flat/{id}")
-    public ResponseEntity<Flat> updateflat(@PathVariable Long id, @RequestBody Flat updatedflat) {
-        return flatRepository.findById(id)
-                .map(existing -> {
-                    updatedflat.setId(id);
-                    return ResponseEntity.ok(flatRepository.save(updatedflat));
-                })
                 .orElse(ResponseEntity.notFound().build());
     }
 
@@ -288,105 +283,70 @@ public class PropertyController {
 
     // ENDPOINT EDITAR FLAT
 
-    @PutMapping("/{id}")
-    public ResponseEntity<FlatDTO> updateFlat(@PathVariable Long id, @RequestBody FlatDTO flatDTO) {
-        flatDTO.setId(id); // Aseguramos que el id en path y body coincidan
-        Flat updatedFlat = propertyServiceImpl.updateFlat(flatDTO);
-
-        // Convertir a DTO para devolver
-        FlatDTO responseDto = new FlatDTO(
-                updatedFlat.getId(),
-                updatedFlat.getCadastralReference(),
-                updatedFlat.getSquareMeters(),
-                updatedFlat.getCoefficient(),
-                updatedFlat.getFloorNumber(),
-                updatedFlat.getLetter(),
-                updatedFlat.getRoomCount(),
-                updatedFlat.getBathroomCount(),
-                updatedFlat.getCommunity().getAddress(),
-                updatedFlat.getOwner() != null ? updatedFlat.getOwner().getName() : null,
-                updatedFlat.getOwner() != null ? updatedFlat.getOwner().getDni() : null);
-
-        return ResponseEntity.ok(responseDto);
+    @PutMapping("/flat/{id}")
+    public ResponseEntity<?> updateFlat(@PathVariable Long id, @RequestBody FlatDTO flatDTO) {
+        flatDTO.setId(id);
+        try {
+            Flat updatedFlat = propertyServiceImpl.updateFlat(flatDTO);
+            return ResponseEntity.ok(FlatMapper.toDTO(updatedFlat));
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
     }
 
     @PostMapping("/create-flat")
     public ResponseEntity<FlatDTO> createFlatDTO(@RequestBody FlatDTO flatDTO) {
-        Flat flat = new Flat(); // Crear un objeto Flat vacío
+        // 1. Busca la comunidad por nombre (o id)
+        Community community = communityRepository.findByAddress(flatDTO.getCommunityName());
+        if (community == null) {
+            return ResponseEntity.badRequest().build();
+        }
 
-        // Mapear el DTO a la entidad Flat
+        // 2. Valida que no exista ya un piso igual
+        boolean exists = flatRepository.existsByLetterAndFloorNumberAndCommunity(
+                flatDTO.getLetter(),
+                flatDTO.getFloorNumber(),
+                community);
+        if (exists) {
+            throw new IllegalArgumentException("Ya existe un piso con esa letra y planta en esta comunidad.");
+        }
+
+        // 3. Mapear DTO a entidad
+        Flat flat = new Flat();
         flat.setCadastralReference(flatDTO.getCadastralReference());
         flat.setSquareMeters(flatDTO.getSquareMeters());
         flat.setFloorNumber(flatDTO.getFloorNumber());
         flat.setLetter(flatDTO.getLetter());
         flat.setRoomCount(flatDTO.getRoomCount());
         flat.setBathroomCount(flatDTO.getBathroomCount());
-        flat.setCoefficient(flatDTO.getCoefficient()); // Asegurarse de que el DTO tenga este campo
+        flat.setCoefficient(flatDTO.getCoefficient());
+        flat.setCommunity(community);
 
-        Community community = communityRepository.findByAddress(flatDTO.getCommunityName());
-        if (community != null) {
-            flat.setCommunity(community);
-        }
-
-        Owner owner = ownerRepository.findByDni(flatDTO.getOwnerDni())
-                .orElse(null); // Cambiar a buscar por DNI
-        if (owner != null) {
+        // 4. Si el owner es opcional:
+        if (flatDTO.getOwnerDni() != null && !flatDTO.getOwnerDni().trim().isEmpty()) {
+            Owner owner = ownerRepository.findByDni(flatDTO.getOwnerDni())
+                    .orElseThrow(
+                            () -> new IllegalArgumentException("Owner not found with DNI: " + flatDTO.getOwnerDni()));
             flat.setOwner(owner);
         }
 
+        // 5. Guarda y devuelve DTO
         Flat savedFlat = flatRepository.save(flat);
         return ResponseEntity.status(HttpStatus.CREATED).body(FlatMapper.toDTO(savedFlat));
     }
 
     @PostMapping("/create-parking")
     public ResponseEntity<ParkingDTO> createParkingDTO(@RequestBody ParkingDTO parkingDTO) {
-        Parking parking = new Parking();
-
-        parking.setCadastralReference(parkingDTO.getCadastralReference());
-        parking.setSquareMeters(parkingDTO.getSquareMeters());
-        parking.setNum(parkingDTO.getNum());
-        parking.setCoefficient(parkingDTO.getCoefficient());
-
-        Community community = communityRepository.findByAddress(parkingDTO.getCommunityName());
-        if (community != null) {
-            parking.setCommunity(community);
-        }
-
-        Owner owner = ownerRepository.findByDni(parkingDTO.getOwnerDni())
-                .orElse(null);
-        if (owner != null) {
-            parking.setOwner(owner);
-        }
-
-        Parking saveParking = parkingRepository.save(parking);
-        return ResponseEntity.status(HttpStatus.CREATED).body(ParkingMapper.toDTO(saveParking));
+        Parking parking = propertyServiceImpl.createParking(parkingDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(ParkingMapper.toDTO(parking));
     }
+
+   
 
     @PostMapping("/create-storage-room")
     public ResponseEntity<StorageRoomDTO> createStorageRoomDTO(@RequestBody StorageRoomDTO storageRoomDTO) {
-        StorageRoom storageRoom = new StorageRoom();
-
-        storageRoom.setCadastralReference(storageRoomDTO.getCadastralReference());
-        storageRoom.setSquareMeters(storageRoomDTO.getSquareMeters());
-        storageRoom.setStorageNumber(storageRoomDTO.getStorageNumber());
-        storageRoom.setCoefficient(storageRoomDTO.getCoefficient());
-
-        // Aquí NO debes usar getCommunityName() en StorageRoom, sino en StorageRoomDTO
-        Community community = communityRepository.findByAddress(storageRoomDTO.getCommunityName());
-        if (community == null) {
-            throw new IllegalArgumentException(
-                    "Community not found with address: " + storageRoomDTO.getCommunityName());
-        }
-        storageRoom.setCommunity(community);
-
-        Owner owner = ownerRepository.findByDni(storageRoomDTO.getOwnerDni())
-                .orElse(null); // No lanza error si no encuentra
-        if (owner != null) {
-            storageRoom.setOwner(owner);
-        }
-
-        StorageRoom saveStorageRoom = storageRoomRepository.save(storageRoom);
-        return ResponseEntity.status(HttpStatus.CREATED).body(StorageRoomMapper.toDTO(saveStorageRoom));
+        StorageRoom storageRoom = propertyServiceImpl.createStorageRoom(storageRoomDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body(StorageRoomMapper.toDTO(storageRoom));
     }
 
 }
