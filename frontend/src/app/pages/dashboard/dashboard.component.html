@@ -1,1 +1,11 @@
-<p>dashboard works!</p>
+<div class="dashboard-grid">
+  <mat-card class="dashboard-card" *ngFor="let card of summaryCards">
+    <div class="card-icon-container">
+      <mat-icon class="dashboard-icon">{{ card.icon }}</mat-icon>
+    </div>
+    <div class="card-text">
+      <h3>{{ card.title }}</h3>
+      <p class="card-count">{{ card.count }}</p>
+    </div>
+  </mat-card>
+</div>

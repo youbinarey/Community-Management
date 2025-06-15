@@ -1,0 +1,57 @@
+.dashboard-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 24px;
+  padding: 32px;
+}
+
+
+.dashboard-card {
+  background-color: #f9f9f9;
+  border-radius: 16px;
+  padding: 24px;
+  text-align: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: cursor-pointer;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  }
+}
+
+.card-icon-container {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 10px;
+  background-color: #e8eaf6; // azul clarito del tema
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.dashboard-icon {
+  font-size: 48px;
+  color: #118635;
+  width: 48px;
+  height: 48px;
+  line-height: 1;
+}
+
+
+.card-text h3 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 500;
+  color: #333;
+}
+
+.card-count {
+  margin: 8px 0 0;
+  font-size: 2rem;
+  color: #3f51b5;
+  font-weight: bold;
+}
