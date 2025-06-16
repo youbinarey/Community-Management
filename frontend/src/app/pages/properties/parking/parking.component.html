@@ -1,30 +1,30 @@
-<div class="parkings-list">
-  <h2>Lista de Parkings en Comunidad: {{ this.communityName }}</h2>
+<div class="parkings-container">
+  <h2 class="parkings-title">Lista de Parkings en Comunidad: {{ communityName }}</h2>
 
-  <!-- Tabla de Parkings -->
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Referencia Catastral</th>
-        <th>Metros Cuadrados</th>
-        <th>Número de Parking</th>
-        <th>Comunidad</th>
-        <th>Propietario</th>
-        <th>Coeficiente</th>
-      </tr>
-    </thead>
-    <tbody>
-      <!-- Recorremos los Parkings y los mostramos en cada fila -->
-      <tr *ngFor="let parking of parkings">
-        <td>{{ parking.id }}</td>
-        <td>{{ parking.cadastralReference }}</td>
-        <td>{{ parking.squareMeters }}</td>
-        <td>{{ parking.num }}</td>
-        <td>{{ parking.communityName }}</td>
-        <td>{{ parking.ownerName }}</td>
-        <td>{{ parking.coefficient }}</td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="parkings-table-wrapper">
+    <table class="parkings-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Referencia Catastral</th>
+          <th>Metros Cuadrados</th>
+          <th>Número de Parking</th>
+          <th>Comunidad</th>
+          <th>Propietario</th>
+          <th>Coeficiente</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let parking of parkings; let i = index" [class.parkings-alt-row]="i % 2 === 1">
+          <td>{{ parking.id }}</td>
+          <td>{{ parking.cadastralReference }}</td>
+          <td>{{ parking.squareMeters }}</td>
+          <td>{{ parking.num }}</td>
+          <td>{{ parking.communityName }}</td>
+          <td>{{ parking.ownerName }}</td>
+          <td>{{ parking.coefficient }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
