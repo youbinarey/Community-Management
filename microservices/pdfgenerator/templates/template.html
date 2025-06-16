@@ -1,39 +1,54 @@
-<html>
+<!DOCTYPE html>
+<html lang="es">
 <head>
-  <style>
-    /* (tu CSS aquí) */
-  </style>
+  <meta charset="UTF-8">
+  <title>Recibo de Comunidad</title>
+  <link rel="stylesheet" href="css/community_template_styles.css">
 </head>
 <body>
-  <!-- Usa los campos entre llaves -->
-  <div class="cabecera">
-    <img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/6/6b/Bitmap_Icon_Example.png">
-    <div class="datos-admin">
-      <b>Administración de Fincas Ejemplo S.L.</b><br>
-      Calle Principal 123, 28001 Madrid<br>
-      Tel: 999 123 456<br>
-      info@fincas-ejemplo.es
+  <div class="header">
+    <div class="logo">A</div>
+    <div>
+      <div class="admin-info">
+        Administración de Fincas Ejemplo S.L.<br>
+        Calle Principal 123, 28001 Madrid<br>
+        Tel: 999 123 456<br>
+        Email: info@fincas-ejemplo.es
+      </div>
     </div>
   </div>
-  <h1>Recibo de Comunidad</h1>
-  <b>Comunidad:</b> {address} <br>
-  <b>Fecha:</b> {date}
-  <div class="comunicado">
-    Estimado propietario,<br>
-    Adjuntamos el recibo correspondiente a la liquidación de gastos de su comunidad. <br>
-    Para cualquier consulta, no dude en ponerse en contacto con la administración.<br>
+
+  <div class="main-title">Recibo de Comunidad</div>
+
+  <div class="section">
+    <div class="row"><strong>Comunidad:</strong> {address}</div>
+    <div class="row"><strong>Fecha:</strong> {date}</div>
+
+    <div class="comunicado">
+      Estimado presidente/a:<br>
+      Adjuntamos el recibo correspondiente a la liquidación de gastos de su comunidad.<br>
+      Para cualquier consulta, no dude en ponerse en contacto con la administración.
+    </div>
+
+    <table>
+      <tr><th>Concepto</th><th>Importe (€)</th></tr>
+      <tr><td>Luz</td><td>{electricity}</td></tr>
+      <tr><td>Agua</td><td>{water}</td></tr>
+      <tr><td>Basuras</td><td>{trash}</td></tr>
+      <tr><td>Ascensor</td><td>{elevator}</td></tr>
+      <tr><td>Mantenimiento</td><td>{maintenance}</td></tr>
+      <tr class="total-row"><td>Total a pagar:</td><td>{total}</td></tr>
+    </table>
   </div>
-  <table>
-    <tr><th>Concepto</th><th>Importe (€)</th></tr>
-    <tr><td>Luz</td><td>{electricity}</td></tr>
-    <tr><td>Agua</td><td>{water}</td></tr>
-    <tr><td>Basuras</td><td>{trash}</td></tr>
-    <tr><td>Ascensor</td><td>{elevator}</td></tr>
-    <tr><td>Mantenimiento</td><td>{maintenance}</td></tr>
-  </table>
-  <div class="firma">
+
+  <div class="footer">
+    Este recibo es válido como justificante del pago de la cuota comunitaria.<br>
+    Si tiene cualquier duda contacte con la administración.
+  </div>
+
+  <div class="signature">
     ____________________________<br>
-    Firma o sello de la administración
+    Firma / Sello Administración
   </div>
 </body>
 </html>

@@ -1,0 +1,88 @@
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  margin: 40px;
+  background: #f8f9fa;
+  color: #222;
+}
+.header {
+  display: flex;
+  align-items: center;
+  border-bottom: 2px solid #1976d2;
+  padding-bottom: 12px;
+  margin-bottom: 24px;
+}
+.logo {
+  width: 72px;
+  height: 72px;
+  background: #1976d2;
+  border-radius: 50%;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.2rem;
+  margin-right: 20px;
+}
+.admin-info {
+  font-size: 0.95rem;
+  color: #666;
+}
+.main-title {
+  font-size: 2rem;
+  color: #1976d2;
+  margin-bottom: 10px;
+  margin-top: 12px;
+  letter-spacing: 0.5px;
+}
+.section {
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px #e3e7ee60;
+  padding: 24px 28px;
+  margin-bottom: 32px;
+}
+.row {
+  margin-bottom: 10px;
+}
+.comunicado {
+  margin-bottom: 24px;
+  color: #34495e;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+  box-shadow: 0 2px 8px #e3e7ee60;
+}
+th, td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+th {
+  background-color: #1976d2;
+  color: white;
+}
+.total-row td {
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+.total-row td:last-child {
+  color: #388e3c;
+  text-align: right;
+}
+.footer {
+  margin-top: 32px;
+  padding-top: 16px;
+  border-top: 1.5px solid #1976d2;
+  color: #666;
+  text-align: right;
+}
+.signature {
+  margin-top: 40px;
+  text-align: right;
+  font-style: italic;
+  color: #888;
+}

@@ -9,6 +9,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent  # Sube dos niveles si este c√
 def generate_receipt_pdf(invoice):
     fecha_formateada = format_spanish_date(invoice.date)
     template_path = BASE_DIR / "templates" / "template.html"
+    css_path = BASE_DIR / "templates" / "css" / "template_styles.css"  # <- asegurado
+    total = sum([
+    invoice.electricity,
+    invoice.water,
+    invoice.trash,
+    invoice.elevator,
+    invoice.maintenance
+])
+
 
     with open(template_path, encoding="utf-8") as f:
         html_content = f.read().format(
@@ -19,11 +28,13 @@ def generate_receipt_pdf(invoice):
             trash=invoice.trash,
             elevator=invoice.elevator,
             maintenance=invoice.maintenance,
+            total=f"{total:.2f}"  
         )
     pdf_file = io.BytesIO()
-    HTML(string=html_content).write_pdf(pdf_file)
+    HTML(string=html_content).write_pdf(pdf_file, stylesheets=[CSS(str(css_path))])  # <- Aplica CSS
     pdf_file.seek(0)
     return pdf_file
+
 
 def generate_owner_receipt_pdf(invoice):
     template_path = BASE_DIR / "templates" / "owner_template.html"
