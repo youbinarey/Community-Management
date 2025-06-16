@@ -1,34 +1,54 @@
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: #1976d2;
-  padding: 1rem 2rem;
-  color: white;
+$color-primary: #2C3E50;
+$color-accent: #F39C12;
+$color-secondary: #18BC9C;
+$color-light: #F8F9FA;
+$color-dark: #212529;
 
-  .logo {
-    font-size: 1.5rem;
+.custom-navbar {
+  background-color: $color-primary;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+
+  .navbar-brand {
+    color: $color-light;
     font-weight: bold;
   }
 
-  .nav {
-    display: flex;
-    gap: 1.5rem;
+  .nav-link {
+    color: $color-light;
 
-    a {
-      color: white;
-      text-decoration: none;
-      font-weight: 500;
-      position: relative;
-      padding-bottom: 0.2rem;
+    &:hover {
+      color: $color-secondary !important;
+    }
 
-      &.active {
-        border-bottom: 2px solid white;
-      }
+    &.active {
+      color: $color-secondary !important;
+    }
+  }
+
+  .dropdown-menu {
+    background-color: white;
+
+    .dropdown-item {
+      color: $color-dark;
 
       &:hover {
-        opacity: 0.8;
+        background-color: rgba(24, 188, 156, 0.1);
+        color: $color-secondary;
       }
     }
+  }
+
+  .btn-accent {
+    border-color: $color-accent;
+    color: $color-accent;
+
+    &:hover {
+      background-color: $color-accent;
+      color: #fff;
+    }
+  }
+
+  span {
+    color: $color-light;
   }
 }
