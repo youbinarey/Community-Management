@@ -1,0 +1,59 @@
+$primary: #2C3E50;
+$secondary: #18BC9C;
+$header-bg: #f0f2f5;
+$row-hover: #f3f6f9;
+$row-alt: #f8f9fa;
+$text-dark: #212529;
+$border-color: #dee2e6;
+
+.flats-container {
+  background-color: #ffffff;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+  font-family: 'Segoe UI', sans-serif;
+  max-width: 100%;
+  overflow-x: auto;
+}
+
+.flats-title {
+  color: $primary;
+  font-weight: 600;
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.flats-table-wrapper {
+  overflow-x: auto;
+}
+
+.flats-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 900px;
+
+  th, td {
+    text-align: center;
+    padding: 0.75rem 1rem;
+    border-bottom: 1px solid $border-color;
+    font-size: 0.95rem;
+  }
+
+  th {
+    background-color: $header-bg;
+    color: $primary;
+    font-weight: 600;
+  }
+
+  tbody tr {
+    transition: background-color 0.2s ease-in-out;
+
+    &:hover {
+      background-color: $row-hover;
+    }
+  }
+
+  .flats-alt-row {
+    background-color: $row-alt;
+  }
+}
