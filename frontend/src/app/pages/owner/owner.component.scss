@@ -3,7 +3,6 @@ $accent: #F39C12;
 $secondary: #18BC9C;
 $light: #F8F9FA;
 $dark: #212529;
-
 .container {
   background-color: #fff;
   padding: 2rem;
@@ -117,4 +116,10 @@ input.form-control {
     font-size: 0.95rem;
     color: $dark;
   }
+
+ 
 }
+ .field-label {
+    font-weight: 500;
+    color: $primary;
+  }

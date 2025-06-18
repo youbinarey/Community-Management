@@ -37,15 +37,15 @@ public ResponseEntity<?> sendOwnerInvoiceByEmail(
         // 1. Recupera el OwnerInvoiceDTO
         OwnerInvoiceDTO ownerInvoiceDTO = ownerInvoiceService.getById(id);
 
-        // 2. Genera el PDF (lo mismo que tu endpoint de descarga, pero sin devolverlo, solo lo usas)
+        // 2. Genera el PDF
         byte[] pdfBytes = pdfService.generateOwnerReceiptPdf(ownerInvoiceDTO);
 
         // 3. Envía por email
         emailService.sendOwnerInvoicePdf(
             pdfBytes,
             email,
-            "Factura de propietario",
-            "Adjuntamos su factura de propietario en PDF."
+            "Factura Comunidad",
+            "Adjuntamos su factura de comunidad en PDF."
         );
         response.put("status", "ok");
         response.put("message", "Email enviado correctamente");

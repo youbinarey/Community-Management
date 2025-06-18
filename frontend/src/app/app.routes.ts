@@ -12,6 +12,7 @@ import { OwnerInvoicesComponent } from './pages/invoices/owner/owner.component';
 
 
 export const routes: Routes = [
+    {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
     {path: 'dashboard', component: DashboardComponent},
     {path: 'communities', component: CommunitiesComponent},
     {path: 'properties/flat/:communityId', component: FlatComponent},

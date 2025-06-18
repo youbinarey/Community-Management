@@ -1,19 +1,21 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8">
   <title>Recibo de Comunidad</title>
   <link rel="stylesheet" href="css/community_template_styles.css">
 </head>
+
 <body>
   <div class="header">
     <div class="logo">A</div>
     <div>
       <div class="admin-info">
-        Administración de Fincas Ejemplo S.L.<br>
-        Calle Principal 123, 28001 Madrid<br>
-        Tel: 999 123 456<br>
-        Email: info@fincas-ejemplo.es
+        Administración DEMO S.L.<br>
+        Tel: 986 345 678<br>
+        Email: demo@gestiondecomunidadAPP.com<br>
+        Dirección: Calle Avenida de Madrid 123, Vigo
       </div>
     </div>
   </div>
@@ -31,18 +33,39 @@
     </div>
 
     <table>
-      <tr><th>Concepto</th><th>Importe (€)</th></tr>
-      <tr><td>Luz</td><td>{electricity}</td></tr>
-      <tr><td>Agua</td><td>{water}</td></tr>
-      <tr><td>Basuras</td><td>{trash}</td></tr>
-      <tr><td>Ascensor</td><td>{elevator}</td></tr>
-      <tr><td>Mantenimiento</td><td>{maintenance}</td></tr>
-      <tr class="total-row"><td>Total a pagar:</td><td>{total}</td></tr>
+      <tr>
+        <th>Concepto</th>
+        <th>Importe (€)</th>
+      </tr>
+      <tr>
+        <td>Luz</td>
+        <td>{electricity}</td>
+      </tr>
+      <tr>
+        <td>Agua</td>
+        <td>{water}</td>
+      </tr>
+      <tr>
+        <td>Basuras</td>
+        <td>{trash}</td>
+      </tr>
+      <tr>
+        <td>Ascensor</td>
+        <td>{elevator}</td>
+      </tr>
+      <tr>
+        <td>Mantenimiento</td>
+        <td>{maintenance}</td>
+      </tr>
+      <tr class="total-row">
+        <td>Total a pagar:</td>
+        <td>{total}</td>
+      </tr>
     </table>
   </div>
 
   <div class="footer">
-    Este recibo es válido como justificante del pago de la cuota comunitaria.<br>
+    Este recibo será domiciliado entre los días 01 y 11 del correspondiente mes.<br>
     Si tiene cualquier duda contacte con la administración.
   </div>
 
@@ -51,4 +74,5 @@
     Firma / Sello Administración
   </div>
 </body>
+
 </html>

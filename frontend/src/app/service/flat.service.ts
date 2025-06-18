@@ -11,6 +11,7 @@ export class FlatService {
 
 
   // PUREBA PASAR DATOS 
+  private apiUrl1 = 'api/commune';
   private apiUrl = 'http://localhost:8080/api/commune';
   
 

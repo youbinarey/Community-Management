@@ -11,6 +11,11 @@ export class StorageroomService {
 
   constructor(private http: HttpClient) { }
 
+  
+    getAllStorageRooms(): Observable<StorageRoom[]> {
+      return this.http.get<StorageRoom[]>(`${this.apiUrl}/properties/storage-room`);
+    }
+
   getStorageRoomsByCommunity(communityId: number) : Observable<StorageRoom[]> {
     return this.http.get<StorageRoom[]>(`${this.apiUrl}/properties/storageroom/community/${communityId}`);
   }

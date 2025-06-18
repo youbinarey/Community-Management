@@ -15,7 +15,7 @@ public class ParkingDTO {
     private Double squareMeters;
     private Double coefficient;
 
-    private int num;
+    private Integer num;
     private String communityName;
     private String ownerName;
     private String ownerDni;

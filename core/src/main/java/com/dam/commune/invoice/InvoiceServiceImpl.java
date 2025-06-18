@@ -113,5 +113,16 @@ private double sum(Double... values) {
     public void deleteInvoice(Long id) {
         invoiceRepository.deleteById(id);
     }
+
+
+
+    @Override
+    public List<InvoiceDTO> getAllInvoices() {
+        return invoiceRepository.findAll().stream()
+                .map(invoiceMapper::toDto)
+                .collect(Collectors.toList());
+    }
+
+    
 }
 

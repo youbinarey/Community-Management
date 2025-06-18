@@ -12,6 +12,11 @@ export class ParkingService {
 
   constructor(private http: HttpClient) { }
 
+  getAllParkings(): Observable<Parking[]> {
+      return this.http.get<Parking[]>(`${this.apiUrl}/properties/parking`);
+    }
+  
+
   getParkingsByCommunity(communityId: number) : Observable<Parking[]> {
     return this.http.get<Parking[]>(`${this.apiUrl}/properties/parking/community/${communityId}`);
   }

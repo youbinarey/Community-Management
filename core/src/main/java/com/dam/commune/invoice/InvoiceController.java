@@ -1,7 +1,9 @@
 package com.dam.commune.invoice;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
+import org.apache.catalina.connector.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -13,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
-import com.dam.commune.invoice.owner.OwnerInvoiceService;
 
 import lombok.RequiredArgsConstructor;
 
@@ -25,7 +26,7 @@ import lombok.RequiredArgsConstructor;
 public class InvoiceController {
 
     private final InvoiceService invoiceService;
-    private final OwnerInvoiceService ownerInvoiceService;
+
 
     @PostMapping("/create-community-invoice")
     public ResponseEntity<InvoiceDTO> createInvoice(@RequestBody InvoiceDTO dto) {
@@ -49,4 +50,15 @@ public class InvoiceController {
         invoiceService.deleteInvoice(id);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("invoices")
+    public ResponseEntity<List<InvoiceDTO>> getAllInvoices(){
+        List<InvoiceDTO> invoices = invoiceService.getAllInvoices();
+        if (invoices.isEmpty()) {
+            return ResponseEntity.noContent().build();
+        } else {
+            return ResponseEntity.ok(invoices);
+        }
+    }
 }
+

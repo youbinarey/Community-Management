@@ -20,12 +20,12 @@ public class CommunityDTO {
     @NotNull(message = "Postal code cannot be null")
     private String postalCode;
     
-    private int propertiesCount;
+    private Integer propertiesCount;
 
     private boolean elevator;
-    private int numFlats;
-    private int numparkings;
-    private int numStorageRooms;
+    private Integer numFlats;
+    private Integer numparkings;
+    private Integer numStorageRooms;
     private boolean reducedMobilityAccess;
 
     private String bankAccountNumber;

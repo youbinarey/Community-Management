@@ -21,5 +21,5 @@ public class OwnerDTO {
     private String phone;
     private LocalDate birthDate;
     private String bankAccountNumber;
-    private int propertiesCount;
+    private Integer propertiesCount;
 }

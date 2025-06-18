@@ -12,7 +12,7 @@ public interface OwnerInvoiceMapper {
     @Mapping(target = "invoiceId", source = "invoice.id")
     @Mapping(target = "ownerName", source = "owner.name")
     @Mapping(target = "ownerSurname", source = "owner.surname")
-    @Mapping(target = "ownerBankAccount", source = "owner.bankAccount.id")
+    @Mapping(target = "ownerBankAccount", source = "owner.bankAccount.accountNumber")
     @Mapping(target = "coefficient", source = "property.coefficient")
     @Mapping(target = "communityName", source = "invoice.community.address")
     @Mapping(target = "email", source = "owner.email")

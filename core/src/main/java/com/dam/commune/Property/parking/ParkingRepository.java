@@ -11,7 +11,7 @@ import com.dam.commune.community.Community;
 @Repository
 public interface ParkingRepository extends JpaRepository<Parking, Long> {
         List<Parking> findByCommunity(Community community);
-        boolean existsByNumAndCommunity(int num, Community community);
+        boolean existsByNumAndCommunity(Integer num, Community community);
         
 
 }

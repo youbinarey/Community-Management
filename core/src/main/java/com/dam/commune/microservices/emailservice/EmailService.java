@@ -1,5 +1,7 @@
 package com.dam.commune.microservices.emailservice;
 
+import java.time.LocalDate;
+
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -16,14 +18,15 @@ import org.springframework.web.client.RestTemplate;
 public class EmailService {
 
     private final RestTemplate restTemplate= new RestTemplate();    
-    private final String EMAIL_MICROSERVICE_URL = "http://localhost:8000/send-invoice-email/";
+    //private final String EMAIL_MICROSERVICE_URL = "http://emailsender:8000/send-invoice-email/";
+     private final String EMAIL_MICROSERVICE_URL = "http://localhost:8000/send-invoice-email/";
 
 
     public void sendOwnerInvoicePdf(byte[] pdfBytes, String recipientEmail, String subject, String body) {
         ByteArrayResource pdfResource = new ByteArrayResource(pdfBytes) {
             @Override
             public String getFilename() {
-                return "owner-invoice.pdf";
+                return "Factura-comunidad-" + LocalDate.now().toString() +".pdf";
             }
         };
 

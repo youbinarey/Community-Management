@@ -2,12 +2,11 @@ package com.dam.commune.invoice;
 
 import java.time.LocalDate;
 
-import org.hibernate.validator.constraints.ru.INN;
 
 import com.dam.commune.community.Community;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
+
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -21,15 +20,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
-
 @Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table(name = "invoice", uniqueConstraints = @UniqueConstraint(columnNames = { "date", "community_id" })) 
+@Table(name = "invoice", uniqueConstraints = @UniqueConstraint(columnNames = { "date", "community_id" }))
 
 public class Invoice {
 
@@ -47,7 +44,5 @@ public class Invoice {
     @ManyToOne
     @JoinColumn(name = "community_id", nullable = false)
     private Community community;
-
-    
 
 }

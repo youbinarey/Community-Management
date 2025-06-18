@@ -20,10 +20,11 @@ export class DashboardComponent implements OnInit{
   
   summaryCards = [
     { title: 'Comunidades', count: 0, icon:'location_city', route: '/communities' },
-    { title: 'Propietarios', count: 0 },
-    { title: 'Viviendas', count: 0 },
-    { title: 'Garajes', count: 0 },
-    { title: 'Facturas', count: 0 },
+    { title: 'Propietarios', count: 0,icon: 'account_circle' },
+    { title: 'Viviendas', count: 0,icon: 'home' },
+    { title: 'Garajes', count: 0,icon: 'local_parking' },
+    { title: 'Trasteros', count: 0,icon: 'storage' },
+    { title: 'Facturas', count: 0,icon: 'receipt' },
 
   ];
    constructor(
@@ -45,10 +46,10 @@ export class DashboardComponent implements OnInit{
   loadDashboardData() {
     this.communityService.getCommunities().subscribe(data => this.summaryCards[0].count = data.length);
     this.ownerService.getAllOwners().subscribe(data => this.summaryCards[1].count = data.length);
-    // this.flatService.getAllFlats.subscribe(data => this.summaryCards[2].count = data.length);
-    // this.parkingService.getAll().subscribe(data => this.summaryCards[3].count = data.length);
-    // this.storageroomService.getAll().subscribe(data => this.summaryCards[4].count = data.length);
-    // this.invoiceService.getAll().subscribe(data => this.summaryCards[5].count = data.length);
+    this.flatService.getAllFlats().subscribe(data => this.summaryCards[2].count = data.length);
+    this.parkingService.getAllParkings().subscribe(data => this.summaryCards[3].count = data.length);
+    this.storageroomService.getAllStorageRooms().subscribe(data => this.summaryCards[4].count = data.length);
+    this.invoiceService.getAllInvoices().subscribe(data => this.summaryCards[5].count = data.length);
   }
   
   

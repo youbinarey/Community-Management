@@ -22,8 +22,8 @@ import lombok.experimental.SuperBuilder;
 public class Flat extends Property {
     private Integer floorNumber;
     private String letter;
-    private int roomCount;
-    private int bathroomCount;
+    private Integer roomCount;
+    private Integer bathroomCount;
  
     
 }

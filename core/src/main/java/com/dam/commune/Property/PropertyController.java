@@ -236,10 +236,32 @@ public class PropertyController {
         return ResponseEntity.notFound().build();
     }
 
-    @GetMapping("parking")
-    public List<Parking> getAllParkings() {
-        return parkingRepository.findAll();
+   @GetMapping("/parking")
+public ResponseEntity<List<ParkingDTO>> getAllParkings() {
+    List<ParkingDTO> parkings = parkingRepository.findAll().stream()
+            .map(ParkingMapper::toDTO)
+            .collect(Collectors.toList());
+    return ResponseEntity.ok(parkings);
+}
+
+    @GetMapping("/flat")
+    public ResponseEntity<List<FlatDTO>> getAllFlats() {
+        List<FlatDTO> flats = flatRepository.findAll().stream()
+                .map(FlatMapper::toDTO)
+                .collect(Collectors.toList())   ;
+        return ResponseEntity.ok(flats);
     }
+
+    @GetMapping("/storage-room")
+    public ResponseEntity<List<StorageRoomDTO>> getAllStoragesRooms() {
+        List<StorageRoomDTO> storagesRooms = storageRoomRepository.findAll().stream()
+                .map(StorageRoomMapper::toDTO)
+                .collect(Collectors.toList())   ;
+        return ResponseEntity.ok(storagesRooms);
+    }
+
+
+
 
     // -----------------------------
     // CRUD para STORAGE ROOM

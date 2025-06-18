@@ -35,13 +35,13 @@ public class Community {
     private boolean elevator;
 
     @Column(name = "num_flats", nullable = false)
-    private int numFlats;
+    private Integer numFlats;
 
     @Column(name = "num_parkings", nullable = false)
-    private int numparkings;
+    private Integer numparkings;
 
     @Column(name = "num_storage_rooms", nullable = false)
-    private int numStorageRooms;
+    private Integer numStorageRooms;
 
     @Column(name = "reduced_mobility_access")
     private boolean reducedMobilityAccess;

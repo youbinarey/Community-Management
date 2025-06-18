@@ -14,6 +14,8 @@ import { Community } from '../models/Community';
 
   
     private apiUrl = 'http://localhost:8080/api/commune/communities/dto';
+    private apiUrl1 = 'api/commune/communities/dto';
+
 
     communities: Community[];
     private _dato = 'Hola mundo'; // Ejemplo de dato privado

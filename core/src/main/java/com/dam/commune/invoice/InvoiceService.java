@@ -9,5 +9,6 @@ public interface InvoiceService {
     List<InvoiceDTO> getInvoicesByCommunity(Long communityId);
     InvoiceDTO getInvoiceById(Long id);
     void deleteInvoice(Long id);
+    List<InvoiceDTO> getAllInvoices();
 
 }

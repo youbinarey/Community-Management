@@ -18,5 +18,5 @@ import lombok.experimental.SuperBuilder;
 @SuperBuilder
 @DiscriminatorValue("STORAGEROOM")
 public class StorageRoom extends Property {
-  private int storageNumber;
+  private Integer storageNumber;
 }
