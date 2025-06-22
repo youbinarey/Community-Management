@@ -11,6 +11,22 @@ import { OwnerInvoicesComponent } from './pages/invoices/owner/owner.component';
 
 
 
+/**
+ * Defines the application's main route configuration.
+ *
+ * - Redirects the root path ('') to the 'dashboard' route.
+ * - Maps specific paths to their corresponding components:
+ *   - 'dashboard': Displays the dashboard view.
+ *   - 'communities': Shows the list of communities.
+ *   - 'properties/flat/:communityId': Displays flats for a given community.
+ *   - 'properties/storageroom/:communityId': Displays storagerooms for a given community.
+ *   - 'properties/parking/:communityId': Displays parking spaces for a given community.
+ *   - 'owners': Shows the list of property owners.
+ *   - 'invoices/:communityId': Displays invoices for a specific community.
+ *   - 'invoices/owner/:ownerId': Displays invoices for a specific owner.
+ *
+ * @type {Routes}
+ */
 export const routes: Routes = [
     {path: '', redirectTo: 'dashboard', pathMatch: 'full'},
     {path: 'dashboard', component: DashboardComponent},
