@@ -6,7 +6,7 @@ from services.pdf_service import generate_receipt_pdf
 
 app = Flask(__name__)
 
-@app.route('/generate-community-receipt', methods=['POST'])
+@app.route('/generate-community-receipt', methods=['POST']) # Endpoint to generate a PDF receipt for community utilities
 def generate_pdf_endpoint():
     data = request.json
     invoice = Invoice(**data)
@@ -18,7 +18,7 @@ def generate_pdf_endpoint():
         mimetype='application/pdf'
     )
     
-@app.route('/generate-owner-receipt', methods=['POST'])
+@app.route('/generate-owner-receipt', methods=['POST'])# Endpoint to generate a PDF receipt for an owner
 def generate_owner_receipt():
     data = request.json
     invoice = OwnerInvoice(**data)
@@ -31,5 +31,5 @@ def generate_owner_receipt():
     )
 
 if __name__ == '__main__':
-    #app.run(debug=True, host='0.0.0.0', port=8000) 
-     app.run(debug=True)
+    # DockerFile app.run(debug=True, host='0.0.0.0', port=8000) 
+    app.run(debug=True)
