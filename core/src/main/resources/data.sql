@@ -132,6 +132,8 @@ VALUES
     (2700.00, 'ES2000060006', 'Unicaja');
 
 
+
+
 UPDATE owner SET bank_account_id = 3 WHERE id = 1; -- BBVA (id=3) (porque id=1 de bank_account ya se usó para comunidad)
 UPDATE owner SET bank_account_id = 4 WHERE id = 2; -- Santander (id=4)
 UPDATE owner SET bank_account_id = 5 WHERE id = 3; -- Sabadell (id=5)
