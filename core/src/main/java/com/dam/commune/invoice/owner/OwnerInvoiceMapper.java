@@ -18,8 +18,4 @@ public interface OwnerInvoiceMapper {
     @Mapping(target = "email", source = "owner.email")
     OwnerInvoiceDTO toDto(OwnerInvoice ownerInvoice);
 
-   
-    
-
-
 }

@@ -1,9 +1,6 @@
 package com.dam.commune.invoice;
 
 import java.util.List;
-import java.util.stream.Collectors;
-
-import org.apache.catalina.connector.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,10 +11,31 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
-
 import lombok.RequiredArgsConstructor;
 
+/**
+ * REST controller for managing invoices.
+ * <p>
+ * Provides endpoints to create, retrieve, and delete invoices associated with
+ * communities.
+ * </p>
+ * 
+ * <ul>
+ * <li>{@code POST /invoices/create-community-invoice} - Create a new invoice
+ * for a community.</li>
+ * <li>{@code GET /invoices/dto/community/{communityId}} - Retrieve all invoices
+ * for a specific community.</li>
+ * <li>{@code GET /invoices/dto/invoice/{id}} - Retrieve a specific invoice by
+ * its ID.</li>
+ * <li>{@code DELETE /invoices/dto/community/{id}} - Delete an invoice by its
+ * ID.</li>
+ * <li>{@code GET /invoices/invoices} - Retrieve all invoices.</li>
+ * </ul>
+ * 
+ * <p>
+ * Cross-origin requests are allowed from {@code http://localhost:4200}.
+ * </p>
+ */
 @RestController
 @RequestMapping("/invoices")
 @RequiredArgsConstructor
@@ -26,7 +44,6 @@ import lombok.RequiredArgsConstructor;
 public class InvoiceController {
 
     private final InvoiceService invoiceService;
-
 
     @PostMapping("/create-community-invoice")
     public ResponseEntity<InvoiceDTO> createInvoice(@RequestBody InvoiceDTO dto) {
@@ -52,7 +69,7 @@ public class InvoiceController {
     }
 
     @GetMapping("invoices")
-    public ResponseEntity<List<InvoiceDTO>> getAllInvoices(){
+    public ResponseEntity<List<InvoiceDTO>> getAllInvoices() {
         List<InvoiceDTO> invoices = invoiceService.getAllInvoices();
         if (invoices.isEmpty()) {
             return ResponseEntity.noContent().build();
@@ -61,4 +78,3 @@ public class InvoiceController {
         }
     }
 }
-

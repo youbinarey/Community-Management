@@ -2,7 +2,6 @@ package com.dam.commune.invoice;
 
 import java.time.LocalDate;
 
-
 import com.dam.commune.community.Community;
 
 import jakarta.persistence.Entity;
@@ -20,6 +19,20 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * Represents an invoice entity for a community, containing utility and
+ * maintenance costs
+ * for a specific date.
+ * <p>
+ * Each invoice is uniquely identified by its date and the associated community.
+ * </p>
+ *
+ * <p>
+ * This entity is mapped to the "invoice" table in the database, with a unique
+ * constraint
+ * on the combination of date and community.
+ * </p>
+ */
 @Entity
 @Getter
 @Setter
