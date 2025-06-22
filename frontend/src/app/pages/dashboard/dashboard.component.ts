@@ -16,6 +16,10 @@ import { Router } from '@angular/router';
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.scss'
 })
+/**
+ * DashboardComponent is responsible for displaying a summary dashboard with key statistics
+ * such as the number of communities, owners, flats, parkings, storerooms, and invoices.
+ */
 export class DashboardComponent implements OnInit{
   
   summaryCards = [
@@ -43,6 +47,10 @@ export class DashboardComponent implements OnInit{
   ngOnInit(): void {
     this.loadDashboardData();
   }
+  /**
+   * Loads the initial data for the dashboard by fetching counts from various services.
+   * Each service call updates the corresponding summary card with the count of items.
+   */
   loadDashboardData() {
     this.communityService.getCommunities().subscribe(data => this.summaryCards[0].count = data.length);
     this.ownerService.getAllOwners().subscribe(data => this.summaryCards[1].count = data.length);
