@@ -10,13 +10,19 @@ import { InvoiceService } from '../../../service/invoice-service.service';
   templateUrl: './owner.component.html',
   styleUrl: './owner.component.scss'
 })
+/**
+ * Component responsible for displaying and managing invoices for a specific owner.
+ * 
+ * - Retrieves the owner ID from the route parameters.
+ * - Loads the list of invoices associated with the owner.
+ * - Provides functionality to download invoices as PDF files.
+ * - Allows sending invoices by email to a specified address.
+ */
 export class OwnerInvoicesComponent implements OnInit {
+  ownerId!: number;
+  invoices: InvoiceOwner[] = [];
 
-
-   ownerId!: number;
-  invoices: InvoiceOwner[] = []; 
-
-  constructor(private route: ActivatedRoute, private invoiceService: InvoiceService) {}
+  constructor(private route: ActivatedRoute, private invoiceService: InvoiceService) { }
 
   ngOnInit() {
     this.route.params.subscribe(params => {
@@ -28,7 +34,7 @@ export class OwnerInvoicesComponent implements OnInit {
 
   }
 
-   loadInvoices() {
+  loadInvoices() {
     this.invoiceService.getInvoicesByOwner(this.ownerId).subscribe({
       next: (data) => {
         this.invoices = data;
@@ -40,7 +46,7 @@ export class OwnerInvoicesComponent implements OnInit {
     });
   }
 
-   downloadInvoice(invoiceId: number) {
+  downloadInvoice(invoiceId: number) {
     this.invoiceService.downloadOwnerInvoice(invoiceId).subscribe({
       next: (blob) => {
         const url = window.URL.createObjectURL(blob);
@@ -57,46 +63,43 @@ export class OwnerInvoicesComponent implements OnInit {
   }
 
   sendByEmail(invoiceId: number, email: string) {
-  if (!email) {
-    alert('No se encuentra el email del destinatario.');
-    return;
+    if (!email) {
+      alert('No se encuentra el email del destinatario.');
+      return;
+    }
+
+    this.invoiceService.sendByEmail(invoiceId, email)
+      .subscribe({
+        next: () => {
+          alert('Factura enviada por email correctamente.');
+
+        },
+        error: err => {
+          // Procesa el error para mostrar el mensaje más informativo
+          let errorMsg = 'Desconocido';
+
+
+          if (typeof err.error === 'string') {
+            errorMsg = err.error;
+          }
+
+          else if (err.error && typeof err.error === 'object' && err.error.message) {
+            errorMsg = err.error.message;
+          }
+
+          else if (err.message) {
+            errorMsg = err.message;
+          }
+
+          else if (err.error) {
+            errorMsg = JSON.stringify(err.error);
+          }
+
+          alert('Error al enviar la factura: ' + errorMsg);
+        }
+      });
   }
 
-  this.invoiceService.sendByEmail(invoiceId, email)
-    .subscribe({
-      next: () => {
-        alert('Factura enviada por email correctamente.');
-        // Aquí podrías usar un toast o resetear algún estado si lo necesitas
-      },
-      error: err => {
-        // Procesa el error para mostrar el mensaje más informativo posible
-        let errorMsg = 'Desconocido';
-
-        // Si es texto plano (lo habitual con responseType: 'text')
-        if (typeof err.error === 'string') {
-          errorMsg = err.error;
-        }
-        // Si viene como objeto con un campo 'message'
-        else if (err.error && typeof err.error === 'object' && err.error.message) {
-          errorMsg = err.error.message;
-        }
-        // Si hay un mensaje general
-        else if (err.message) {
-          errorMsg = err.message;
-        }
-        // Si es otro tipo de objeto/error
-        else if (err.error) {
-          errorMsg = JSON.stringify(err.error);
-        }
-
-        alert('Error al enviar la factura: ' + errorMsg);
-      }
-    });
 }
 
 
-
-
-}
-
- 
