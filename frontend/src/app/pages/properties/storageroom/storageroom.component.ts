@@ -11,6 +11,13 @@ import { StorageRoom } from '../../../models/StorageRoom';
   templateUrl: './storageroom.component.html',
   styleUrl: './storageroom.component.scss'
 })
+/**
+ * Component responsible for displaying and managing storage rooms associated with a specific community.
+ *
+ * This component retrieves the community ID from the route parameters and fetches the corresponding storage rooms
+ * using the `StorageroomService`. It also attempts to retrieve the community name from the router's navigation state
+ * or from the fetched storage room data.
+ */
 export class StorageroomComponent implements OnInit {
   storageRooms: StorageRoom[] = [];
   communityId: number | undefined;
