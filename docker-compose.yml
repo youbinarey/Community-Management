@@ -6,7 +6,7 @@ services:
   postgres:
     image: postgres:15
     container_name: postgres_commune
-    restart: always
+    # restart: always
     env_file:
       - .env
     volumes:
@@ -47,7 +47,7 @@ services:
     networks:
       - commune-network
     environment:
-      - ENV=prod  # o las variables de .env si las usas
+      - ENV=prod
     
 
   pdfgenerator:
@@ -60,15 +60,16 @@ services:
 networks:
   commune-network:
 
-#  pgadmin:
-#    image: dpage/pgadmin4
-#    container_name: pgadmin_commune
-#    restart: always
-#    env_file:
-#      - .env
-#    volumes:
-#      - pgadmin_data:/var/lib/pgadmin
-#    ports:
-#      - "${PGADMIN_PORT}:80"
-#      - postgres
-#    depends_on:
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin_commune
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    ports:
+      - "${PGADMIN_PORT}:80"
+      - postgres
+    depends_on:
+     - postgres
