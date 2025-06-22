@@ -12,27 +12,34 @@ import { ActivatedRoute, Router } from '@angular/router';
   imports: [NgFor,],
   styleUrls: ['./flat.component.scss']
 })
+/**
+ * Component responsible for displaying and managing flats (apartments) within a specific community.
+ * 
+ * - Fetches flats based on the community ID from the route parameters.
+ * - Retrieves and displays the community name, either from navigation state or from the flats data.
+ * - Handles errors during the retrieval of flats.
+ */
 export class FlatComponent implements OnInit {
   flats: Flat[] = [];
   communityId: number | undefined;
-  communityName: string | undefined ;
+  communityName: string | undefined;
   constructor(private flatService: FlatService, private route: ActivatedRoute, private router: Router) { }
   ngOnInit(): void {
-    
+
     this.route.paramMap.subscribe(params => {
       const id = params.get('communityId');
       if (id) {
-        this.communityId = +id; 
+        this.communityId = +id;
         this.getFlatsByCommunity(this.communityId);
       }
     });
 
-     const navigation = this.router.getCurrentNavigation();
+    const navigation = this.router.getCurrentNavigation();
     if (navigation?.extras.state) {
       this.communityName = navigation.extras.state['communityName'];
-      console.log(this.communityName);  
+      console.log(this.communityName);
     }
-    
+
   }
 
 
@@ -41,13 +48,13 @@ export class FlatComponent implements OnInit {
       next: (data) => {
         this.flats = data;
         this.communityId = communityId;
-        this.communityName =data[0]?.communityName || 'Comunidad no encontrada';
+        this.communityName = data[0]?.communityName || 'Comunidad no encontrada';
         console.log('Flats recibidos:', this.flats);
       },
       error: (error) => {
         console.error('Error al obtener los flats:', error)
       }
-  });
+    });
   }
 
 
