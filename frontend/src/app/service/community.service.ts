@@ -9,16 +9,19 @@ import { Community } from '../models/Community';
 @Injectable({
   providedIn: 'root'
 })
+  /**
+   * Service for managing community-related operations.
+   * 
+   * This service provides methods to interact with the backend API for performing CRUD operations
+   * on Community entities, such as retrieving all communities, fetching a community by its ID,
+   * creating a new community, and updating an existing community.
+   */
   export class CommunityService {
-
-
-  
-    private apiUrl = 'http://localhost:8080/api/commune/communities/dto';
-    private apiUrl1 = 'api/commune/communities/dto';
-
-
+  // Localhost
+    //private apiUrl = 'http://localhost:8080/api/commune/communities/dto';
+    //docker file
+    private apiUrl = 'api/commune/communities/dto';
     communities: Community[];
-    private _dato = 'Hola mundo'; // Ejemplo de dato privado
 
   constructor(private http: HttpClient) {
       this.communities = [];
@@ -35,11 +38,6 @@ import { Community } from '../models/Community';
   createCommunity(community: Community): Observable<Community>{
     return this.http.post<Community>(this.apiUrl, community);
   }
-
-  get dato(): string {
-    return this._dato; // Getter para acceder al dato privado
-  }
-
 
   /**
    * Update a community by its ID.

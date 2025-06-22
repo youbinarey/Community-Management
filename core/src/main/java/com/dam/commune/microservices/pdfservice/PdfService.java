@@ -14,8 +14,8 @@ import com.dam.commune.invoice.owner.OwnerInvoiceDTO;
 public class PdfService {
 
     private final RestTemplate restTemplate = new RestTemplate();
-    private final String PDF_MICROSERVICE_URL = "http://localhost:5000";
-    // DOCKERFILE private final String PDF_MICROSERVICE_URL = "http://pdfgenerator:8000";
+    //private final String PDF_MICROSERVICE_URL = "http://localhost:5000";
+    private final String PDF_MICROSERVICE_URL = "http://pdfgenerator:8000";
 
     public byte[] generatePdf(InvoicePdfDTO pdfDto) {
         HttpHeaders headers = new HttpHeaders();

@@ -7,7 +7,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class StorageroomService {
-  private apiUrl = 'http://localhost:8080/api/commune'; 
+  //private apiUrl = 'http://localhost:8080/api/commune'; 
+  private apiUrl = 'api/commune'; 
 
   constructor(private http: HttpClient) { }
 

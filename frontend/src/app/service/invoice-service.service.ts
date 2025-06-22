@@ -8,8 +8,8 @@ import { InvoiceOwner } from "../models/InvoiceOwner";
   providedIn: 'root'
 })
 export class InvoiceService {
-  private apiUrl1 = 'api/commune/invoices';
-  private apiUrl = 'http://localhost:8080/api/commune/invoices';
+  private apiUrl = 'api/commune/invoices';
+  //private apiUrl = 'http://localhost:8080/api/commune/invoices';
   
 
   constructor(private http: HttpClient) {}
@@ -44,14 +44,14 @@ export class InvoiceService {
 
   // Obtener facturas por propietario
   getInvoicesByOwner(ownerId: number): Observable<InvoiceOwner[]> {
-    return this.http.get<InvoiceOwner[]>(`http://localhost:8080/api/commune/owner-invoices/owner/${ownerId}`);
-    // return this.http.get<InvoiceOwner[]>(`http://localhost:8080/api/commune/owner-invoices/owner/${ownerId}`);
+    return this.http.get<InvoiceOwner[]>(`api/commune/owner-invoices/owner/${ownerId}`);
+    //return this.http.get<InvoiceOwner[]>(`http://localhost:8080/api/commune/owner-invoices/owner/${ownerId}`);
   }
 
   // Descargar PDF factura de propietario
   downloadOwnerInvoice(invoiceId: number): Observable<Blob> {
-    // return this.http.get(`http://localhost:8080/api/commune/invoices/owner-invoice/${invoiceId}/pdf`, {
-    return this.http.get(`http://localhost:8080/api/commune/invoices/owner-invoice/${invoiceId}/pdf`, {
+    //return this.http.get(`http://localhost:8080/api/commune/invoices/owner-invoice/${invoiceId}/pdf`, {
+    return this.http.get(`api/commune/invoices/owner-invoice/${invoiceId}/pdf`, {
       responseType: 'blob'
     });
   }
