@@ -17,15 +17,31 @@ import com.dam.commune.property.Property;
 
 import lombok.RequiredArgsConstructor;
 
-
-
+/**
+ * REST controller for managing Owner entities.
+ * <p>
+ * Provides endpoints for CRUD operations on owners, as well as retrieving owner
+ * DTOs and properties.
+ * </p>
+ * <ul>
+ * <li>GET /owner - Retrieve all owners.</li>
+ * <li>GET /owner/dto - Retrieve all owners as DTOs.</li>
+ * <li>GET /owner/dto/{id} - Retrieve a specific owner as DTO by ID.</li>
+ * <li>GET /owner/{id} - Retrieve a specific owner by ID.</li>
+ * <li>POST /owner - Create a new owner. Returns 409 if DNI already exists.</li>
+ * <li>PUT /owner/{id} - Update an existing owner by ID.</li>
+ * <li>PUT /owner/dto/{id} - Update an existing owner DTO by ID.</li>
+ * <li>DELETE /owner/{id} - Delete an owner by ID.</li>
+ * <li>GET /owner/{ownerId}/properties - Retrieve properties associated with a
+ * specific owner.</li>
+ * </ul>
+ */
 @RestController
 @RequestMapping("/owner")
 @RequiredArgsConstructor
 @CrossOrigin(origins = "http://localhost:4200")
 public class OwnerController {
     private final OwnerService ownerService;
-    
 
     @GetMapping
     public List<Owner> getAll() {
@@ -43,10 +59,6 @@ public class OwnerController {
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
-    
-    
-        
-             
 
     @GetMapping("/{id}")
     public ResponseEntity<Owner> getById(@PathVariable Long id) {

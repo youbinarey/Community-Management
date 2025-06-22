@@ -11,13 +11,41 @@ import com.dam.commune.property.Property;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 
+/**
+ * Service implementation for managing Owner entities.
+ * Provides methods for CRUD operations, DTO mapping, and property retrieval.
+ * 
+ * <p>
+ * This class interacts with the {@link OwnerRepository} to perform persistence
+ * operations,
+ * and uses {@link OwnerMapper} for mapping between entities and DTOs.
+ * </p>
+ * 
+ * <ul>
+ * <li>{@code getAll()} - Retrieves all owners.</li>
+ * <li>{@code getById(Long)} - Retrieves an owner by ID.</li>
+ * <li>{@code create(Owner)} - Creates a new owner.</li>
+ * <li>{@code update(Long, Owner)} - Updates an existing owner.</li>
+ * <li>{@code delete(Long)} - Deletes an owner by ID.</li>
+ * <li>{@code existsByDni(String)} - Checks if an owner exists by DNI.</li>
+ * <li>{@code deleteIfExists(Long)} - Deletes an owner if it exists.</li>
+ * <li>{@code getAllDTOs()} - Retrieves all owners as DTOs.</li>
+ * <li>{@code getPropertiesByOwnerId(Long)} - Retrieves properties for a given
+ * owner.</li>
+ * <li>{@code updateOwnerDTO(Long, OwnerDTO)} - Updates an owner using a
+ * DTO.</li>
+ * <li>{@code getOwnerDTOById(Long)} - Retrieves an owner as a DTO by ID.</li>
+ * </ul>
+ * 
+ * @see OwnerService
+ * @see OwnerRepository
+ * @see OwnerMapper
+ */
+
 @Service
 @RequiredArgsConstructor
 public class OwnerServiceImpl implements OwnerService {
     private final OwnerRepository ownerRepository;
-
-
-
 
     @Override
     public List<Owner> getAll() {
@@ -26,7 +54,7 @@ public class OwnerServiceImpl implements OwnerService {
 
     @Override
     public Optional<Owner> getById(Long id) {
-       return ownerRepository.findById(id);
+        return ownerRepository.findById(id);
     }
 
     @Override
@@ -44,7 +72,7 @@ public class OwnerServiceImpl implements OwnerService {
                     existingOwner.setEmail(owner.getEmail());
                     return ownerRepository.save(existingOwner);
                 })
-                .orElseThrow(() -> new EntityNotFoundException("Owner with " + id  + "not found"));
+                .orElseThrow(() -> new EntityNotFoundException("Owner with " + id + "not found"));
     }
 
     @Override
@@ -58,13 +86,13 @@ public class OwnerServiceImpl implements OwnerService {
     }
 
     @Override
-public boolean deleteIfExists(Long id) {
-    if (ownerRepository.existsById(id)) {
-        ownerRepository.deleteById(id);
-        return true;
+    public boolean deleteIfExists(Long id) {
+        if (ownerRepository.existsById(id)) {
+            ownerRepository.deleteById(id);
+            return true;
+        }
+        return false;
     }
-    return false;
-}
 
     @Override
     public List<OwnerDTO> getAllDTOs() {
@@ -77,7 +105,7 @@ public boolean deleteIfExists(Long id) {
     public List<Property> getPropertiesByOwnerId(Long ownerId) {
         Owner owner = ownerRepository.findById(ownerId)
                 .orElseThrow(() -> new EntityNotFoundException("Owner with id " + ownerId + " not found"));
-                return owner.getProperties();
+        return owner.getProperties();
     }
 
     @Override
@@ -94,8 +122,5 @@ public boolean deleteIfExists(Long id) {
         return ownerRepository.findById(id)
                 .map(OwnerMapper::toDTO);
     }
-
-
-    
 
 }

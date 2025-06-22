@@ -8,6 +8,15 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 
+/**
+ * Data Transfer Object (DTO) representing an Owner.
+ * <p>
+ * This class encapsulates the basic information about an owner,
+ * including personal details, contact information, and property count.
+ * </p>
+ * Includes Lombok annotations for automatic generation of getters, setters,
+ * constructors, and other boilerplate code.
+ */
 @Getter
 @Setter
 @AllArgsConstructor
