@@ -14,6 +14,14 @@ import { AddInvoiceDialogComponent } from '../../components/invoices/add-invoice
   styleUrls: ['./invoices.component.scss'],
   imports: [NgFor, CommonModule],
 })
+
+/**
+ * Component for managing and displaying invoices for a specific community.
+ * 
+ * - Fetches invoices based on the community ID from the route parameters.
+ * - Allows downloading invoice PDFs.
+ * - Opens a dialog to add new invoices and updates the list upon creation.
+ */
 export class InvoicesComponent implements OnInit {
 
   communityId!: number;
@@ -39,7 +47,6 @@ export class InvoicesComponent implements OnInit {
     });
   }
 
-  // TODO DESCARGAR PDF
   downloadInvoicePdf(invoiceId: number) {
     this.invoiceService.downloadCommunityInvoice(invoiceId).subscribe(blob => {
       const url = window.URL.createObjectURL(blob);
@@ -54,34 +61,31 @@ export class InvoicesComponent implements OnInit {
   }
 
   openAddInvoiceDialog() {
-  const dialogRef = this.dialog.open(AddInvoiceDialogComponent, {
-    width: '400px',
-    maxHeight: '90vh',
-    data: { communityId: this.communityId }
-  });
-
-  dialogRef.afterClosed().subscribe((result: InvoiceCommunity | undefined) => {
-  if (result) {
-    const { date, electricity, water, trash, elevator, maintenance, communityId } = result;
-
-    this.invoiceService.createCommunityInvoice({
-      date,
-      electricity,
-      water,
-      trash,
-      elevator,
-      maintenance,
-      communityId
-    }).subscribe({
-      next: () => this.loadInvoices(),
-      error: (err) => console.error('Error al guardar factura:', err)
+    const dialogRef = this.dialog.open(AddInvoiceDialogComponent, {
+      width: '400px',
+      maxHeight: '90vh',
+      data: { communityId: this.communityId }
     });
+
+    dialogRef.afterClosed().subscribe((result: InvoiceCommunity | undefined) => {
+      if (result) {
+        const { date, electricity, water, trash, elevator, maintenance, communityId } = result;
+
+        this.invoiceService.createCommunityInvoice({
+          date,
+          electricity,
+          water,
+          trash,
+          elevator,
+          maintenance,
+          communityId
+        }).subscribe({
+          next: () => this.loadInvoices(),
+          error: (err) => console.error('Error al guardar factura:', err)
+        });
+      }
+    });
+
   }
-});
-
-}
-
-
-
 
 }
