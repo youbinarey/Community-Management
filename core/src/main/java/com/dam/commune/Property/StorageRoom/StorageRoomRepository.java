@@ -10,6 +10,7 @@ import com.dam.commune.community.Community;
 @Repository
 public interface StorageRoomRepository extends JpaRepository<StorageRoom, Long> {
     List<StorageRoom> findByCommunity(Community community);
+
     boolean existsByStorageNumberAndCommunity(Integer storageNumber, Community community);
-  
+
 }

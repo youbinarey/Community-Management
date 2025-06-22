@@ -17,6 +17,6 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor
 @SuperBuilder
 @DiscriminatorValue("PARKING")
-public class Parking extends Property{
+public class Parking extends Property {
     private Integer num;
 }

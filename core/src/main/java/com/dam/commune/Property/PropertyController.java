@@ -26,6 +26,46 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Controller for managing properties, including flats (apartments), parkings, and storage rooms.
+ * Provides CRUD operations and endpoints for retrieving and manipulating property-related data.
+ *
+ * <p>Main responsibilities:</p>
+ * <ul>
+ *   <li>CRUD operations for Flat, Parking, and StorageRoom entities.</li>
+ *   <li>Endpoints for retrieving properties by community.</li>
+ *   <li>DTO mapping for API responses.</li>
+ *   <li>Validation to prevent duplicate entries within a community.</li>
+ *   <li>Handles associations with Community and Owner entities.</li>
+ * </ul>
+ *
+ *
+ * <p>Injected dependencies:</p>
+ * <ul>
+ *   <li>{@link PropertyService}</li>
+ *   <li>{@link FlatRepository}</li>
+ *   <li>{@link CommunityRepository}</li>
+ *   <li>{@link ParkingRepository}</li>
+ *   <li>{@link StorageRoomRepository}</li>
+ *   <li>{@link PropertyServiceImpl}</li>
+ *   <li>{@link OwnerRepository}</li>
+ * </ul>
+ *
+ * <p>Example endpoints:</p>
+ * <ul>
+ *   <li>GET /properties - List all properties</li>
+ *   <li>POST /properties/flat - Create a new flat</li>
+ *   <li>GET /properties/flat/community/{communityId} - List flats by community</li>
+ *   <li>POST /properties/create-flat - Create a flat from DTO</li>
+ *   <li>POST /properties/create-parking - Create a parking from DTO</li>
+ *   <li>POST /properties/create-storage-room - Create a storage room from DTO</li>
+ *   <li>GET /properties/parking/community/{communityId} - List parkings by community</li>
+ *   <li>GET /properties/storageroom/community/{communityId} - List storage rooms by community</li>
+ * </ul>
+ *
+ * <p>All endpoints return appropriate HTTP status codes for success and error cases.</p>
+
+ */
 @RestController
 @RequestMapping("/properties")
 @RequiredArgsConstructor
@@ -236,19 +276,19 @@ public class PropertyController {
         return ResponseEntity.notFound().build();
     }
 
-   @GetMapping("/parking")
-public ResponseEntity<List<ParkingDTO>> getAllParkings() {
-    List<ParkingDTO> parkings = parkingRepository.findAll().stream()
-            .map(ParkingMapper::toDTO)
-            .collect(Collectors.toList());
-    return ResponseEntity.ok(parkings);
-}
+    @GetMapping("/parking")
+    public ResponseEntity<List<ParkingDTO>> getAllParkings() {
+        List<ParkingDTO> parkings = parkingRepository.findAll().stream()
+                .map(ParkingMapper::toDTO)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(parkings);
+    }
 
     @GetMapping("/flat")
     public ResponseEntity<List<FlatDTO>> getAllFlats() {
         List<FlatDTO> flats = flatRepository.findAll().stream()
                 .map(FlatMapper::toDTO)
-                .collect(Collectors.toList())   ;
+                .collect(Collectors.toList());
         return ResponseEntity.ok(flats);
     }
 
@@ -256,12 +296,9 @@ public ResponseEntity<List<ParkingDTO>> getAllParkings() {
     public ResponseEntity<List<StorageRoomDTO>> getAllStoragesRooms() {
         List<StorageRoomDTO> storagesRooms = storageRoomRepository.findAll().stream()
                 .map(StorageRoomMapper::toDTO)
-                .collect(Collectors.toList())   ;
+                .collect(Collectors.toList());
         return ResponseEntity.ok(storagesRooms);
     }
-
-
-
 
     // -----------------------------
     // CRUD para STORAGE ROOM
@@ -362,8 +399,6 @@ public ResponseEntity<List<ParkingDTO>> getAllParkings() {
         Parking parking = propertyServiceImpl.createParking(parkingDTO);
         return ResponseEntity.status(HttpStatus.CREATED).body(ParkingMapper.toDTO(parking));
     }
-
-   
 
     @PostMapping("/create-storage-room")
     public ResponseEntity<StorageRoomDTO> createStorageRoomDTO(@RequestBody StorageRoomDTO storageRoomDTO) {

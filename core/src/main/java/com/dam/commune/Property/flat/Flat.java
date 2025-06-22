@@ -24,6 +24,5 @@ public class Flat extends Property {
     private String letter;
     private Integer roomCount;
     private Integer bathroomCount;
- 
-    
+
 }
