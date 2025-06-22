@@ -10,13 +10,12 @@ import org.springframework.web.client.RestTemplate;
 
 import com.dam.commune.invoice.owner.OwnerInvoiceDTO;
 
-
 @Service
 public class PdfService {
 
     private final RestTemplate restTemplate = new RestTemplate();
     private final String PDF_MICROSERVICE_URL = "http://localhost:5000";
-    //private final String PDF_MICROSERVICE_URL = "http://pdfgenerator:8000";
+    // DOCKERFILE private final String PDF_MICROSERVICE_URL = "http://pdfgenerator:8000";
 
     public byte[] generatePdf(InvoicePdfDTO pdfDto) {
         HttpHeaders headers = new HttpHeaders();
@@ -25,11 +24,10 @@ public class PdfService {
         HttpEntity<InvoicePdfDTO> requestEntity = new HttpEntity<>(pdfDto, headers);
 
         ResponseEntity<byte[]> response = restTemplate.exchange(
-                PDF_MICROSERVICE_URL+"/generate-community-receipt",
+                PDF_MICROSERVICE_URL + "/generate-community-receipt",
                 HttpMethod.POST,
                 requestEntity,
-                byte[].class
-        );
+                byte[].class);
 
         if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
             return response.getBody();
@@ -39,23 +37,22 @@ public class PdfService {
     }
 
     public byte[] generateOwnerReceiptPdf(OwnerInvoiceDTO pdfDto) {
-    HttpHeaders headers = new HttpHeaders();
-    headers.setContentType(MediaType.APPLICATION_JSON);
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_JSON);
 
-    HttpEntity<OwnerInvoiceDTO> requestEntity = new HttpEntity<>(pdfDto, headers);
+        HttpEntity<OwnerInvoiceDTO> requestEntity = new HttpEntity<>(pdfDto, headers);
 
-    ResponseEntity<byte[]> response = restTemplate.exchange(
-            PDF_MICROSERVICE_URL+"/generate-owner-receipt",
-            HttpMethod.POST,
-            requestEntity,
-            byte[].class
-    );
+        ResponseEntity<byte[]> response = restTemplate.exchange(
+                PDF_MICROSERVICE_URL + "/generate-owner-receipt",
+                HttpMethod.POST,
+                requestEntity,
+                byte[].class);
 
-    if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
-        return response.getBody();
-    } else {
-        throw new RuntimeException("No se pudo generar el PDF");
+        if (response.getStatusCode().is2xxSuccessful() && response.getBody() != null) {
+            return response.getBody();
+        } else {
+            throw new RuntimeException("No se pudo generar el PDF");
+        }
     }
-}
 
 }

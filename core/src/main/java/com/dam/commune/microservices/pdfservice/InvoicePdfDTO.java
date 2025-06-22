@@ -13,7 +13,7 @@ import lombok.Setter;
 @Builder
 public class InvoicePdfDTO {
     private String address;
-    private String date;      
+    private String date;
     private Double electricity;
     private Double water;
     private Double trash;
