@@ -15,17 +15,17 @@ public class StorageRoomMapper {
         storageRoomDTO.setSquareMeters(storageRoom.getSquareMeters());
         storageRoomDTO.setCoefficient(storageRoom.getCoefficient());
         storageRoomDTO.setStorageNumber(storageRoom.getStorageNumber());
-        
-         Community community = storageRoom.getCommunity();
-        if(community != null) {
+
+        Community community = storageRoom.getCommunity();
+        if (community != null) {
             storageRoomDTO.setCommunityName(community.getAddress());
         }
 
         Owner owner = storageRoom.getOwner();
-        if(owner != null) {
+        if (owner != null) {
             storageRoomDTO.setOwnerName(owner.getName());
         }
-        
+
         return storageRoomDTO;
     }
 

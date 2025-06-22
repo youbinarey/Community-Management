@@ -25,12 +25,12 @@ public class CommunityServiceImpl implements CommunityService {
 
     @Override
     public Community save(Community community) {
-       return communityRepository.save(community);
+        return communityRepository.save(community);
     }
 
     @Override
     public boolean deleteIfExists(Long id) {
-        if(communityRepository.existsById(id)) {
+        if (communityRepository.existsById(id)) {
             communityRepository.deleteById(id);
             return true;
         }
@@ -47,7 +47,6 @@ public class CommunityServiceImpl implements CommunityService {
         Community community = CommunityMapper.transformDTOToEntity(communityDTO);
         return communityRepository.save(community);
     }
-
 
     /**
      * Updates an existing community based on the provided DTO.
@@ -66,6 +65,4 @@ public class CommunityServiceImpl implements CommunityService {
         return CommunityMapper.toDetailedDTO(saved);
     }
 
-    
-    
 }

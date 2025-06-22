@@ -1,39 +1,43 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary px-4">
+<nav class="navbar navbar-expand-lg px-4 custom-navbar bg-dark">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">ComunidAPP</a>
+    <!-- Marca -->
+    <a class="navbar-brand text-light fw-bold" href="#">Gestión de Comunidades</a>
 
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
+    <!-- Botón hamburguesa -->
+    <button class="navbar-toggler bg-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
       aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
-      <ul class="navbar-nav me-auto">
+    <!-- Contenido colapsable -->
+    <div class="collapse navbar-collapse justify-content-between" id="navbarNavDropdown">
+      <!-- Menú de navegación -->
+      <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" routerLink="/dashboard">Dashboard</a>
+          <a class="nav-link text-light" routerLink="/dashboard">Dashboard</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/communities">Communities</a>
+          <a class="nav-link text-light" routerLink="/communities">Communities</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" routerLink="/owners">Owners</a>
+          <a class="nav-link text-light" routerLink="/owners">Owners</a>
         </li>
         <li class="nav-item dropdown">
-  <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="true">
-    Services
-  </a>
-  <ul class="dropdown-menu">
-    <li><a class="dropdown-item" routerLink="/service1">Service 1</a></li>
-    <li><a class="dropdown-item" routerLink="/service2">Service 2</a></li>
-    <li><a class="dropdown-item" routerLink="/service3">Service 3</a></li>
-  </ul>
-</li>
+          <a class="nav-link dropdown-toggle text-light" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Services
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" routerLink="/service1">Service 1</a></li>
+            <li><a class="dropdown-item" routerLink="/service2">Service 2</a></li>
+            <li><a class="dropdown-item" routerLink="/service3">Service 3</a></li>
+          </ul>
+        </li>
       </ul>
 
-      <!-- Área derecha: botón de logout -->
-      <div class="d-flex align-items-center">
-        <span class="me-3 text-muted">Usuario</span>
-        <button class="btn btn-outline-danger btn-sm">Logout</button>
+      <!-- Usuario y logout -->
+      <div class="d-flex align-items-center mt-3 mt-lg-0">
+        <span class="me-3 text-light">demo_user</span>
+        <button class="btn btn-accent btn-sm">Logout</button>
       </div>
     </div>
   </div>

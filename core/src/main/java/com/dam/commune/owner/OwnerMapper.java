@@ -5,7 +5,6 @@ import java.math.BigDecimal;
 import com.dam.commune.bankAccount.BankAccount;
 
 public class OwnerMapper {
-
     // Convertir Owner a OwnerDTO (de entidad a DTO)
     public static OwnerDTO toDTO(Owner owner) {
         if (owner == null) {

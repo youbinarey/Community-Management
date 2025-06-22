@@ -1,28 +1,125 @@
-/* Reducir el espacio general entre tarjetas */
-.modal-body .row {
-  margin: 0; /* Elimina márgenes automáticos de las filas */
+$primary: #2C3E50;
+$accent: #F39C12;
+$secondary: #18BC9C;
+$light: #F8F9FA;
+$dark: #212529;
+.container {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
 }
 
-.modal-body .col-md-4 {
-  padding: 5px; /* Reduce el padding alrededor de cada columna */
+h2 {
+  color: $primary;
 }
 
-.modal-body .card {
-  margin-bottom: 5px; /* Reduce el espacio entre tarjetas */
+input.form-control {
+  border-radius: 0.5rem;
+  border: 1px solid #ced4da;
 }
 
-.modal-body .card-body {
-  padding: 8px; /* Reduce el espacio dentro de cada tarjeta */
+.list-group-item {
+  border-radius: 0.75rem;
+  margin-bottom: 1rem;
+  background-color: $light;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+  border: none;
+
+  h5 {
+    color: $primary;
+  }
+
+  p {
+    margin-bottom: 0.4rem;
+    color: $dark;
+  }
+
+  input {
+    margin-bottom: 0.5rem;
+    border-radius: 0.4rem;
+    border: 1px solid #ced4da;
+    padding: 0.4rem 0.6rem;
+    font-size: 0.95rem;
+  }
+
+  .btn {
+    margin-right: 0.4rem;
+    margin-top: 0.4rem;
+  }
+
+  .btn-outline-primary {
+    color: $secondary;
+    border-color: $secondary;
+
+    &:hover {
+      background-color: $secondary;
+      color: white;
+    }
+  }
+
+  .btn-outline-secondary {
+    color: $primary;
+    border-color: $primary;
+
+    &:hover {
+      background-color: $primary;
+      color: white;
+    }
+  }
+
+  .btn-outline-success {
+    color: $accent;
+    border-color: $accent;
+
+    &:hover {
+      background-color: $accent;
+      color: white;
+    }
+  }
+
+  .btn-warning {
+    background-color: lighten($accent, 15%);
+    border-color: lighten($accent, 15%);
+    color: $dark;
+
+    &:hover {
+      background-color: $accent;
+      color: white;
+    }
+  }
 }
 
-.modal-body .card-title {
-  margin-bottom: 4px; /* Reduce espacio debajo del título */
+.modal-content {
+  border-radius: 0.75rem;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
 }
 
-.modal-body .card-text {
-  margin-bottom: 2px; /* Reduce espacio entre líneas de texto */
+.modal-header {
+  background-color: $primary;
+  color: white;
+  border-top-left-radius: 0.75rem;
+  border-top-right-radius: 0.75rem;
 }
 
-.modal-body {
-  padding: 10px; /* Reduce espacio general del contenido del modal */
+.card {
+  border-radius: 0.75rem;
+  border: none;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+
+  .card-title {
+    color: $secondary;
+    font-weight: 600;
+  }
+
+  .card-text {
+    font-size: 0.95rem;
+    color: $dark;
+  }
+
+ 
 }
+ .field-label {
+    font-weight: 500;
+    color: $primary;
+  }

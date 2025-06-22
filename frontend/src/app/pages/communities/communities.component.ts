@@ -14,6 +14,12 @@ import { ParkingService } from '../../service/parking.service';
 
 
 
+/**
+ * Component for managing and displaying communities.
+ *
+ * Handles CRUD operations for communities, flats, parkings, and storage rooms.
+ * Provides filtering, modal management, and navigation to property and invoice details.
+ */
 @Component({
   selector: 'app-communities',
   imports: [NgFor, NgIf, FormsModule],
@@ -23,9 +29,6 @@ import { ParkingService } from '../../service/parking.service';
 
 
 export class CommunitiesComponent implements OnInit {
-
-
-
   communities: Community[] = [];
   filtro = '';
   selectedCommunity?: Community;

@@ -10,26 +10,32 @@ import { ActivatedRoute, Route, Router } from '@angular/router';
   templateUrl: './parking.component.html',
   styleUrl: './parking.component.scss'
 })
+/**
+ * Component responsible for displaying and managing parking spaces associated with a specific community.
+ *
+ * This component retrieves the list of parkings for a given community based on the route parameter `communityId`.
+ * It also handles the retrieval of the community's name from the router's navigation state or from the parking data.
+ */
 export class ParkingComponent implements OnInit {
   parkings: Parking[] = [];
   communityId: number | undefined;
   communityName: string | undefined;
-  constructor(private parkingService: ParkingService, private route: ActivatedRoute, private router: Router){}
+  constructor(private parkingService: ParkingService, private route: ActivatedRoute, private router: Router) { }
 
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {
       const id = params.get('communityId');
       if (id) {
-        this.communityId = +id; 
+        this.communityId = +id;
         this.getParkingsByCommunity(this.communityId);
       }
     });
 
-     const navigation = this.router.getCurrentNavigation();
+    const navigation = this.router.getCurrentNavigation();
     if (navigation?.extras.state) {
       this.communityName = navigation.extras.state['communityName'];
-      console.log(this.communityName); 
+      console.log(this.communityName);
     }
   }
 
@@ -38,15 +44,15 @@ export class ParkingComponent implements OnInit {
       next: (data) => {
         this.parkings = data;
         this.communityId = communityId;
-        this.communityName =data[0]?.communityName || 'Comunidad no encontrada';
+        this.communityName = data[0]?.communityName || 'Comunidad no encontrada';
         console.log('Parkings recibidos:', this.parkings);
       },
       error: (error) => {
         console.error('Error al obtener los parkings:', error)
       }
-  });
+    });
   }
-  
+
 }
 
 

@@ -21,6 +21,39 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+/**
+ * Represents an Owner entity in the system.
+ * <p>
+ * An Owner has personal information such as DNI, name, surname, email, phone,
+ * and birth date.
+ * Each Owner is associated with a unique {@link BankAccount} and can own
+ * multiple {@link Property} entities.
+ * </p>
+ *
+ * <p>
+ * JPA annotations are used for ORM mapping:
+ * <ul>
+ * <li>{@code @Entity} marks this class as a JPA entity.</li>
+ * <li>{@code @Id} and {@code @GeneratedValue} define the primary key and its
+ * generation strategy.</li>
+ * <li>{@code @Column} specifies column constraints such as uniqueness and
+ * nullability.</li>
+ * <li>{@code @OneToOne} and {@code @OneToMany} define relationships with other
+ * entities.</li>
+ * </ul>
+ * </p>
+ *
+ * <p>
+ * Lombok annotations are used to reduce boilerplate:
+ * <ul>
+ * <li>{@code @Getter}, {@code @Setter} for automatic getter/setter
+ * generation.</li>
+ * <li>{@code @AllArgsConstructor}, {@code @NoArgsConstructor} for
+ * constructors.</li>
+ * <li>{@code @Builder} for builder pattern support.</li>
+ * </ul>
+ * </p>
+ */
 @Entity
 @Getter
 @Setter
@@ -44,8 +77,6 @@ public class Owner {
     private String phone;
     @Column(nullable = false)
     LocalDate birthDate;
-
-   
 
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "bank_account_id", unique = true)

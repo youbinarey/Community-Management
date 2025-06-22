@@ -1,0 +1,85 @@
+$color-accent: #F39C12;
+$color-secondary: #18BC9C;
+$color-light: #F8F9FA;
+$color-dark: #212529;
+
+
+.dashboard-header {
+  text-align: center;
+  margin-bottom: 2rem;
+  margin-top: 2rem;
+
+  h2 {
+    font-size: 2.2rem;
+    font-weight: bold;
+    color: $color-dark;
+  }
+
+  p {
+    color: darken($color-light, 30%);
+    font-size: 1rem;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+}
+
+// Contenedor de tarjetas
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  padding: 2rem;
+  justify-content: center;
+}
+
+// Estilo tarjeta
+.dashboard-card {
+  display: flex;
+  align-items: center;
+  background-color: #ffffff;
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+  }
+
+  .card-icon-container {
+    background-color: rgba(24, 188, 156, 0.1);
+    border-radius: 50%;
+    padding: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .dashboard-icon {
+    width: 100%;
+    height: 100%;
+    font-size: 32px;
+    color: $color-secondary;
+ 
+  }
+  
+  .card-text {
+    h3 {
+      margin: 0 auto;
+      font-size: 1.25rem;
+      color: $color-dark;
+      font-weight: bold;
+    }
+
+    .card-count {
+      width: 100%;
+      text-align: center;
+  
+      margin: 0 auto;
+      font-size: 1.6rem;
+      font-weight: bold;
+      color: $color-accent;
+    }
+  }
+}

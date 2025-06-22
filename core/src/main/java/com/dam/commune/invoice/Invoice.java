@@ -2,12 +2,10 @@ package com.dam.commune.invoice;
 
 import java.time.LocalDate;
 
-import org.hibernate.validator.constraints.ru.INN;
-
 import com.dam.commune.community.Community;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
+
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -21,15 +19,27 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
-
+/**
+ * Represents an invoice entity for a community, containing utility and
+ * maintenance costs
+ * for a specific date.
+ * <p>
+ * Each invoice is uniquely identified by its date and the associated community.
+ * </p>
+ *
+ * <p>
+ * This entity is mapped to the "invoice" table in the database, with a unique
+ * constraint
+ * on the combination of date and community.
+ * </p>
+ */
 @Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table(name = "invoice", uniqueConstraints = @UniqueConstraint(columnNames = { "date", "community_id" })) 
+@Table(name = "invoice", uniqueConstraints = @UniqueConstraint(columnNames = { "date", "community_id" }))
 
 public class Invoice {
 
@@ -47,7 +57,5 @@ public class Invoice {
     @ManyToOne
     @JoinColumn(name = "community_id", nullable = false)
     private Community community;
-
-    
 
 }

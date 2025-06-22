@@ -13,6 +13,16 @@ import { Router } from '@angular/router';
   templateUrl: './owner.component.html',
   styleUrl: './owner.component.scss'
 })
+/**
+ * Component for managing and displaying property owners and their related data.
+ *
+ * This component allows users to:
+ * - View a list of all property owners.
+ * - Search and filter owners by name, surname, email, phone, or DNI.
+ * - View properties associated with a selected owner in a modal dialog.
+ * - Edit and save changes to owner details.
+ * - Navigate to the invoices page for a specific owner.
+ */
 export class OwnerComponent implements OnInit {
 
 

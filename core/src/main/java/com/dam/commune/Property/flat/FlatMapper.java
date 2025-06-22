@@ -18,14 +18,14 @@ public class FlatMapper {
         flatDTO.setLetter(flat.getLetter());
         flatDTO.setRoomCount(flat.getRoomCount());
         flatDTO.setBathroomCount(flat.getBathroomCount());
-        
+
         Community community = flat.getCommunity();
-        if(community != null) {
+        if (community != null) {
             flatDTO.setCommunityName(community.getAddress());
         }
 
         Owner owner = flat.getOwner();
-        if(owner != null) {
+        if (owner != null) {
             flatDTO.setOwnerName(owner.getName());
         }
         return flatDTO;

@@ -1,0 +1,40 @@
+<!--  This modal dialog allows users to input and register a new invoice.
+Each field is bound to a reactive Angular form control. -->
+
+<h2>Introducir nueva factura</h2>
+<form [formGroup]="form" (ngSubmit)="save()">
+  <div class="mb-3">
+  <label class="form-label">Fecha</label>
+  <input type="date" class="form-control" formControlName="date" required>
+</div>
+
+  <mat-form-field appearance="outline" class="w-100 mb-3">
+    <mat-label>Electricidad (€)</mat-label>
+    <input matInput type="number" formControlName="electricity">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="w-100 mb-3">
+    <mat-label>Agua (€)</mat-label>
+    <input matInput type="number" formControlName="water">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="w-100 mb-3">
+    <mat-label>Basura (€)</mat-label>
+    <input matInput type="number" formControlName="trash">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="w-100 mb-3">
+    <mat-label>Ascensor (€)</mat-label>
+    <input matInput type="number" formControlName="elevator">
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="w-100 mb-3">
+    <mat-label>Mantenimiento (€)</mat-label>
+    <input matInput type="number" formControlName="maintenance">
+  </mat-form-field>
+
+  <div class="d-flex justify-content-end mt-3">
+    <button mat-button type="button" (click)="cancel()">Cancelar</button>
+    <button mat-raised-button color="primary" type="submit">Guardar</button>
+  </div>
+</form>

@@ -2,9 +2,29 @@ package com.dam.commune.bankAccount;
 
 import java.util.List;
 import java.util.Optional;
-
 import org.springframework.stereotype.Service;
 
+/**
+ * Service implementation for managing {@link BankAccount} entities.
+ * <p>
+ * This class provides methods to perform CRUD operations on bank accounts,
+ * delegating persistence logic to the {@link BankAccountRepository}.
+ * </p>
+ *
+ * <ul>
+ * <li>{@code findAll()} - Retrieves all bank accounts.</li>
+ * <li>{@code save(BankAccount)} - Saves or updates a bank account.</li>
+ * <li>{@code deleteIfExists(Long)} - Deletes a bank account by ID if it
+ * exists.</li>
+ * <li>{@code deleteById(Long)} - Deletes a bank account by ID.</li>
+ * <li>{@code findById(Long)} - Finds a bank account by ID.</li>
+ * <li>{@code update(BankAccount, Long)} - Updates a bank account (method
+ * stub).</li>
+ * </ul>
+ *
+ * @see BankAccountService
+ * @see BankAccountRepository
+ */
 @Service
 public class BankAccountServiceImpl implements BankAccountService {
 
@@ -45,10 +65,7 @@ public class BankAccountServiceImpl implements BankAccountService {
 
     @Override
     public void update(BankAccount bankAccount, Long id) {
-        //TODO Auto-generated method stub
+        // TODO Auto-generated method stub
     }
-
-    
-
 
 }

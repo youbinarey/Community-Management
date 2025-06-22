@@ -1,0 +1,58 @@
+@use 'sass:color';
+
+$primary: #2C3E50;
+$accent: #F39C12;
+$secondary: #18BC9C;
+$light: #F8F9FA;
+$dark: #212529;
+
+.container {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 1rem;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+}
+
+h2 {
+  color: $primary;
+  margin-bottom: 1.5rem;
+}
+
+.table {
+  thead {
+    background-color: lighten($primary, 40%);
+    color: $dark;
+
+    th {
+      font-weight: 600;
+      text-align: center;
+    }
+  }
+
+  td, th {
+    text-align: center;
+    vertical-align: middle;
+  }
+
+  tbody tr:hover {
+    background-color: rgba(44, 62, 80, 0.05);
+  }
+}
+
+.btn-primary {
+  background-color: $secondary;
+  border-color: $secondary;
+
+  &:hover {
+    background-color: color.adjust($secondary, $lightness: -5%);
+    border-color: color.adjust($secondary, $lightness: -5%);
+  }
+}
+
+p {
+  color: $primary;
+  font-style: italic;
+  text-align: center;
+  margin-top: 2rem;
+}
+

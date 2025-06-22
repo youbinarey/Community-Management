@@ -6,3 +6,5 @@ def format_spanish_date(fecha_str):
         return fecha_obj.strftime("%d-%m-%Y")
     except Exception:
         return fecha_str
+    
+

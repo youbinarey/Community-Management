@@ -8,7 +8,9 @@ spring:
     name: commune-app
 
   datasource:
-    url: jdbc:postgresql://localhost:5432/commune?charSet=UTF-8&lc_messages=es_ES.UTF-8&lc_monetary=es_ES.UTF-8&lc_numeric=es_ES.UTF-8&lc_time=es_ES.UTF-8
+    # Localhost Deployment url: jdbc:postgresql://localhost:5432/commune?charSet=UTF-8&lc_messages=es_ES.UTF-8&lc_monetary=es_ES.UTF-8&lc_numeric=es_ES.UTF-8&lc_time=es_ES.UTF-8
+    # Dockerfile
+    url: jdbc:postgresql://postgres:5432/commune
     username: postgres
     password: admin
     driver-class-name: org.postgresql.Driver

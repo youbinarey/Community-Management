@@ -16,5 +16,4 @@ public interface BankAccountService {
 
     void update(BankAccount bankAccount, Long id);
 
-
 }

@@ -7,7 +7,8 @@ import org.springframework.stereotype.Component;
 public class InvoiceMapper {
 
     public InvoiceDTO toDto(Invoice invoice) {
-        if (invoice == null) return null;
+        if (invoice == null)
+            return null;
         return InvoiceDTO.builder()
                 .id(invoice.getId())
                 .date(invoice.getDate())
@@ -17,16 +18,15 @@ public class InvoiceMapper {
                 .elevator(invoice.getElevator())
                 .maintenance(invoice.getMaintenance())
                 .communityId(
-                    invoice.getCommunity() != null ? invoice.getCommunity().getId() : null
-                )
+                        invoice.getCommunity() != null ? invoice.getCommunity().getId() : null)
                 .communityName(
-                    invoice.getCommunity() != null ? invoice.getCommunity().getAddress() : null
-                )
+                        invoice.getCommunity() != null ? invoice.getCommunity().getAddress() : null)
                 .build();
     }
 
     public Invoice toEntity(InvoiceDTO dto, Community community) {
-        if (dto == null || community == null) return null;
+        if (dto == null || community == null)
+            return null;
         return Invoice.builder()
                 .id(dto.getId())
                 .date(dto.getDate())

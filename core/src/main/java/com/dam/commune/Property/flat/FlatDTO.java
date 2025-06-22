@@ -16,8 +16,8 @@ public class FlatDTO {
     private Double coefficient;
     private Integer floorNumber;
     private String letter;
-    private int roomCount;
-    private int bathroomCount;
+    private Integer roomCount;
+    private Integer bathroomCount;
     private String communityName;
     private String ownerName;
     private String ownerDni;
