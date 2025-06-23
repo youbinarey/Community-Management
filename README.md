@@ -1,5 +1,7 @@
 
-# Proyecto DAM
+# **Gestión de Comunidades**
+
+ [<img src="https://cdn.jsdelivr.net/gh/hjnilsson/country-flags/svg/es.svg" alt="Español" width="18"/> Español](/README.md) &#124; [<img src="https://cdn.jsdelivr.net/gh/hjnilsson/country-flags/svg/gb.svg" alt="English" width="18"/> English](./docs/README_EN.md) 
 
 Este repositorio contiene el desarrollo del proyecto correspondiente al módulo **MP0492 _Proxecto de desenvolvemento de aplicacións multiplataforma_**.  
 
