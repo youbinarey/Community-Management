@@ -5,6 +5,20 @@
 
 Este repositorio contiene el desarrollo del proyecto correspondiente al módulo **MP0492 _Proxecto de desenvolvemento de aplicacións multiplataforma_**.  
 
+  ##  **Índice**
+
+ - [📘 Sobre el Proyecto](#sobre-el-proyecto)  
+ - [🎯 Objetivos](#objetivos)  
+ - [🔗 Componentes del Sistema](#componentes-del-sistema)  
+ - [🗄️ Estructura del proyecto](#estructura-del-proyecto)  
+ - [🧾 Diagrama de Secuencia](#diagrama-de-secuencia)  
+ - [🎬 Demo](#demo)  
+ - [🚀 Deployment](#deployment)  
+ - [🌱 Perspectiva a futuro e ideas](#perspectiva-a-futuro-e-ideas)  
+ - [💻 Tecnologías](#tecnologías)  
+ - [👤 Autor](#autor)
+---
+
 ## **Sobre el Proyecto**
 
 **Gestión de Comunidades** es una aplicación web modular desarrollada para digitalizar y modernizar la administración de comunidades de vecinos, especialmente dirigida a pequeñas administraciones que no pueden permitirse soluciones ERP complejas y costosas.
@@ -15,7 +29,7 @@ Tras realizar una breve encuesta en la provincia de **Pontevedra**, se constató
 
 Para obtener más información sobre el proyecto, consultar 👉 [Gestionde Comunidades PDF](./docs/gestion_comunidades.pdf)
 
-## 🎯 **Objetivos**
+##  **Objetivos**
 
 ### **Objetivo General**
 Desarrollar una solución web que permita centralizar la información relevante, automatizar tareas rutinarias como la generación de recibos y facilitar la comunicación mediante notificaciones por correo electrónico.
@@ -39,7 +53,7 @@ Reunir y demostrar conceptos adquiridos y trabajados. Para ello se afronta todo 
 6. DevOps. Materializar el despliegue, gracias a la '**Dockerización**' de las aplicaciones.
 
 
-## 🔗 **Componentes del Sistema**
+##  **Componentes del Sistema**
 Son varios los proyectos que se cohesionan evitando el acoplamiento para aplicar las funcionalidades requeridas:
 - **Core**: Lógica de negocio y gestión de datos implementada con Spring Boot.
 - **Frontend**: Interfaz de usuario desarrollada en Angular.
@@ -49,7 +63,7 @@ Son varios los proyectos que se cohesionan evitando el acoplamiento para aplicar
 - **Base de Datos**: Sistema de persistencia para las entidades del dominio.
 
 
-## 🗄️ **Estructura del proyecto**
+## **Estructura del proyecto**
 
 ```yml
 gestion-comunidades
@@ -63,7 +77,7 @@ gestion-comunidades
 ```
 
 
-## 🧾 **Diagrama de Secuencia** 
+##  **Diagrama de Secuencia** 
 A continuación se representan diagramas de secuencia que muestra el flujo de ejecución de las principales acciones con el sistema.
 ### **Dar de alta una comunidad**
  ![](./docs/assets/secuencia_alta_comunidad.png)  
@@ -75,7 +89,7 @@ A continuación se representan diagramas de secuencia que muestra el flujo de ej
 ### **Enviar recibo por email**
  ![](./docs/assets/secuencia_envio_email.png)
 
-## 🎬 **Demo**
+##  **Demo**
 Mediante el siguiente contenido multimedia se muestran fragmentos de una demo donde se aplican las acciones más relevantes del proyecto.
 
 ### **Dashboard**
@@ -107,7 +121,7 @@ Esta función emite la generación de un recibo para posteriormente enviarlo por
  ![](./docs/assets/send_mail.gif)
 
  
-## 🚀 **Deployment**
+##  **Deployment**
 ###  **Docker Compose**
 
 ```yml
@@ -214,7 +228,7 @@ Asegúrate de completar y configurar las variables de entorno definidas en los *
 Accede desde el navegador web Angular: http://localhost:4200/dashboard
 
 
-## 🌱  **Perspectiva a futuro e ideas**
+##   **Perspectiva a futuro e ideas**
 - Autenticación de usuarios.
 - Escalabilidad del sistema para integrar servicios de otros sectores relacionados.
 - Aplicación móvil para propietarios/as o en su defecto acceso Web.
@@ -239,7 +253,7 @@ Accede desde el navegador web Angular: http://localhost:4200/dashboard
 ---
 
 
-## 👤 Autor
+## **Autor**
 
 Yeray Oubiña Rey  
 📍 España  
