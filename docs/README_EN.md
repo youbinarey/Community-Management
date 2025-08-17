@@ -11,7 +11,7 @@ This project was created to address the need to **improve** administrative **eff
 
 After conducting a brief survey in the province of **Pontevedra**, it was found that many community management offices still handle their tasks manually.
 
-For more information about the project, see 👉 [Community Management PDF](./docs/gestion_comunidades.pdf)
+For more information about the project, see 👉 [Community Management PDF](./gestion_comunidades.pdf)
 
 ## 🎯 **Objectives**
 
