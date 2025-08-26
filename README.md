@@ -27,7 +27,7 @@ Este proyecto nace como respuesta a la necesidad de **mejorar** la **eficiencia*
 
 Tras realizar una breve encuesta en la provincia de **Pontevedra**, se constató que aún existen numerosas administraciones de comunidades que gestionan sus tareas de forma manual.
 
-Para obtener más información sobre el proyecto, consultar 👉 [Gestionde Comunidades PDF](./docs/gestion_comunidades.pdf)
+Para obtener más información sobre la motivación del proyecto, consultar 👉 [Presentación del proyecto](./docs/gestion_comunidades.pdf)
 
 ##  **Objetivos**
 
