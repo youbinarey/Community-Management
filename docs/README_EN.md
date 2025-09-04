@@ -63,10 +63,10 @@ Below are sequence diagrams showing the execution flow of the main actions in th
 ![](./assets/secuencia_alta_comunidad.png)
 
 ### **Generate a PDF Receipt**
-![](.assets/secuencia_pdfgenerator.png)
+![](./assets/secuencia_pdfgenerator.png)
 
 ### **Send Receipt by Email**
-![](.assets/secuencia_envio_email.png)
+![](./&assets/secuencia_envio_email.png)
 
 ## 🎬 **Demo**
 The following multimedia content shows key actions in the project.
